@@ -3,11 +3,14 @@ import bb.cascades 1.0
 
 // creates one page with a label
 Page {
+    // SIGNAL if language selection changed
+    signal languageChanged(string locale)
+    id: mainPage
     Container {
         layout: DockLayout {}
         Label {
             id: lblHello
-            text: qsTr("Hello World")
+            text: qsTr("Hello World") + Retranslate.onLanguageChanged
             textStyle.base: SystemDefaults.TextStyles.BigText
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
@@ -15,29 +18,30 @@ Page {
         DropDown {
             id: dpdLanguages
             // image + text + description
-            title: "Language"
+            title: qsTr("Language") + Retranslate.onLanguageChanged
             Option {
-                text : qsTr("English")
+                text : "English"
                 value : "en"
                 selected : (_appSettings.getValueFor("APP_LANG","en") == "en")
                 onSelectedChanged : {
                     if (selected == true) {
-                        console.log ("English selected");
-                        dpdLanguages.title = qsTr("Language");
-                        lblHello.text = qsTr("Hello World");
+                        console.log ("[dpdLanguages.onSelectedChanged] English selected");
+                        // SIGNAL
+                        mainPage.languageChanged("en");
+                        _appLocalization.loadTranslator("en");
                         _appSettings.saveValueFor("APP_LANG","en");
                     }
                 }
             }
             Option {
-                text : qsTr("Español")
+                text : "Español"
                 value : "es"
                 selected : (_appSettings.getValueFor("APP_LANG","en") == "es")
                 onSelectedChanged : {
                     if (selected == true) {
-                        console.log ("Español seleccionado");
-                        dpdLanguages.title = qsTr("Idioma");
-                        lblHello.text = qsTr("Hola Mundo");
+                        console.log ("[dpdLanguages.onSelectedChanged] Spanish selected");
+                        mainPage.languageChanged("es");
+                        _appLocalization.loadTranslator("es");
                         _appSettings.saveValueFor("APP_LANG","es");
                     }
                 }

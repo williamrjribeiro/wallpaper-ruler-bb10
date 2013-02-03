@@ -26,16 +26,20 @@
 
     <!-- A universally unique application identifier. Must be unique across all BlackBerry Tablet OS applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-    <id>com.example.WallpaperRuller_BB10</id>
+    <id>com.example.WallpaperRuler</id>
 
     <!-- The name that is displayed in the BlackBerry Tablet OS application installer. 
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <name>WallpaperRuller-BB10</name>
+    <name>
+       Wallpaper Ruler
+       <text xml:lang="es">Wallpaper Ruler</text>
+    </name>
     
     <!-- A string value of the format <0-999>.<0-999>.<0-999> that represents application version which can be used to check for application upgrade. 
          Values can also be 1-part or 2-part. It is not necessary to have a 3-part value.
          An updated version of application must have a versionNumber value higher than the previous version. Required. -->
-    <versionNumber>1.0.0</versionNumber>
+    <versionNumber>2.0.0</versionNumber>
+    <packageLocale>es</packageLocale>
 
     <!-- Fourth digit segment of the package version. First three segments are taken from the 
          <versionNumber> element.  Must be an integer from 0 to 2^16-1 -->
@@ -46,45 +50,53 @@
 
     <!-- Description, displayed in the BlackBerry Tablet OS application installer.
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <description>The WallpaperRuller-BB10 application</description>
 
     <!-- Copyright information. Optional. -->
     <!-- <copyright></copyright> -->
 
     <!--  Name of author which is used for signing. Must match the developer name of your development certificate. -->
-    <author>Example Inc.</author>
+    <author>Will Thrill Inc.</author>
+    <description>
+       The Wallpaper Ruler application for BB10 devices.
+       <text xml:lang="es">La aplicaci&#xf3;n Wallpaper Ruler para dispositivos BB10 .</text>
+    </description>
     
     <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
     <!-- <authorId>ABC1234YjsnUk235h</authorId> -->
    
     <initialWindow>
+        <aspectRatio>portrait</aspectRatio>
+        <autoOrients>false</autoOrients>
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
     </initialWindow>
     
     <!--  The category where the application appears. Either core.games or core.media. -->
-    <category>core.games</category>
+    <category>core.media</category>
     <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o.le-v7-g/WallpaperRuller-BB10" entry="true" type="Qnx/Elf">WallpaperRuller-BB10</asset>
+       <asset path="arm/o.le-v7-g/WallpaperRuler" entry="true" type="Qnx/Elf">WallpaperRuler</asset>
     </configuration>
     <configuration name="Device-Release">
        <entryPointType>Qnx/Cascades</entryPointType>
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o.le-v7/WallpaperRuller_BB10.so" entry="true" type="Qnx/Elf">WallpaperRuller_BB10.so</asset>
+       <asset path="arm/o.le-v7/WallpaperRuler.so" entry="true" type="Qnx/Elf">WallpaperRuler.so</asset>
     </configuration>
     <configuration name="Device-Profile">
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm-p/o.le-v7-g/WallpaperRuller_BB10" entry="true" type="Qnx/Elf">WallpaperRuller_BB10</asset>
+       <asset path="arm-p/o.le-v7-g/WallpaperRuler" entry="true" type="Qnx/Elf">WallpaperRuler</asset>
     </configuration>
     <configuration name="Simulator-Debug">
        <platformArchitecture>x86</platformArchitecture>
-       <asset path="x86/o-g/WallpaperRuller_BB10" entry="true" type="Qnx/Elf">WallpaperRuller_BB10</asset>
+       <asset path="x86/o-g/WallpaperRuler" entry="true" type="Qnx/Elf">WallpaperRuler</asset>
     </configuration>
     
     <!--  The icon for the application, which should be 86x86. -->
     <icon>
         <image>icon.png</image>
+        <image>
+           <text xml:lang="es">icon.png</text>
+        </image>
     </icon>
 
     <asset path="icon.png">icon.png</asset>
@@ -97,6 +109,10 @@
     
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>
+    <permission>use_camera</permission>
+    <permission>read_device_identifying_information</permission>
+    <permission>access_internet</permission>
+    <permission>access_shared</permission>
     <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib"/>
 
 </qnx>

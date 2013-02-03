@@ -7,6 +7,7 @@
 
 #include "AppSettings.hpp"
 
+#include <QDebug>
 #include <QSettings>
 
 using namespace wpr::controller;

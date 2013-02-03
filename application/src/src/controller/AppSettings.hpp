@@ -8,7 +8,6 @@
 #ifndef APPSETTINGS_HPP_
 #define APPSETTINGS_HPP_
 
-#include <QDebug>
 #include <QObject>
 
 namespace wpr {

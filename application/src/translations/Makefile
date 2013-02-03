@@ -1,4 +1,4 @@
-QMAKE_TARGET  = WallpaperRuller_BB10
+QMAKE_TARGET  = WallpaperRuler
 LUPDATE       = $(QNX_HOST)/usr/bin/lupdate
 LRELEASE      = $(QNX_HOST)/usr/bin/lrelease
 
