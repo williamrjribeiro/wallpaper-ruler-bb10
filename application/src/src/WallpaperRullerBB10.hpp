@@ -3,8 +3,13 @@
 #define WallpaperRullerBB10_HPP_
 
 #include <QObject>
+#include <bb/cascades/QmlDocument>
+
+#include "controller/AppSettings.hpp"
 
 namespace bb { namespace cascades { class Application; }}
+
+using namespace bb::cascades;
 
 /*!
  * @brief Application pane object
@@ -14,10 +19,16 @@ namespace bb { namespace cascades { class Application; }}
 class WallpaperRullerBB10 : public QObject
 {
     Q_OBJECT
+
 public:
     WallpaperRullerBB10(bb::cascades::Application *app);
     virtual ~WallpaperRullerBB10() {}
+
+    int initialize();
+    wpr::controller::AppSettings* getAppSettings();
+
+private:
+    wpr::controller::AppSettings* appSettings;
+    QmlDocument *qml;
 };
-
-
 #endif /* WallpaperRullerBB10_HPP_ */

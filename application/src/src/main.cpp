@@ -9,6 +9,7 @@
 #include "WallpaperRullerBB10.hpp"
 
 using namespace bb::cascades;
+using namespace wpr;
 
 Q_DECL_EXPORT int main(int argc, char **argv)
 {
@@ -23,7 +24,8 @@ Q_DECL_EXPORT int main(int argc, char **argv)
         app.installTranslator( &translator );
     }
 
-    new WallpaperRullerBB10(&app);
+    WallpaperRullerBB10 *wpr = new WallpaperRullerBB10(&app);
+    //wpr->initialize();
 
     // we complete the transaction started in the app constructor and start the client event loop here
     return Application::exec();

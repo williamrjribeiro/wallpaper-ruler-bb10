@@ -2,8 +2,11 @@
 BASEDIR = $$_PRO_FILE_PWD_
 
 INCLUDEPATH += $$BASEDIR/src
+INCLUDEPATH += $$BASEDIR/src/controller
 SOURCES += $$BASEDIR/src/*.cpp
+SOURCES += $$BASEDIR/src/controller/*.cpp
 HEADERS += $$BASEDIR/src/*.h*
+HEADERS += $$BASEDIR/src/controller/*.h*
 
 CONFIG += precompile_header
 PRECOMPILED_HEADER = precompiled.h
