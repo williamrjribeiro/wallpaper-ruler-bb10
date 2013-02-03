@@ -6,7 +6,7 @@
 #include <QLocale>
 #include <QTranslator>
 #include <Qt/qdeclarativedebug.h>
-#include "WallPaperRuler.hpp"
+#include "WallpaperRullerBB10.hpp"
 
 using namespace bb::cascades;
 
@@ -18,12 +18,12 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     // localization support
     QTranslator translator;
     QString locale_string = QLocale().name();
-    QString filename = QString( "WallPaperRuler_%1" ).arg( locale_string );
+    QString filename = QString( "WallpaperRuller_BB10_%1" ).arg( locale_string );
     if (translator.load(filename, "app/native/qm")) {
         app.installTranslator( &translator );
     }
 
-    new WallPaperRuler(&app);
+    new WallpaperRullerBB10(&app);
 
     // we complete the transaction started in the app constructor and start the client event loop here
     return Application::exec();
