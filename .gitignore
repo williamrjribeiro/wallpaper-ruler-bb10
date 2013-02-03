@@ -1,4 +1,16 @@
 #################
+## QNX Momentics IDE
+#################
+
+## Ignore QML preview files
+.preview-*
+
+## Ignore compiled files
+arm/
+arm-p/
+x86/
+
+#################
 ## Astah
 #################
 
