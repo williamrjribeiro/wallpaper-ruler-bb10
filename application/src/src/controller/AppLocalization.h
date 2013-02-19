@@ -11,15 +11,12 @@
 #include <QObject>
 #include <QTranslator>
 
-namespace wpr {
-namespace controller {
-
 class AppLocalization: public QObject {
 
 	Q_OBJECT
 
 public:
-	AppLocalization(QTranslator *translator);
+	AppLocalization(QTranslator *translator, QObject *parent = 0);
 	virtual ~AppLocalization(){};
 
 	Q_INVOKABLE
@@ -29,6 +26,4 @@ private:
 	QTranslator *mTranslator;
 };
 
-} // namespace controller
-} // namespace wpr
 #endif /* APPLOCALIZATION_H_ */

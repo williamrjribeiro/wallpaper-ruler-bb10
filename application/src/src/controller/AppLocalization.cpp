@@ -9,12 +9,13 @@
 
 #include "AppLocalization.h"
 
-using namespace wpr::controller;
 using namespace bb::cascades;
 
-AppLocalization::AppLocalization(QTranslator *translator) {
+AppLocalization::AppLocalization(QTranslator *translator, QObject *parent)
+	:QObject(parent)
+	, mTranslator(translator)
+{
 	qDebug() << "[AppLocalization::AppLocalization]";
-	mTranslator = translator;
 }
 
 bool AppLocalization::loadTranslator(const QString languageName){

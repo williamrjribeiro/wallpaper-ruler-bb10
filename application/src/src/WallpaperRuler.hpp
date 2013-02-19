@@ -4,14 +4,9 @@
 
 #include <QObject>
 #include <QTranslator>
-#include <bb/cascades/QmlDocument>
 
 #include "controller/AppSettings.hpp"
 #include "controller/AppLocalization.h"
-
-namespace bb { namespace cascades { class Application; }}
-
-using namespace bb::cascades;
 
 /*!
  * @brief Application pane object
@@ -23,21 +18,19 @@ class WallpaperRuler : public QObject
     Q_OBJECT
 
 public:
-    WallpaperRuler(bb::cascades::Application *app, QTranslator *translator);
+    WallpaperRuler(QTranslator *translator, QObject *parent = 0);
     virtual ~WallpaperRuler() {}
 
-    int initialize(QTranslator *translator);
-    wpr::controller::AppSettings* getAppSettings();
-    wpr::controller::AppLocalization* getAppLocalization();
-    Application* getApplication();
+    AppSettings* getAppSettings();
+    AppLocalization* getAppLocalization();
 
 public Q_SLOTS:
 	void onThumbnail();
 
 private:
-    wpr::controller::AppSettings* appSettings;
-    wpr::controller::AppLocalization* appLocalization;
-    QmlDocument *qml;
-    Application *app;
+	void initialize(QTranslator *translator);
+
+    AppSettings* appSettings;
+    AppLocalization* appLocalization;
 };
 #endif /* WallpaperRuler_HPP_ */

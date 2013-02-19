@@ -8,15 +8,22 @@
 #include "AppSettings.hpp"
 
 #include <QDebug>
+#include <QCoreApplication>
 #include <QSettings>
-
-using namespace wpr::controller;
+#include <QVariant>
 
 const QString AppSettings::APP_LANG = "APP_LANG";
 
-AppSettings::AppSettings() {
+AppSettings::AppSettings(QObject *parent)
+	: QObject(parent)
+{
 
 	qDebug() << "[AppSettings::AppSettings]";
+
+	// Set the application organization and name, which is used by QSettings
+	// when saving values to the persistent store.
+	QCoreApplication::setOrganizationName("Will Thrill");
+	QCoreApplication::setApplicationName("Wallpaper Ruler");
 }
 
 QString AppSettings::getValueFor(const QString& settingName, const QString& defaultValue) {

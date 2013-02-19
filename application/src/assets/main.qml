@@ -1,52 +1,52 @@
 // Default empty project template
 import bb.cascades 1.0
 
-// creates one page with a label
-Page {
-    // SIGNAL if language selection changed
-    signal languageChanged(string locale)
-    id: mainPage
-    Container {
-        layout: DockLayout {}
-        Label {
-            id: lblHello
-            text: qsTr("Hello World") + Retranslate.onLanguageChanged
-            textStyle.base: SystemDefaults.TextStyles.BigText
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
+TabbedPane {
+    id: rootTabbedPane
+    showTabsOnActionBar: true
+    Tab {
+        title: "Home"
+        imageSource: "asset:///icons/ic_bbm.png"
+        content: Home {
         }
-        DropDown {
-            id: dpdLanguages
-            // image + text + description
-            title: qsTr("Language") + Retranslate.onLanguageChanged
-            Option {
-                text : "English"
-                value : "en"
-                selected : (_appSettings.getValueFor("APP_LANG","en") == "en")
-                onSelectedChanged : {
-                    if (selected == true) {
-                        console.log ("[dpdLanguages.onSelectedChanged] English selected");
-                        // SIGNAL
-                        mainPage.languageChanged("en");
-                        _appLocalization.loadTranslator("en");
-                        _appSettings.saveValueFor("APP_LANG","en");
-                    }
-                }
-            }
-            Option {
-                text : "Español"
-                value : "es"
-                selected : (_appSettings.getValueFor("APP_LANG","en") == "es")
-                onSelectedChanged : {
-                    if (selected == true) {
-                        console.log ("[dpdLanguages.onSelectedChanged] Spanish selected");
-                        mainPage.languageChanged("es");
-                        _appLocalization.loadTranslator("es");
-                        _appSettings.saveValueFor("APP_LANG","es");
-                    }
-                }
+    }
+    
+    Tab {
+        title: "Camera"
+        imageSource: "asset:///icons/ic_edit_profile.png"
+        content: Camera {
+        }
+    }
+    
+    Tab {
+        title: "About Us"
+        imageSource: "asset:///icons/ic_info.png"
+        content: About {
+        }
+    }
+    Tab {
+        title: "Tutorial"
+        content: Page {
+            content: Label {
+                text: "Tutorials"
             }
         }
     }
-}
+    Tab {
+        title: "Creators"
+        content: Page {
+            content: Label {
+                text: "Creators"
+            }
+        }
+    }
+    Tab {
+        title: "Change Log"
+        content: Page {
+            content: Label {
+                text: "Change Log"
+            }
+        }
+    }
 
+} // end of rootTabbedPane

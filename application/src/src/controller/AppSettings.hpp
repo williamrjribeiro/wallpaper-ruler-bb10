@@ -10,9 +10,6 @@
 
 #include <QObject>
 
-namespace wpr {
-namespace controller {
-
 class AppSettings: public QObject {
 
 	Q_OBJECT
@@ -21,7 +18,7 @@ public:
 	// The Application language setting.
 	static const QString APP_LANG;
 
-	AppSettings();
+	AppSettings(QObject *parent = 0);
 	~AppSettings(){};
 
 	/* Invokable functions that we can call from QML*/
@@ -48,8 +45,4 @@ public:
 	Q_INVOKABLE
 	void saveValueFor(const QString &settingName, const QString &inputValue);
 };
-
-}  // namespace controller
-
-} /* namespace wpr */
 #endif /* APPSETTINGS_HPP_ */
