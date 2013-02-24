@@ -4,11 +4,11 @@ Do you like taking pictures, choosing the perfect image and editing it to make i
 
 The Wallpaper Ruler is a free mobile application for BlackBerry10® devices and for Wallpaper lovers! The Wallpaper Ruler will help you visualize how an image will look like as a wallpaper on a BlackBerry10®.
 
-Choosing the perfect image, editing it to make it the perfect wallpaper for your device is valuable for everyone. But can you imagine an app that provides the user an optimal usage of a device while modifying or editing a wallpaper? Look for example at the device state: a locked screen is different from the unlocked, so setting up a wallpaper will be! Do you know an app doing that differently?
+Choosing the perfect image and editing it to make it the perfect wallpaper for your device is valuable for everyone. But can you imagine an app that provides the user an optimal usage of a device while modifying or editing a wallpaper? Look for example at the device state: a locked screen is different from the unlocked, so setting up a wallpaper will be!
 
-Our application is the one! The Wallpaper Ruler enables the BlackBerry10® users to modify/edit an image with the best, instantaneous and spontaneous experience based on the different requests, as the device state. Not convinced yet that the best user experience is our main goal?! What about this:
+Do you know an app treating images differently? Our application is the one! The Wallpaper Ruler enables the BlackBerry10® users to modify/edit an image with the best, instantaneous and spontaneous experience based on the user request. Not convinced yet that the best user experience is our main goal?! What about this:
 
-* our app will know that an image was unsafe if the same was again picked for editing - we prompt the user to continue from the last saved version
+* our app will know that an image was unsaved if the same was again picked for editing - we prompt the user to continue from the last saved version
 * our app will give the possibility to use the cameras of the device directly in the app - you don't want to miss the perfect shoot for your locked screen
 * our app allows the user to use social media to spread the word about the Wallpaper Ruler app
 * *we are preparing more, way more on this, soon*
@@ -19,7 +19,7 @@ Liked our idea?
 Share it, comment it, enjoy it!
 
 ## How do we roll?
-Our Application started with a competition and evolved to be a group initiative: bringging to life a free cool product! This is how we roll! 
+Our Application started as Playbook app competition and evolved to be a group initiative: bringging to life a free cool product! This is how we roll! 
 
 Take a look below to understand how we organized our project folders.
 
