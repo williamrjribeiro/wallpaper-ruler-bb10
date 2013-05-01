@@ -1,0 +1,22 @@
+<root>
+	<creator 
+		name="Diana Lourenço" 
+		info="This is some info about Diana Lourenço. In QML, it's possible to define list item visuals in two ways."
+		link="http://www.google.com"
+		img="ic_info.png"/>
+	<creator 
+		name="Hana Belaidi Grimaudo" 
+		info="This is some info about Hana Belaidi Grimaudo.In QML, it's possible to define list item visuals in two ways."
+		link="http://www.google.com"
+		img="ic_info.png"/>
+	<creator 
+		name="Marco Grimaudo" 
+		info="This is some info about Marco Grimaudo. In QML, it's possible to define list item visuals in two ways."
+		link="http://www.google.com"
+		img="ic_info.png"/>
+	<creator 
+		name="William R. J. Ribeiro" 
+		info="This is some info about William R. J. Ribeiro. In QML, it's possible to define list item visuals in two ways."
+		link="http://www.google.com"
+		img="ic_info.png"/>
+</root>

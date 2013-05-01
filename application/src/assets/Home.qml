@@ -8,22 +8,24 @@ Page {
         }
         Logo {
         }
-        Label {
-            text: "This is the HOME tab!"
-        }
-        InlineImagePicker {
+        InlineImageBrowser {
         }
     }
     actions: [
         InvokeActionItem {
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.InOverflow
             title: "Share"
             query {
                 mimeType: "text/plain"
                 invokeActionId: "bb.action.SHARE"
             }
+        },
+        ActionItem {
+            title: "Camera"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            imageSource: "asset:///icons/ic_edit_profile.png"
             onTriggered: {
-            
+                rootTabbedPane.activeTab = rootTabbedPane.at(1);
             }
         }
     ]

@@ -3,7 +3,7 @@ import bb.cascades 1.0
 
 TabbedPane {
     id: rootTabbedPane
-    showTabsOnActionBar: true
+    showTabsOnActionBar: false
     Tab {
         title: "Home"
         imageSource: "asset:///icons/ic_bbm.png"
@@ -19,33 +19,21 @@ TabbedPane {
     }
     
     Tab {
-        title: "About Us"
+        title: "Tutorials"
         imageSource: "asset:///icons/ic_info.png"
+        content: Tutorials {
+        }
+    }
+    
+    Tab {
+        title: "Creators"
         content: About {
         }
     }
-    Tab {
-        title: "Tutorial"
-        content: Page {
-            content: Label {
-                text: "Tutorials"
-            }
-        }
-    }
-    Tab {
-        title: "Creators"
-        content: Page {
-            content: Label {
-                text: "Creators"
-            }
-        }
-    }
+    
     Tab {
         title: "Change Log"
-        content: Page {
-            content: Label {
-                text: "Change Log"
-            }
+        content: Tutorials {
         }
     }
 

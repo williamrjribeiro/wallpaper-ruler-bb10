@@ -6,6 +6,9 @@
 #include <bb/cascades/AbstractPane>
 #include <QDebug>
 
+#define QT_DECLARATIVE_DEBUG
+#include <Qt/qdeclarativedebug.h>
+
 Q_DECL_EXPORT int main(int argc, char **argv)
 {
     // this is where the server is started etc
@@ -35,6 +38,9 @@ Q_DECL_EXPORT int main(int argc, char **argv)
 
 	// Make the AppSettings instance available to QML as _appLocalization
 	qml->setContextProperty("_appLocalization", wpr->getAppLocalization());
+
+	// Make the Model instance, used for creating the IIC, available to QML as _imageGridDataProvider
+	qml->setContextProperty("_imageGridDataProvider", wpr->getImageGridDataProvider());
 
 	// create root object for the UI
 	bb::cascades::AbstractPane *root = qml->createRootObject<bb::cascades::AbstractPane>();

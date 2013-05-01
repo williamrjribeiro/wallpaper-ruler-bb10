@@ -7,6 +7,7 @@
 
 #include "controller/AppSettings.hpp"
 #include "controller/AppLocalization.h"
+#include "model/ImageGridDataProvider.h"
 
 /*!
  * @brief Application pane object
@@ -23,6 +24,7 @@ public:
 
     AppSettings* getAppSettings();
     AppLocalization* getAppLocalization();
+    ImageGridDataProvider* getImageGridDataProvider();
 
 public Q_SLOTS:
 	void onThumbnail();
@@ -32,5 +34,6 @@ private:
 
     AppSettings* appSettings;
     AppLocalization* appLocalization;
+    ImageGridDataProvider* imageGridDataProvider;
 };
 #endif /* WallpaperRuler_HPP_ */

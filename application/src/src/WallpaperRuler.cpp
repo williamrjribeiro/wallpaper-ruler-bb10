@@ -32,9 +32,12 @@ void WallpaperRuler::initialize(QTranslator *translator) {
 	// create the AppLocalization instance
 	this->appLocalization = new AppLocalization(translator, this);
 	this->appLocalization->loadTranslator(appLang);
+
+	// Initialize the Model
+	this->imageGridDataProvider = new ImageGridDataProvider();
 }
 
-// triggered if Application was sent to back
+// triggered if Application is minimized (Active Frame)
 void WallpaperRuler::onThumbnail() {
 	// TODO set Cover()
 	qDebug() << "[WallpaperRuler::onThumbnail] Application shrinks to thumbnail";
@@ -50,4 +53,9 @@ AppSettings* WallpaperRuler::getAppSettings() {
 AppLocalization* WallpaperRuler::getAppLocalization() {
 	qDebug() << "[WallpaperRuler::getAppLocalization]";
 	return this->appLocalization;
+}
+
+ImageGridDataProvider* WallpaperRuler::getImageGridDataProvider(){
+	qDebug() << "[WallpaperRuler::getImageGridDataProvider]";
+	return this->imageGridDataProvider;
 }

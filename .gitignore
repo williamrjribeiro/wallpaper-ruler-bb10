@@ -5,6 +5,9 @@
 ## Ignore Astah temporary files.
 *.bak
 
+## Ignore device configurations
+.device
+
 ## Ignore QML preview files
 .preview-*
 
