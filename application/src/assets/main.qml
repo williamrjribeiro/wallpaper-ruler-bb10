@@ -5,6 +5,7 @@ TabbedPane {
     id: rootTabbedPane
     showTabsOnActionBar: false
     Tab {
+        id: homeTab
         title: "Home"
         imageSource: "asset:///icons/ic_bbm.png"
         content: Home {
@@ -12,13 +13,15 @@ TabbedPane {
     }
     
     Tab {
-        title: "Camera"
+        id: customCamera
+        title: "Custom Camera"
         imageSource: "asset:///icons/ic_edit_profile.png"
-        content: Camera {
+        content: CustomCamera {
         }
     }
     
     Tab {
+        id: tutorialsTab
         title: "Tutorials"
         imageSource: "asset:///icons/ic_info.png"
         content: Tutorials {
@@ -26,14 +29,22 @@ TabbedPane {
     }
     
     Tab {
+        id: creatorsTab
         title: "Creators"
         content: About {
         }
     }
     
     Tab {
+        id: changeLogTab
         title: "Change Log"
         content: Tutorials {
+        }
+    }
+    
+    onActiveTabChanged: {
+        if(activeTab != customCamera){
+            customCamera.content.shutDownCamera();
         }
     }
 

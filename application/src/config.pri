@@ -6,12 +6,14 @@ device {
         SOURCES +=  $$quote($$BASEDIR/src/WallpaperRuler.cpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.cpp) \
                  $$quote($$BASEDIR/src/controller/AppSettings.cpp) \
+                 $$quote($$BASEDIR/src/controller/CameraManager.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/model/ImageGridDataProvider.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/WallpaperRuler.hpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.h) \
                  $$quote($$BASEDIR/src/controller/AppSettings.hpp) \
+                 $$quote($$BASEDIR/src/controller/CameraManager.hpp) \
                  $$quote($$BASEDIR/src/model/ImageGridDataProvider.h)
     }
 
@@ -19,12 +21,14 @@ device {
         SOURCES +=  $$quote($$BASEDIR/src/WallpaperRuler.cpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.cpp) \
                  $$quote($$BASEDIR/src/controller/AppSettings.cpp) \
+                 $$quote($$BASEDIR/src/controller/CameraManager.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/model/ImageGridDataProvider.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/WallpaperRuler.hpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.h) \
                  $$quote($$BASEDIR/src/controller/AppSettings.hpp) \
+                 $$quote($$BASEDIR/src/controller/CameraManager.hpp) \
                  $$quote($$BASEDIR/src/model/ImageGridDataProvider.h)
     }
 }
@@ -34,12 +38,14 @@ simulator {
         SOURCES +=  $$quote($$BASEDIR/src/WallpaperRuler.cpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.cpp) \
                  $$quote($$BASEDIR/src/controller/AppSettings.cpp) \
+                 $$quote($$BASEDIR/src/controller/CameraManager.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/model/ImageGridDataProvider.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/WallpaperRuler.hpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.h) \
                  $$quote($$BASEDIR/src/controller/AppSettings.hpp) \
+                 $$quote($$BASEDIR/src/controller/CameraManager.hpp) \
                  $$quote($$BASEDIR/src/model/ImageGridDataProvider.h)
     }
 }

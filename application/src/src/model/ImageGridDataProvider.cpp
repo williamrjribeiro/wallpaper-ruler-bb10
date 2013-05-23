@@ -5,11 +5,9 @@
  *      Author: P623893
  */
 
-#include <bb/cascades/Application>
 #include "ImageGridDataProvider.h"
 
 #include <QDebug>
-#include <QSettings>
 
 ImageGridDataProvider::ImageGridDataProvider()
 {
@@ -36,18 +34,20 @@ void ImageGridDataProvider::loadDataModel()
 
 	QString workingDir = QDir::currentPath();
 
+	filesStack->clear();
+
 	for (int i = 0; i < listDirectories.size(); ++i) {
 		QDir dir(workingDir + listDirectories.at(i));
 		dir.setFilter(QDir::Files | QDir::Dirs | QDir::NoDot | QDir::NoDotDot);
 		dir.setNameFilters(filters);
 		addPicturesToList(dir);
 	}
-
 	m_dataModel->clear();
 
 	for (int i = 0; i < filesStack->size(); ++i) {
 		//m_dataModel->append(QUrl("file:///accounts/1000/shared/camera/Test.jpg"));
-		m_dataModel->append(QUrl("file://" + filesStack->at(i)));
+		//m_dataModel->append(QUrl("file://" + filesStack->at(i)));
+		m_dataModel->append(QUrl(filesStack->at(i)));
 		//qDebug() << qPrintable(QString("%1").arg(filesStack->at(i)));
 	}
 }
@@ -56,7 +56,7 @@ void ImageGridDataProvider::addPicturesToList(QDir dir)
 {
 	QDirIterator it(dir, QDirIterator::Subdirectories);
 	while(it.hasNext()) {
-		filesStack->push(it.next());
+		filesStack->push("file://" + it.next());
 	}
 }
 

@@ -2,6 +2,6 @@ APP_NAME = WallpaperRuler
 
 CONFIG += qt warn_on cascades10
 
-LIBS += -lcamapi -lscreen
+LIBS += -lbbcascadesmultimedia -lscreen -lbbsystem
 
 include(config.pri)

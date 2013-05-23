@@ -21,11 +21,16 @@ Page {
             }
         },
         ActionItem {
-            title: "Camera"
+            title: "Full Camera"
             ActionBar.placement: ActionBarPlacement.OnBar
             imageSource: "asset:///icons/ic_edit_profile.png"
             onTriggered: {
-                rootTabbedPane.activeTab = rootTabbedPane.at(1);
+                // Switch to another tab from a TabbedPane
+                //rootTabbedPane.activeTab = rootTabbedPane.at(1);
+
+                if( _cameraManager.invokeCamera() == false){
+                    console.log("[ERROR] Could not invoke the device Camera!");
+                }
             }
         }
     ]

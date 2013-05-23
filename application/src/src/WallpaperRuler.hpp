@@ -7,6 +7,7 @@
 
 #include "controller/AppSettings.hpp"
 #include "controller/AppLocalization.h"
+#include "controller/CameraManager.hpp"
 #include "model/ImageGridDataProvider.h"
 
 /*!
@@ -25,9 +26,10 @@ public:
     AppSettings* getAppSettings();
     AppLocalization* getAppLocalization();
     ImageGridDataProvider* getImageGridDataProvider();
+    CameraManager* getCameraManager();
 
-public Q_SLOTS:
-	void onThumbnail();
+private Q_SLOTS:
+	void onActiveFrame();
 
 private:
 	void initialize(QTranslator *translator);
@@ -35,5 +37,6 @@ private:
     AppSettings* appSettings;
     AppLocalization* appLocalization;
     ImageGridDataProvider* imageGridDataProvider;
+    CameraManager* cameraManager;
 };
 #endif /* WallpaperRuler_HPP_ */

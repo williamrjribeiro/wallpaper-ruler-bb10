@@ -39,6 +39,9 @@ Q_DECL_EXPORT int main(int argc, char **argv)
 	// Make the AppSettings instance available to QML as _appLocalization
 	qml->setContextProperty("_appLocalization", wpr->getAppLocalization());
 
+	// Make the CameraManager instance available to QML as _cameraManager
+	qml->setContextProperty("_cameraManager", wpr->getCameraManager());
+
 	// Make the Model instance, used for creating the IIC, available to QML as _imageGridDataProvider
 	qml->setContextProperty("_imageGridDataProvider", wpr->getImageGridDataProvider());
 

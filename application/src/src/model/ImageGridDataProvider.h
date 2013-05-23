@@ -20,9 +20,7 @@ public:
 
 	bb::cascades::DataModel *dataModel() const;
 
-
-	Q_INVOKABLE
-	void loadDataModel();
+	Q_INVOKABLE void loadDataModel();
 
 	void addPicturesToList(QDir dir);
 private:

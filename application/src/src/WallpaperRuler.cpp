@@ -12,12 +12,6 @@ WallpaperRuler::WallpaperRuler(QTranslator *translator, QObject *parent)
 	qDebug() << "[WallpaperRuler::WallpaperRuler]";
 
 	this->initialize(translator);
-
-	// This signal is fired when the application is minimized (active frame)
-	bool ok = connect( Application::instance(), SIGNAL(thumbnail()), this, SLOT(onThumbnail()));
-	if (!ok) {
-		qDebug() << "connect thumbnail failed";
-	}
 }
 
 void WallpaperRuler::initialize(QTranslator *translator) {
@@ -35,12 +29,21 @@ void WallpaperRuler::initialize(QTranslator *translator) {
 
 	// Initialize the Model
 	this->imageGridDataProvider = new ImageGridDataProvider();
+
+	// create the CameraManager instance passing the imageGridDataProvider instance
+	this->cameraManager = new CameraManager(this->imageGridDataProvider);
+
+	// This signal is fired when the application is minimized (active frame)
+	bool ok = connect( Application::instance(), SIGNAL(thumbnail()), this, SLOT(onActiveFrame()));
+	if (!ok) {
+		qDebug() << "connect thumbnail failed";
+	}
 }
 
 // triggered if Application is minimized (Active Frame)
-void WallpaperRuler::onThumbnail() {
+void WallpaperRuler::onActiveFrame() {
 	// TODO set Cover()
-	qDebug() << "[WallpaperRuler::onThumbnail] Application shrinks to thumbnail";
+	qDebug() << "[WallpaperRuler::onActiveFrame] Application is now an Active Frame (minimized)";
 	// AbstractCover *cover;
 	// Application::instance()->setCover(cover);
 }
@@ -58,4 +61,9 @@ AppLocalization* WallpaperRuler::getAppLocalization() {
 ImageGridDataProvider* WallpaperRuler::getImageGridDataProvider(){
 	qDebug() << "[WallpaperRuler::getImageGridDataProvider]";
 	return this->imageGridDataProvider;
+}
+
+CameraManager* WallpaperRuler::getCameraManager(){
+	qDebug() << "[WallpaperRuler::getCameraManager]";
+	return this->cameraManager;
 }

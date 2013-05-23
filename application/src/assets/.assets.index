@@ -1,7 +1,7 @@
 1
 14
 About.qml
-Camera.qml
+CustomCamera.qml
 data/creators.xml
 Home.qml
 icons/ic_bbm.png

@@ -57,7 +57,17 @@ Container {
     onCreationCompleted: {
         mfeSheet.peekEnabled = false;
         mfeContent.finished.connect( handleMFEFinished );
+        
+        // Connect the onImageCaptured Signal from the CameraManager to our Slot so it shows the image.
+        _cameraManager.imageCaptured.connect( onImageCaptured );
     }
+    
+    function onImageCaptured(imagePath) {
+        console.log("[InlineImageBrowser.onImageCaptured] imagePath: " + imagePath);
+        mfeContent.image.imageSource = imagePath;
+        mfeSheet.open();
+    }
+    
     function handleMFEFinished() {
         console.log("[InlineImageBrowser.handleMFEFinished]");
         mfeSheet.close();
