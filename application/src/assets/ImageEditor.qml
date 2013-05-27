@@ -82,9 +82,10 @@ Container {
                 }
                 onPinchUpdated: {
                     // Rescale and rotate as the pinch expands/contracts/rotates
-                    myImage.scaleX = myImage.initialScale + ((event.pinchRatio - 1) * myImage.scaleFactor)
-                    myImage.scaleY = myImage.initialScale + ((event.pinchRatio - 1) * myImage.scaleFactor)
-                    myImage.rotationZ = myImage.initialRotationZ + ((event.rotation) * myImage.rotationFactor)
+                    var s = myImage.initialScale + ((event.pinchRatio - 1) * myImage.scaleFactor);
+                    myImage.scaleX = s;
+                    myImage.scaleY = s;
+                    myImage.rotationZ = myImage.initialRotationZ + ((event.rotation) * myImage.rotationFactor);
                 }
                 onPinchEnded: {
                     // Allow a drag gesture to begin

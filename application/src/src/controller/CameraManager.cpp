@@ -25,6 +25,8 @@ CameraManager::CameraManager(ImageGridDataProvider *model, QObject *parent)
 	: QObject(parent)
 	, m_model(model)
 	, m_capturedImage("")
+	, m_zoomLevel(0)
+	, m_maxZoomLevel(0)
 {
 	qDebug() << "[CameraManager::CameraManager]";
 }
@@ -97,6 +99,32 @@ void CameraManager::selectAspectRatio(Camera *camera, const float aspect)
 
 	// Update the camera setting
 	camera->applySettings(&camsettings);
+
+	// update the Max Zoom Level of the curent Camear
+	this->m_maxZoomLevel = camera->maxZoomLevel();
+}
+
+void CameraManager::setCameraZoomByPinchRatio(Camera *camera, const float pinchRatio)
+{
+	//qDebug() << "[CameraManager::setCameraZoomByPinchRatio] camera: "  << camera << ", pinchRatio: " << pinchRatio;
+
+	// determine if the user is pinching in our out
+	if(pinchRatio - 1 >= 0){
+		//this->setZoomLevel( this->m_zoomLevel + 1);
+		this->m_zoomLevel++;
+	}
+	else {
+		//this->setZoomLevel( this->m_zoomLevel > 0 ? this->m_zoomLevel - 1 : 0);
+		this->m_zoomLevel--;
+	}
+
+	CameraSettings camsettings;
+	camera->getSettings(&camsettings);
+
+	camsettings.setZoomLevel(this->m_zoomLevel);
+
+	// Update the camera setting
+	camera->applySettings(&camsettings);
 }
 
 QString CameraManager::capturedImage() const
@@ -106,7 +134,7 @@ QString CameraManager::capturedImage() const
 
 void CameraManager::setCapturedImage(const QString imagePath)
 {
-	qDebug() << "[CameraManager::setCapturedImage] imagePath: "  << imagePath;
+	//qDebug() << "[CameraManager::setCapturedImage] imagePath: "  << imagePath;
 
 	// Add the file:// protocol if the imagePath doesn't have it yet. Or else the image won't be loaded.
 	this->m_capturedImage = !imagePath.startsWith("file://") ? "file://" + imagePath : imagePath;
@@ -119,10 +147,37 @@ bool CameraManager::saveCapturedImage(const bool mirrored)
 {
 	qDebug() << "[CameraManager::saveCapturedImage] m_capturedImage: "  << this->m_capturedImage << ", mirrored: " << mirrored;
 
-	// TODO: implement the save algorithim
+	// TODO: implement the save algorithm
 
 	// reload the data model so the saved image is shown.
 	this->m_model->loadDataModel();
 
 	return false;
+}
+
+unsigned int CameraManager::zoomLevel() const
+{
+	return this->m_zoomLevel;
+}
+
+void CameraManager::setZoomLevel(const unsigned int value)
+{
+	//qDebug() << "[CameraManager::setZoomLevel] value: "  << value;
+
+	// only deal with different values
+	if(this->m_zoomLevel != value){
+
+		// never exceed the maximum zoom level
+		if( value > this->m_maxZoomLevel){
+			this->m_zoomLevel = this->m_maxZoomLevel;
+		}
+		else {
+			this->m_zoomLevel = value;
+		}
+
+		// Idealy we should change the Camera Settings using this signal
+		// but it's not yet possible to change the Zoom Level via QML.
+		// Must use setCameraZoomByPinchRatio() instead.
+		emit zoomLevelChanged(this->m_zoomLevel);
+	}
 }

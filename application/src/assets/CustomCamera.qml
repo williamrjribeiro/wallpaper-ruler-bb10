@@ -8,20 +8,24 @@ Page {
     actionBarVisibility: ChromeVisibility.Hidden
     function shutDownCamera() {
         console.log("[CustomCamera.shutDownCamera] camera.isOpen: " + camera.isOpen);
-        
         if (camera.isOpen) {
         	camera.close();
         }
+        container.pinchHappening = false;
     }
     Container {
+        id: container
+        // Flag to prevent a drag gesture from starting during pinch
+        property bool pinchHappening: false
+        
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
 
         onTouch: {
-            console.log("[CustomCamera.onTouch] event.isUp: " + event.isUp() + ", event.isDown: " + event.isDown() + ", event.isMove: " + event.isMove());
+            //console.log("[CustomCamera.onTouch] event.isUp: " + event.isUp() + ", event.isDown: " + event.isDown() + ", event.isMove: " + event.isMove());
 
-            // Only deal with Touch Event once they are over
-            if (event.isUp()) {
+            // Only deal with Touch Event once they are over. If it's pinching ignore everything!
+            if ( !pinchHappening && event.isUp()) {
                 // Open the Front or Rear camera if it's not yet.
                 if (! camera.isOpen) {
                     camera.open( camera.isHear ? CameraUnit.Rear : CameraUnit.Front);
@@ -32,6 +36,26 @@ Page {
                 }
             }
         }
+
+        gestureHandlers: [
+            // Add a handler for pinch gestures
+            PinchHandler {
+                onPinchStarted: {
+                    // Prevent a drag gesture from starting during pinch
+                    container.pinchHappening = true;
+                }
+                onPinchUpdated: {
+                    console.log("[onPinchUpdated]pinchRatio: " + event.pinchRatio +" distance:" + event.distance);
+                    
+                    _cameraManager.setCameraZoomByPinchRatio(camera, event.pinchRatio);
+                }
+                onPinchEnded: {
+                    console.log("[onPinchEnded]");
+                    // Allow a drag gesture to begin
+                    container.pinchHappening = false;
+                }
+            }
+        ]
 
         // This is the camera control that is defined in the cascades multimedia library.
         Camera {
@@ -96,9 +120,6 @@ Page {
                 camera.close();
             }
             attachedObjects: [
-                CameraSettings {
-                    id: cameraSettings
-                },
                 SystemSound {
                     id: cameraSound
                     sound: SystemSound.CameraShutterEvent
@@ -140,9 +161,9 @@ Page {
             id: contextMenuHandler
             onVisualStateChanged: {
                 if (ContextMenuVisualState.VisibleCompact == contextMenuHandler.visualState) {
-                    hideSomethingInMyUi();
+                    //hideSomethingInMyUi();
                 } else if (ContextMenuVisualState.Hidden == contextMenuHandler.visualState) {
-                    showSomethingInMyUi();
+                    //showSomethingInMyUi();
                 }
             }
         }
