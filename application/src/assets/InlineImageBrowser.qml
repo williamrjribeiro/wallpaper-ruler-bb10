@@ -56,20 +56,29 @@ Container {
     horizontalAlignment: HorizontalAlignment.Fill
     onCreationCompleted: {
         mfeSheet.peekEnabled = false;
+        
+        // this signal is dispatched when the user taps on Finished/Cancel.
+        // It must go back to the previous state.
         mfeContent.finished.connect( handleMFEFinished );
         
         // Connect the onImageCaptured Signal from the CameraManager to our Slot so it shows the image.
         _cameraManager.imageCaptured.connect( onImageCaptured );
     }
     
+    property bool imageCaptured: false
     function onImageCaptured(imagePath) {
         console.log("[InlineImageBrowser.onImageCaptured] imagePath: " + imagePath);
         mfeContent.image.imageSource = imagePath;
+        imageCaptured = true;
         mfeSheet.open();
     }
     
     function handleMFEFinished() {
-        console.log("[InlineImageBrowser.handleMFEFinished]");
+        console.log("[InlineImageBrowser.handleMFEFinished] imageCaptured: "+imageCaptured);
         mfeSheet.close();
+        if(imageCaptured){
+            imageCaptured = false;
+            _cameraManager.invokeCamera();
+        }
     }
 }

@@ -25,17 +25,16 @@
 *.a
 
 # Compiled Translations
-*/translations/*.qm
+*.qm
  
 /.settings/
-*/arm/
-*/x86/
+arm/
+x86/
 .moc/
 .metadata/*
 /.metadata/
 192.*
 169.254.0.1
-
 
 -_site/*
 
