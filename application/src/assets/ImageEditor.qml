@@ -9,6 +9,8 @@ Container {
     background: Color.Black
     verticalAlignment: VerticalAlignment.Fill
     horizontalAlignment: HorizontalAlignment.Fill
+    //minHeight: 1280
+    implicitLayoutAnimationsEnabled: false
     ImageView {
         id: myImage
         
@@ -94,5 +96,6 @@ Container {
             }
         ]
         scalingMethod: ScalingMethod.AspectFit
+        loadEffect: ImageViewLoadEffect.None
     } // end of ImageView
 } // end of Container

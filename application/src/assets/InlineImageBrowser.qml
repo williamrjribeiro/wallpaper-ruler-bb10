@@ -26,8 +26,8 @@ Container {
                     id: itemRoot
                     ImageView {
 	                    imageSource: ListItemData
-                        scalingMethod: ScalingMethod.None
-	                    verticalAlignment: VerticalAlignment.Center
+                        scalingMethod: ScalingMethod.AspectFill
+                        verticalAlignment: VerticalAlignment.Center
 	                    horizontalAlignment: HorizontalAlignment.Center
 	                }
                 }
