@@ -22,7 +22,7 @@ Container {
         listItemComponents: [
             // The image Item
             ListItemComponent {
-                content: Container {
+                /*content: Container {
                     id: itemRoot
                     ImageView {
 	                    imageSource: ListItemData
@@ -30,11 +30,18 @@ Container {
                         verticalAlignment: VerticalAlignment.Center
 	                    horizontalAlignment: HorizontalAlignment.Center
 	                }
+                }*/
+                ImageView {
+                    imageSource: ListItemData
+                    scalingMethod: ScalingMethod.AspectFill
+                    verticalAlignment: VerticalAlignment.Center
+                    horizontalAlignment: HorizontalAlignment.Center
                 }
             }
         ] // listItemComponents
 
         onTriggered: {
+            console.log("[InlineImageBrowser.imagesList.onTriggered] indexPath: " + indexPath);
             mfeContent.image.imageSource = _imageGridDataProvider.dataModel.data( indexPath );
             mfeSheet.open();
         }
@@ -44,9 +51,6 @@ Container {
             id: mfeSheet
             content: MultipleFramesEditor {
                 id: mfeContent
-            }
-            onOpened: {
-                
             }
         }    
     ]

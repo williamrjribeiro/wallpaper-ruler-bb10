@@ -9,6 +9,33 @@
     </message>
 </context>
 <context>
+    <name>MultipleFramesEditor</name>
+    <message>
+        <source>Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Home Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locked Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Active Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The frames help you fit your images</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Tutorials</name>
     <message>
         <source>Tutorials</source>
