@@ -1,4 +1,6 @@
 import bb.cascades 1.0
+
+// It's better to work with JavaScript Object in separate js files. http://harmattan-dev.nokia.com/docs/library/html/qt4/qml-variant.html 
 import "js/togglebuttonmanager.js" as ToggleButtonManager;
 
 Page {
@@ -11,13 +13,16 @@ Page {
         ToggleButtonManager.initToggleButtons([ai_homeFrame,ai_lockedFrame,ai_activeFrame]);
     }
     function showFrame(show,filePath){
-        frameImage.loadEffect = ImageViewLoadEffect.None;
+        console.log("[MultipleFramesEditor.showFrame] show: "+show+", filePath: "+filePath);
+        // TODO: the load effect is still playing! Maybe this is a Cascades bug.
+        frameImage.resetLoadEffect();
         if(show){
+            // TODO: this operation blocks the UI because the file is loaded from assets:/// so the fading effect doesn't run smoothly. 
             frameImage.imageSource = filePath;
-            frameImage.opacity = 1.0
+            frameImage.opacity = 1.0;
         }
         else{
-            frameImage.opacity = 0.0
+            frameImage.opacity = 0.0;
         }
     }
     Container {
@@ -35,7 +40,6 @@ Page {
             scalingMethod: ScalingMethod.None
             touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
             loadEffect: ImageViewLoadEffect.None
-            enabled: false
         }
         contextActions: [
             ActionSet {
@@ -49,7 +53,7 @@ Page {
                     title: qsTr("Home Screen")
                     imageSource: "asset:///icons/ic_checkbox.png"
                     onTriggered: {
-                        showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_active.png");
+                        showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
                     }
                 }
                 
@@ -75,6 +79,24 @@ Page {
                     }
                 }
 
+				ActionItem {
+				    id: saveActionItem
+				    title: qsTr("Save")
+				    ActionBar.placement: ActionBarPlacement.InOverflow
+				    imageSource: "asset:///icons/ic_save.png"
+				    onTriggered: {
+				        console.log("[MultipleFramesEditor.saveActionItem.onTriggered]");
+				    }
+				}
+				ActionItem {
+				    id: saveAsActionItem
+				    title: qsTr("Save as...")
+				    ActionBar.placement: ActionBarPlacement.InOverflow
+				    imageSource: "asset:///icons/ic_save_as.png"
+				    onTriggered: {
+                        console.log("[MultipleFramesEditor.saveAsActionItem.onTriggered]");
+				    }
+				}
                 ActionItem {
                     id: finishedActionItem
                     title: qsTr("Cancel")

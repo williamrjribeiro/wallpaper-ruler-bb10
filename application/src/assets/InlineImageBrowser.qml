@@ -22,15 +22,6 @@ Container {
         listItemComponents: [
             // The image Item
             ListItemComponent {
-                /*content: Container {
-                    id: itemRoot
-                    ImageView {
-	                    imageSource: ListItemData
-                        scalingMethod: ScalingMethod.AspectFill
-                        verticalAlignment: VerticalAlignment.Center
-	                    horizontalAlignment: HorizontalAlignment.Center
-	                }
-                }*/
                 ImageView {
                     imageSource: ListItemData
                     scalingMethod: ScalingMethod.AspectFill

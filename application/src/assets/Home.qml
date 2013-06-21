@@ -15,6 +15,7 @@ Page {
         InvokeActionItem {
             ActionBar.placement: ActionBarPlacement.InOverflow
             title: "Share"
+            imageSource: "asset:///icons/ic_share.png"
             query {
                 mimeType: "text/plain"
                 invokeActionId: "bb.action.SHARE"

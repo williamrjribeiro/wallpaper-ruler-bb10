@@ -1,9 +1,10 @@
 1
-22
+23
 About.qml
 CustomCamera.qml
 data/creators.xml
 frames/fr_active.png
+frames/fr_home.png
 Home.qml
 icons/ic_bbm.png
 icons/ic_cancel.png
