@@ -9,6 +9,21 @@
     </message>
 </context>
 <context>
+    <name>CustomCamera</name>
+    <message>
+        <source>Home Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locked Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Active Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MultipleFramesEditor</name>
     <message>
         <source>Frames</source>

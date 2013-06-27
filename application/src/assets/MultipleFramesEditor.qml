@@ -45,8 +45,6 @@ Page {
             ActionSet {
                 title: qsTr("Frames")
                 subtitle: qsTr("The frames help you fit your images")
-
-                // This is a ActionItem that behaves like a toggle button: it grows and shrinks the image.
                 ActionItem {
                     id: ai_homeFrame
                     objectName: "homeFrameToggle"
@@ -56,8 +54,6 @@ Page {
                         showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
                     }
                 }
-                
-                // This is a ActionItem that behaves like a toggle button: it grows and shrinks the image.
                 ActionItem {
                     id: ai_lockedFrame
                     objectName: "lockedFrameToggle"
@@ -67,8 +63,6 @@ Page {
                         showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_active.png");
                     }
                 }
-                
-                // This is a ActionItem that behaves like a toggle button: it grows and shrinks the image.
                 ActionItem {
                     id: ai_activeFrame
                     objectName: "activeFrameToggle"

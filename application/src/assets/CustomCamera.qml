@@ -3,6 +3,9 @@ import bb.cascades 1.0
 import bb.cascades.multimedia 1.0
 import bb.multimedia 1.0
 
+// It's better to work with JavaScript Object in separate js files. http://harmattan-dev.nokia.com/docs/library/html/qt4/qml-variant.html 
+import "js/togglebuttonmanager.js" as ToggleButtonManager;
+
 Page {
     id: cameraRootPage
     actionBarVisibility: ChromeVisibility.Hidden
@@ -13,6 +16,30 @@ Page {
         }
         container.pinchHappening = false;
     }
+    onCreationCompleted: {
+        console.log("[CustomCamera.mfeRootPage.onCreationCompleted]");
+        ToggleButtonManager.initToggleButtons([ai_homeFrame,ai_lockedFrame,ai_activeFrame]);
+    }
+    function showFrame(show,filePath){
+        console.log("[CustomCamera.showFrame] show: "+show+", filePath: "+filePath);
+        switch(filePath){
+            case "asset:///frames/fr_home.png":
+                iv_homeFrame.opacity = show ? 1.0 : 0.0;
+                iv_activeFrame.opacity = 0.0;
+                iv_lockedFrame.opacity = 0.0;
+                break;
+            case "asset:///frames/fr_active.png":
+                iv_homeFrame.opacity = 0.0;
+                iv_activeFrame.opacity = show ? 1.0 : 0.0;
+                iv_lockedFrame.opacity = 0.0;
+                break;
+            case "asset:///frames/fr_locked.png":
+                iv_homeFrame.opacity = 0.0;
+                iv_activeFrame.opacity = 0.0;
+                iv_lockedFrame.opacity = show ? 1.0 : 0.0;
+                break;
+        }
+    }
     Container {
         id: container
         // Flag to prevent a drag gesture from starting during pinch
@@ -20,6 +47,33 @@ Page {
         
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
+        
+        ImageView {
+            id: iv_homeFrame
+            opacity: 0.0
+            scalingMethod: ScalingMethod.None
+            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
+            loadEffect: ImageViewLoadEffect.None
+            imageSource: "asset:///frames/fr_home.png"
+        }
+        
+        ImageView {
+            id: iv_activeFrame
+            opacity: 0.0
+            scalingMethod: ScalingMethod.None
+            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
+            loadEffect: ImageViewLoadEffect.None
+            imageSource: "asset:///frames/fr_active.png"
+        }
+        
+        ImageView {
+            id: iv_lockedFrame
+            opacity: 0.0
+            scalingMethod: ScalingMethod.None
+            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
+            loadEffect: ImageViewLoadEffect.None
+            imageSource: "asset:///frames/fr_active.png"
+        }
 
         onTouch: {
             //console.log("[CustomCamera.onTouch] event.isUp: " + event.isUp() + ", event.isDown: " + event.isDown() + ", event.isMove: " + event.isMove());
@@ -28,7 +82,7 @@ Page {
             if ( !pinchHappening && event.isUp()) {
                 // Open the Front or Rear camera if it's not yet.
                 if (! camera.isOpen) {
-                    camera.open( camera.isHear ? CameraUnit.Rear : CameraUnit.Front);
+                    //camera.open( camera.isHear ? CameraUnit.Rear : CameraUnit.Front);
                 } 
                 // Take photo only if the context menu is hidden
                 else if ( ContextMenuVisualState.Hidden == contextMenuHandler.visualState ){
@@ -45,12 +99,12 @@ Page {
                     container.pinchHappening = true;
                 }
                 onPinchUpdated: {
-                    console.log("[onPinchUpdated]pinchRatio: " + event.pinchRatio +" distance:" + event.distance);
+                    console.log("[CustomCamera.onPinchUpdated]pinchRatio: " + event.pinchRatio +" distance:" + event.distance);
                     
                     _cameraManager.setCameraZoomByPinchRatio(camera, event.pinchRatio);
                 }
                 onPinchEnded: {
-                    console.log("[onPinchEnded]");
+                    console.log("[CustomCamera.onPinchEnded]");
                     // Allow a drag gesture to begin
                     container.pinchHappening = false;
                 }
@@ -125,6 +179,7 @@ Page {
                     sound: SystemSound.CameraShutterEvent
                 }
             ]
+            visible: false
         } // end of Camera
 
         contextActions: [
@@ -132,26 +187,39 @@ Page {
                 title: "Frames & Camera Options"
                 subtitle: "To help you take the perfect picture for your wallpaper"
                 ActionItem {
-                    id: homeScreenFrame
-                    title: "Home Frame"
-                    onTriggered: {
-                        console.log("[CustomCamera.homeScreenFrame.onTriggered]");
-                    }
-                }
-                ActionItem {
-                    id: lockedScreenFrame
-                    title: "Locked Frame"
-                    onTriggered: {
-                        console.log("[CustomCamera.lockedScreenFrame.onTriggered]");
-                    }
-                }
-                ActionItem {
-                    id: switchCamera
+                    id: ai_switchCamera
                     title: "Switch Cameras"
                     onTriggered: {
-                        console.log("[CustomCamera.switchCamera.onTriggered]");
+                        console.log("[CustomCamera.ai_switchCamera.onTriggered]");
                         camera.close();
                         camera.isHear = !camera.isHear;
+                    }
+                }
+                ActionItem {
+                    id: ai_homeFrame
+                    objectName: "homeFrameToggle"
+                    title: qsTr("Home Screen")
+                    imageSource: "asset:///icons/ic_checkbox.png"
+                    onTriggered: {
+                        showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
+                    }
+                }
+                ActionItem {
+                    id: ai_lockedFrame
+                    objectName: "lockedFrameToggle"
+                    title: qsTr("Locked Screen")
+                    imageSource: "asset:///icons/ic_checkbox.png"
+                    onTriggered: {
+                        showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_active.png");
+                    }
+                }
+                ActionItem {
+                    id: ai_activeFrame
+                    objectName: "activeFrameToggle"
+                    title: qsTr("Active Frame")
+                    imageSource: "asset:///icons/ic_checkbox.png"
+                    onTriggered: {
+                        showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_active.png");
                     }
                 }
             } // end of ActionSet
@@ -166,6 +234,9 @@ Page {
                     //showSomethingInMyUi();
                 }
             }
+        }
+        layout: AbsoluteLayout {
+
         }
     }
 }
