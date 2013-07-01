@@ -8,6 +8,7 @@ import "js/togglebuttonmanager.js" as ToggleButtonManager;
 
 Page {
     id: cameraRootPage
+    property alias tutorial: iv_tutorialFrame
     actionBarVisibility: ChromeVisibility.Hidden
     function shutDownCamera() {
         console.log("[CustomCamera.shutDownCamera] camera.isOpen: " + camera.isOpen);
@@ -53,6 +54,12 @@ Page {
 
             // Only deal with Touch Event once they are over. If it's pinching ignore everything!
             if ( !pinchHappening && event.isUp()) {
+                
+                // Hide the tutorial image
+                if(iv_tutorialFrame.visible){
+                    trans_fadeOut.play();
+                }
+                
                 // Open the Front or Rear camera if it's not yet.
                 if (! camera.isOpen) {
                     camera.open( camera.isHear ? CameraUnit.Rear : CameraUnit.Front);
@@ -192,7 +199,7 @@ Page {
                     title: qsTr("Active Frame")
                     imageSource: "asset:///icons/ic_checkbox.png"
                     onTriggered: {
-                        showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_active.png");
+                        showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_locked.png");
                     }
                 }
             } // end of ActionSet
@@ -234,7 +241,26 @@ Page {
             scalingMethod: ScalingMethod.None
             touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
             loadEffect: ImageViewLoadEffect.None
-            imageSource: "asset:///frames/fr_active.png"
+            imageSource: "asset:///frames/fr_locked.png"
+        }
+        
+        ImageView {
+            id: iv_tutorialFrame
+            opacity: 1.0
+            scalingMethod: ScalingMethod.None
+            loadEffect: ImageViewLoadEffect.None
+            imageSource: "asset:///frames/fr_long_press.png"
+            animations: [
+                FadeTransition {
+                    id: trans_fadeOut
+                    fromOpacity: 1.0
+                    toOpacity: 0.0
+                    onEnded: {
+                        // the tutorial image will remain invisible even after the user leaves the MFE.
+                        iv_tutorialFrame.visible = false;
+                    }
+                }
+            ]
         }
     }
 }

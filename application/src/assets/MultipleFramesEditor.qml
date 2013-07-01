@@ -8,21 +8,29 @@ Page {
     resizeBehavior: PageResizeBehavior.None
     signal finished()
     property alias image: imageEditor.image
+    property alias tutorial: iv_tutorialFrame
     onCreationCompleted: {
         console.log("[MultipleFramesEditor.mfeRootPage.onCreationCompleted]");
         ToggleButtonManager.initToggleButtons([ai_homeFrame,ai_lockedFrame,ai_activeFrame]);
     }
     function showFrame(show,filePath){
-        console.log("[MultipleFramesEditor.showFrame] show: "+show+", filePath: "+filePath);
-        // TODO: the load effect is still playing! Maybe this is a Cascades bug.
-        frameImage.resetLoadEffect();
-        if(show){
-            // TODO: this operation blocks the UI because the file is loaded from assets:/// so the fading effect doesn't run smoothly. 
-            frameImage.imageSource = filePath;
-            frameImage.opacity = 1.0;
-        }
-        else{
-            frameImage.opacity = 0.0;
+        console.log("[CustomCamera.showFrame] show: "+show+", filePath: "+filePath);
+        switch(filePath){
+            case "asset:///frames/fr_home.png":
+                iv_homeFrame.opacity = show ? 1.0 : 0.0;
+                iv_activeFrame.opacity = 0.0;
+                iv_lockedFrame.opacity = 0.0;
+                break;
+            case "asset:///frames/fr_active.png":
+                iv_homeFrame.opacity = 0.0;
+                iv_activeFrame.opacity = show ? 1.0 : 0.0;
+                iv_lockedFrame.opacity = 0.0;
+                break;
+            case "asset:///frames/fr_locked.png":
+                iv_homeFrame.opacity = 0.0;
+                iv_activeFrame.opacity = 0.0;
+                iv_lockedFrame.opacity = show ? 1.0 : 0.0;
+                break;
         }
     }
     Container {
@@ -30,17 +38,65 @@ Page {
         verticalAlignment: VerticalAlignment.Fill
         horizontalAlignment: HorizontalAlignment.Fill
         background: Color.create(181,255,212,1)
+        
         ImageEditor {
             id: imageEditor
             implicitLayoutAnimationsEnabled: false
         }
+        
         ImageView {
-            id: frameImage
+            id: iv_homeFrame
             opacity: 0.0
             scalingMethod: ScalingMethod.None
             touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
             loadEffect: ImageViewLoadEffect.None
+            imageSource: "asset:///frames/fr_home.png"
         }
+        
+        ImageView {
+            id: iv_activeFrame
+            opacity: 0.0
+            scalingMethod: ScalingMethod.None
+            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
+            loadEffect: ImageViewLoadEffect.None
+            imageSource: "asset:///frames/fr_active.png"
+        }
+        
+        ImageView {
+            id: iv_lockedFrame
+            opacity: 0.0
+            scalingMethod: ScalingMethod.None
+            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
+            loadEffect: ImageViewLoadEffect.None
+            imageSource: "asset:///frames/fr_locked.png"
+        }
+        
+        ImageView {
+            id: iv_tutorialFrame
+            opacity: 1.0
+            scalingMethod: ScalingMethod.None
+            loadEffect: ImageViewLoadEffect.None
+            imageSource: "asset:///frames/fr_long_press.png"
+            onTouch: {
+                console.log("[MultipleFramesEditor.iv_tutorialFrame.onTouch] event.isUp: " + event.isUp());
+                // TODO: add logic for showing the tutorial image only if needed.
+                if(event.isUp()){
+                    trans_fadeOut.play();
+                }
+            }
+            animations: [
+                FadeTransition {
+                    id: trans_fadeOut
+                    fromOpacity: 1.0
+                    toOpacity: 0.0
+                    onEnded: {
+                        // the tutorial image will remain invisible even after the user leaves the MFE.
+                        iv_tutorialFrame.visible = false;
+                    }
+                }
+            ]
+        }
+        
         contextActions: [
             ActionSet {
                 title: qsTr("Frames")
@@ -60,7 +116,7 @@ Page {
                     title: qsTr("Locked Screen")
                     imageSource: "asset:///icons/ic_checkbox.png"
                     onTriggered: {
-                        showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_active.png");
+                        showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_locked.png");
                     }
                 }
                 ActionItem {
@@ -99,7 +155,6 @@ Page {
                     // When this action is selected, close the sheet
                     onTriggered: {
                         console.log("[MultipleFramesEditor.finishedActionItem.onTriggered]");
-                        
                         finished();
                     }
                 }

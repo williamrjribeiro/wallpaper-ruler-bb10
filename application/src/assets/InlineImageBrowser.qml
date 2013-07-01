@@ -70,7 +70,13 @@ Container {
     
     function handleMFEFinished() {
         console.log("[InlineImageBrowser.handleMFEFinished] imageCaptured: "+imageCaptured);
+        
         mfeSheet.close();
+        
+        // TODO: we always show the tutorial image but it should only show when needed.
+        mfeContent.tutorial.visible = true;
+        mfeContent.tutorial.opacity = 1.0; 
+        
         if(imageCaptured){
             imageCaptured = false;
             _cameraManager.invokeCamera();

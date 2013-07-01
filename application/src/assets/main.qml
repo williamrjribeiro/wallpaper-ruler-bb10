@@ -45,6 +45,10 @@ TabbedPane {
     onActiveTabChanged: {
         if(activeTab != customCamera){
             customCamera.content.shutDownCamera();
+            
+            // TODO: we always show the tutorial image but it should only show when needed.
+            customCamera.content.tutorial.visible = true;
+            customCamera.content.tutorial.opacity = 1.0;
         }
     }
 
