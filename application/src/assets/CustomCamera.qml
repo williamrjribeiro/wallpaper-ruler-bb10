@@ -47,42 +47,15 @@ Page {
         
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
-        
-        ImageView {
-            id: iv_homeFrame
-            opacity: 0.0
-            scalingMethod: ScalingMethod.None
-            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
-            loadEffect: ImageViewLoadEffect.None
-            imageSource: "asset:///frames/fr_home.png"
-        }
-        
-        ImageView {
-            id: iv_activeFrame
-            opacity: 0.0
-            scalingMethod: ScalingMethod.None
-            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
-            loadEffect: ImageViewLoadEffect.None
-            imageSource: "asset:///frames/fr_active.png"
-        }
-        
-        ImageView {
-            id: iv_lockedFrame
-            opacity: 0.0
-            scalingMethod: ScalingMethod.None
-            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
-            loadEffect: ImageViewLoadEffect.None
-            imageSource: "asset:///frames/fr_active.png"
-        }
 
         onTouch: {
-            //console.log("[CustomCamera.onTouch] event.isUp: " + event.isUp() + ", event.isDown: " + event.isDown() + ", event.isMove: " + event.isMove());
+            console.log("[CustomCamera.onTouch] event.isUp: " + event.isUp() + ", event.isDown: " + event.isDown() + ", event.isMove: " + event.isMove());
 
             // Only deal with Touch Event once they are over. If it's pinching ignore everything!
             if ( !pinchHappening && event.isUp()) {
                 // Open the Front or Rear camera if it's not yet.
                 if (! camera.isOpen) {
-                    //camera.open( camera.isHear ? CameraUnit.Rear : CameraUnit.Front);
+                    camera.open( camera.isHear ? CameraUnit.Rear : CameraUnit.Front);
                 } 
                 // Take photo only if the context menu is hidden
                 else if ( ContextMenuVisualState.Hidden == contextMenuHandler.visualState ){
@@ -236,7 +209,32 @@ Page {
             }
         }
         layout: AbsoluteLayout {
-
+        }
+        ImageView {
+            id: iv_homeFrame
+            opacity: 0.0
+            scalingMethod: ScalingMethod.None
+            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
+            loadEffect: ImageViewLoadEffect.None
+            imageSource: "asset:///frames/fr_home.png"
+        }
+        
+        ImageView {
+            id: iv_activeFrame
+            opacity: 0.0
+            scalingMethod: ScalingMethod.None
+            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
+            loadEffect: ImageViewLoadEffect.None
+            imageSource: "asset:///frames/fr_active.png"
+        }
+        
+        ImageView {
+            id: iv_lockedFrame
+            opacity: 0.0
+            scalingMethod: ScalingMethod.None
+            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
+            loadEffect: ImageViewLoadEffect.None
+            imageSource: "asset:///frames/fr_active.png"
         }
     }
 }
