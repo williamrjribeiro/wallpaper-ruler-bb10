@@ -96,6 +96,7 @@ Page {
                 }
             ]
         }
+        focusPolicy: FocusPolicy.KeyAndTouch
         
         contextActions: [
             ActionSet {
@@ -109,6 +110,11 @@ Page {
                     onTriggered: {
                         showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
                     }
+                    shortcuts: [
+                        Shortcut {
+                            key: "h"
+                        }
+                    ]
                 }
                 ActionItem {
                     id: ai_lockedFrame
@@ -118,6 +124,11 @@ Page {
                     onTriggered: {
                         showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_locked.png");
                     }
+                    shortcuts: [
+                        Shortcut {
+                            key: "l"
+                        }
+                    ]
                 }
                 ActionItem {
                     id: ai_activeFrame
@@ -127,6 +138,11 @@ Page {
                     onTriggered: {
                         showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_active.png");
                     }
+                    shortcuts: [
+                        Shortcut {
+                            key: "a"
+                        }
+                    ]
                 }
 
 				ActionItem {
@@ -155,8 +171,15 @@ Page {
                     // When this action is selected, close the sheet
                     onTriggered: {
                         console.log("[MultipleFramesEditor.finishedActionItem.onTriggered]");
+                        imageEditor.resetEdits();
                         finished();
                     }
+                    shortcuts: [
+                        Shortcut {
+                            key: "c"
+                        }
+                    ]
+                    
                 }
             } // end of ActionSet
         ]// end of contextActions list
@@ -164,4 +187,33 @@ Page {
         implicitLayoutAnimationsEnabled: false
         layout: DockLayout {}
     }
+    shortcuts: [
+        Shortcut {
+            key: "c"
+            onTriggered: {
+                console.log("[Shortcut] c");
+                imageEditor.resetEdits();
+                finished();
+            }
+        },
+        Shortcut {
+            key: "a"
+            onTriggered: {
+                showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_active.png");
+            }
+        },
+        Shortcut {
+            key: "l"
+            onTriggered: {
+                showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_locked.png");
+            }
+        },
+        Shortcut {
+            key: "h"
+            onTriggered: {
+                showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
+            }
+        }
+    ]
+    
 }
