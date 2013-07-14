@@ -6,7 +6,6 @@
 #include <bb/cascades/AbstractPane>
 #include <QDebug>
 
-#define QT_DECLARATIVE_DEBUG
 #include <Qt/qdeclarativedebug.h>
 
 Q_DECL_EXPORT int main(int argc, char **argv)

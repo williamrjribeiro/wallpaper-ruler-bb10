@@ -5,38 +5,44 @@ Container {
     // always remain centered on the screen as it changes size
     layout: DockLayout {
     }
-    property alias image: tracker 
+    property alias image: imageTracker 
     background: Color.Black
     verticalAlignment: VerticalAlignment.Fill
     horizontalAlignment: HorizontalAlignment.Fill
-    //minHeight: 1280
     implicitLayoutAnimationsEnabled: false
     function resetEdits(){
-        myImage.scaleX = 0.0;
-        myImage.scaleY = 0.0;
-        myImage.translationX = 0.0;
-        myImage.translationY = 0.0;
-        myImage.rotationZ = 0.0;
+        console.log("[ImageEditor.resetEdits]");
+        iv_image.scaleX = 0.0;
+        iv_image.scaleY = 0.0;
+        iv_image.translationX = 0.0;
+        iv_image.translationY = 0.0;
+        iv_image.rotationZ = 0.0;
+        
+        // Must reset the ImageView and the ImageTracker or else if the user selecs the same file
+        // it won't be loaded
+        iv_image.resetImage();
+        imageTracker.imageSource = "";
+        
     }
     function mabs(val){
     	return (val ^ (val >> 31)) - (val >> 31);
     }
     function wallpapperFit(){
-        console.log("[ImageEditor.wallpapperFit] tracker.width: " + tracker.width+", tracker.height: " + tracker.height);
+        console.log("[ImageEditor.wallpapperFit] imageTracker.width: " + imageTracker.width+", imageTracker.height: " + imageTracker.height);
         var ratio = 1.0;
         
-        if(tracker.width > tracker.height)
-        	ratio = tracker.width / tracker.height;
-        else if(tracker.width < tracker.height)
-            ratio = tracker.height / tracker.width;
+        if(imageTracker.width > imageTracker.height)
+        	ratio = imageTracker.width / imageTracker.height;
+        else if(imageTracker.width < imageTracker.height)
+            ratio = imageTracker.height / imageTracker.width;
         
-        myImage.scaleX = ratio;
-        myImage.scaleY = ratio;
+        iv_image.scaleX = ratio;
+        iv_image.scaleY = ratio;
         
-        console.log("[ImageEditor.wallpapperFit] myImage.scaleX: " + myImage.scaleX+", myImage.scaleY: " + myImage.scaleY);
+        console.log("[ImageEditor.wallpapperFit] iv_image.scaleX: " + iv_image.scaleX+", iv_image.scaleY: " + iv_image.scaleY);
     }
     ImageView {
-        id: myImage
+        id: iv_image
         
         // Flag to prevent a drag gesture from starting during pinch
         property bool pinchHappening: false
@@ -76,17 +82,13 @@ Container {
         
         attachedObjects: [
             ImageTracker {
-                id: tracker
-                onStateChanged: { 
+                id: imageTracker
+                onStateChanged: {
+                    console.log("[ImageEditor.iv_image.imageTracker] state: " + state);
                     if (state == ResourceState.Loaded){
-                        // BB10 is limited to images that are smaller than 2048x2048 px.
-                        if(tracker.height * tracker.width <= 4194304){
-                            myImage.image = tracker.image;
-                            wallpapperFit();
-                        }
-                        else {
-                            console.error("[ImageEditor.myImage.tracker.onStateChanged] IMAGE IS TOO BIG FOR DEVICE!");
-                        }
+                        // BB10 supposelly has some problems of images that are bigger than 2048x2048 px...
+                        iv_image.image = imageTracker.image;
+                        wallpapperFit();
                     }
                 }
             }
@@ -108,7 +110,7 @@ Container {
                     initialWindowY = event.windowY
                 } else if (dragHappening && event.isMove()) {
                     var tx = (event.windowX - initialWindowX), ty = (event.windowY - initialWindowY);
-                    console.log("[ImageEditor.myImage.PinchHandler.onTouch] tx: " + tx+", ty: "+ty);
+                    console.log("[ImageEditor.iv_image.PinchHandler.onTouch] tx: " + tx+", ty: "+ty);
                     // Move the image and record its new position ONLY if moved more than 2xdragFactor
                     if(!canMoveX){
                         initialWindowX = event.windowX
@@ -142,23 +144,23 @@ Container {
             PinchHandler {
                 onPinchStarted: {
                     // Save the initial scale and rotation of the image
-                    myImage.initialScale = myImage.scaleX
-                    myImage.initialRotationZ = myImage.rotationZ
+                    iv_image.initialScale = iv_image.scaleX
+                    iv_image.initialRotationZ = iv_image.rotationZ
                     // Prevent a drag gesture from starting during pinch
-                    myImage.pinchHappening = true
+                    iv_image.pinchHappening = true
                 }
                 onPinchUpdated: {
-                    console.log("[ImageEditor.myImage.PinchHandler.onPinchEnded] event.rotation: " + event.rotation+", event.distance: "+event.distance);
+                    console.log("[ImageEditor.iv_image.PinchHandler.onPinchEnded] event.rotation: " + event.rotation+", event.distance: "+event.distance);
                     // Rescale and rotate as the pinch expands/contracts/rotates
-                    var s = myImage.initialScale + ((event.pinchRatio - 1) * myImage.scaleFactor);
-                    myImage.scaleX = s;
-                    myImage.scaleY = s;
-                    myImage.rotationZ = myImage.initialRotationZ + ((event.rotation) * myImage.rotationFactor);
+                    var s = iv_image.initialScale + ((event.pinchRatio - 1) * iv_image.scaleFactor);
+                    iv_image.scaleX = s;
+                    iv_image.scaleY = s;
+                    iv_image.rotationZ = iv_image.initialRotationZ + ((event.rotation) * iv_image.rotationFactor);
                 }
                 onPinchEnded: {
                     // Allow a drag gesture to begin
-                    myImage.pinchHappening = false
-                    console.log("[ImageEditor.myImage.PinchHandler.onPinchEnded] myImage.scaleX: " + myImage.scaleX+", myImage.scaleY: " + myImage.scaleY);
+                    iv_image.pinchHappening = false
+                    console.log("[ImageEditor.iv_image.PinchHandler.onPinchEnded] iv_image.scaleX: " + iv_image.scaleX+", iv_image.scaleY: " + iv_image.scaleY);
                 }
             }
         ]

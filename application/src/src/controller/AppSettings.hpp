@@ -14,12 +14,19 @@ class AppSettings: public QObject {
 
 	Q_OBJECT
 
+    // The Date & Time the application was closed last time. Used for showing the Long Press Tutorial image on MFE.
+    // It is saved as an app Setting.
+    Q_PROPERTY(QString lastClosed READ lastClosed CONSTANT)
+
 public:
 	// The Application language setting.
 	static const QString APP_LANG;
+	static const QString APP_LAST_CLOSED;
 
 	AppSettings(QObject *parent = 0);
 	~AppSettings(){};
+
+	QString lastClosed() const;
 
 	/* Invokable functions that we can call from QML*/
 
@@ -44,5 +51,8 @@ public:
 	 */
 	Q_INVOKABLE
 	void saveValueFor(const QString &settingName, const QString &inputValue);
+
+private:
+	QString m_lastClosed;
 };
 #endif /* APPSETTINGS_HPP_ */

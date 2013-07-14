@@ -57,11 +57,33 @@
         <source>Save as...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>You&apos;re about to lose all your changes. Continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Teaser</name>
+    <message>
+        <source>Wappy Camera is an awesome feature that we want to implement but we need some love. Please give us a 5 star rating on BlackBerry World and ask for the Wappy Camera. Thanks!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rate it!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Tutorials</name>
     <message>
         <source>Tutorials</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>main</name>
+    <message>
+        <source>Wappy Camera</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

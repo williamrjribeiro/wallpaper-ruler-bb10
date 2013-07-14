@@ -1,43 +1,38 @@
 #include "WallpaperRuler.hpp"
 
 #include <QDebug>
+#include <QDateTime>
 #include <bb/cascades/Application>
 
 using namespace bb::cascades;
 
 WallpaperRuler::WallpaperRuler(QTranslator *translator, QObject *parent)
 	: QObject(parent)
+	, appSettings(new AppSettings(this))
+	, appLocalization(new AppLocalization(translator, this))
+	, imageGridDataProvider(new ImageGridDataProvider())
+	, cameraManager(new CameraManager(this->imageGridDataProvider))
 {
-
-	qDebug() << "[WallpaperRuler::WallpaperRuler]";
-
-	this->initialize(translator);
-}
-
-void WallpaperRuler::initialize(QTranslator *translator) {
-	qDebug() << "[WallpaperRuler::initialize]";
-
-	// Create the AppSettings instance
-	this->appSettings = new AppSettings(this);
 
 	// read the App Language Property
 	QString appLang = this->appSettings->getValueFor( AppSettings::APP_LANG, QString("en") );
 
 	// create the AppLocalization instance
-	this->appLocalization = new AppLocalization(translator, this);
+	//this->appLocalization = new AppLocalization(translator, this);
 	this->appLocalization->loadTranslator(appLang);
-
-	// Initialize the Model
-	this->imageGridDataProvider = new ImageGridDataProvider();
-
-	// create the CameraManager instance passing the imageGridDataProvider instance
-	this->cameraManager = new CameraManager(this->imageGridDataProvider);
 
 	// This signal is fired when the application is minimized (active frame)
 	bool ok = connect( Application::instance(), SIGNAL(thumbnail()), this, SLOT(onActiveFrame()));
 	if (!ok) {
 		qDebug() << "connect thumbnail failed";
 	}
+
+	ok = connect( Application::instance(), SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
+	if (!ok) {
+		qDebug() << "connect aboutToQuit failed";
+	}
+
+	qDebug() << "[WallpaperRuler::WallpaperRuler] m_lastClosed: " << this->appSettings->lastClosed();
 }
 
 // triggered if Application is minimized (Active Frame)
@@ -46,6 +41,13 @@ void WallpaperRuler::onActiveFrame() {
 	qDebug() << "[WallpaperRuler::onActiveFrame] Application is now an Active Frame (minimized)";
 	// AbstractCover *cover;
 	// Application::instance()->setCover(cover);
+}
+
+// triggered when the Application is closed
+void WallpaperRuler::onAboutToQuit() {
+	QString quitDate = QDateTime::currentDateTime().toString();
+	qDebug() << "[WallpaperRuler::onAboutToQuit] Exiting application. quitDate" << quitDate;
+	this->appSettings->saveValueFor( AppSettings::APP_LAST_CLOSED, quitDate);
 }
 
 AppSettings* WallpaperRuler::getAppSettings() {

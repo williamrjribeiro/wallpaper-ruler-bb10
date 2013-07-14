@@ -147,8 +147,6 @@ bool CameraManager::saveCapturedImage(const bool mirrored)
 {
 	qDebug() << "[CameraManager::saveCapturedImage] m_capturedImage: "  << this->m_capturedImage << ", mirrored: " << mirrored;
 
-	// TODO: implement the save algorithm
-
 	// reload the data model so the saved image is shown.
 	this->m_model->loadDataModel();
 

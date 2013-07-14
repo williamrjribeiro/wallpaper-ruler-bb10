@@ -33,15 +33,25 @@ Container {
 
         onTriggered: {
             console.log("[InlineImageBrowser.imagesList.onTriggered] indexPath: " + indexPath);
-            mfeContent.image.imageSource = _imageGridDataProvider.dataModel.data( indexPath );
+            selectedPath = _imageGridDataProvider.dataModel.data( indexPath );
             mfeSheet.open();
         }
     }
+    property string selectedPath;
+    
     attachedObjects: [
         Sheet {
             id: mfeSheet
             content: MultipleFramesEditor {
                 id: mfeContent
+            }
+            onOpened: {
+                console.log("[InlineImageBrowser.mfeSheet.onOpened] selectedPath: " + selectedPath);
+                mfeContent.imageEditor.image.imageSource = selectedPath;
+            }
+            onClosed: {
+                console.log("[InlineImageBrowser.mfeSheet.onClosed]");
+                mfeContent.imageEditor.resetEdits();
             }
         }    
     ]
@@ -54,16 +64,17 @@ Container {
         
         // this signal is dispatched when the user taps on Finished/Cancel.
         // It must go back to the previous state.
-        mfeContent.finished.connect( handleMFEFinished );
+        mfeContent.finishedEditting.connect( handleMFEFinished );
         
-        // Connect the onImageCaptured Signal from the CameraManager to our Slot so it shows the image.
+        // Connect the onImageCaptured Signal from the CameraManager to our Slot so it shows the imageEditor.image.
         _cameraManager.imageCaptured.connect( onImageCaptured );
     }
     
     property bool imageCaptured: false
     function onImageCaptured(imagePath) {
         console.log("[InlineImageBrowser.onImageCaptured] imagePath: " + imagePath);
-        mfeContent.image.imageSource = imagePath;
+        //mfeContent.imageEditor.image.imageSource = imagePath;
+        selectedPath = imagePath;
         imageCaptured = true;
         mfeSheet.open();
     }
@@ -73,13 +84,11 @@ Container {
         
         mfeSheet.close();
         
-        // TODO: we always show the tutorial image but it should only show when needed.
-        mfeContent.tutorial.visible = true;
-        mfeContent.tutorial.opacity = 1.0; 
-        
-        if(imageCaptured){
+        // TODO: remove the code that re-opens the Camera.
+        /*if(imageCaptured){
             imageCaptured = false;
             _cameraManager.invokeCamera();
         }
+        */
     }
 }

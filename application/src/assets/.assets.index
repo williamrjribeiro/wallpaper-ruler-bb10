@@ -1,5 +1,5 @@
 1
-25
+26
 About.qml
 CustomCamera.qml
 data/creators.xml
@@ -24,4 +24,5 @@ js/togglebuttonmanager.js
 Logo.qml
 main.qml
 MultipleFramesEditor.qml
+Teaser.qml
 Tutorials.qml

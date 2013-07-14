@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import bb.system 1.0
 
 // It's better to work with JavaScript Object in separate js files. http://harmattan-dev.nokia.com/docs/library/html/qt4/qml-variant.html 
 import "js/togglebuttonmanager.js" as ToggleButtonManager;
@@ -6,8 +7,8 @@ import "js/togglebuttonmanager.js" as ToggleButtonManager;
 Page {
     id: mfeRootPage
     resizeBehavior: PageResizeBehavior.None
-    signal finished()
-    property alias image: imageEditor.image
+    signal finishedEditting()
+    property alias imageEditor: imageEditor
     property alias tutorial: iv_tutorialFrame
     onCreationCompleted: {
         console.log("[MultipleFramesEditor.mfeRootPage.onCreationCompleted]");
@@ -37,6 +38,7 @@ Page {
         id: mainContainer
         verticalAlignment: VerticalAlignment.Fill
         horizontalAlignment: HorizontalAlignment.Fill
+        implicitLayoutAnimationsEnabled: false
         background: Color.create(181,255,212,1)
         
         ImageEditor {
@@ -73,13 +75,14 @@ Page {
         
         ImageView {
             id: iv_tutorialFrame
-            opacity: 1.0
+            // Only show the Tutorial Image if it's the first time the user runs the app
+            opacity: _appSettings.lastClosed == "" ? 1.0 : 0.0
+            visible: _appSettings.lastClosed == "" ? true : false
             scalingMethod: ScalingMethod.None
             loadEffect: ImageViewLoadEffect.None
             imageSource: "asset:///frames/fr_long_press.png"
             onTouch: {
                 console.log("[MultipleFramesEditor.iv_tutorialFrame.onTouch] event.isUp: " + event.isUp());
-                // TODO: add logic for showing the tutorial image only if needed.
                 if(event.isUp()){
                     trans_fadeOut.play();
                 }
@@ -144,7 +147,6 @@ Page {
                         }
                     ]
                 }
-
 				ActionItem {
 				    id: saveActionItem
 				    title: qsTr("Save")
@@ -171,8 +173,7 @@ Page {
                     // When this action is selected, close the sheet
                     onTriggered: {
                         console.log("[MultipleFramesEditor.finishedActionItem.onTriggered]");
-                        imageEditor.resetEdits();
-                        finished();
+                        cancelDialog.show();
                     }
                     shortcuts: [
                         Shortcut {
@@ -184,16 +185,29 @@ Page {
             } // end of ActionSet
         ]// end of contextActions list
         
-        implicitLayoutAnimationsEnabled: false
-        layout: DockLayout {}
+        attachedObjects: [
+            SystemDialog {
+                id: cancelDialog
+                title: "Friendly Warning"
+                body: qsTr("You're about to lose all your changes. Continue?")
+                onFinished: {
+                    if (cancelDialog.result == SystemUiResult.ConfirmButtonSelection){
+                        finishedEditting();
+                    }                        
+                }
+            }
+        ]
+        layout: DockLayout {
+
+        }
+
     }
     shortcuts: [
         Shortcut {
             key: "c"
             onTriggered: {
                 console.log("[Shortcut] c");
-                imageEditor.resetEdits();
-                finished();
+                cancelDialog.show();
             }
         },
         Shortcut {

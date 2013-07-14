@@ -30,10 +30,9 @@ public:
 
 private Q_SLOTS:
 	void onActiveFrame();
+	void onAboutToQuit();
 
 private:
-	void initialize(QTranslator *translator);
-
     AppSettings* appSettings;
     AppLocalization* appLocalization;
     ImageGridDataProvider* imageGridDataProvider;

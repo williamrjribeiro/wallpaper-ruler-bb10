@@ -13,9 +13,11 @@
 #include <QVariant>
 
 const QString AppSettings::APP_LANG = "APP_LANG";
+const QString AppSettings::APP_LAST_CLOSED = "APP_LAST_CLOSED";
 
 AppSettings::AppSettings(QObject *parent)
 	: QObject(parent)
+	, m_lastClosed(QString("") )
 {
 
 	qDebug() << "[AppSettings::AppSettings]";
@@ -23,7 +25,10 @@ AppSettings::AppSettings(QObject *parent)
 	// Set the application organization and name, which is used by QSettings
 	// when saving values to the persistent store.
 	QCoreApplication::setOrganizationName("Will Thrill");
-	QCoreApplication::setApplicationName("Wallpaper Ruler");
+	QCoreApplication::setApplicationName("Wappy");
+
+	// Get the date and time of last time user closed the application
+	m_lastClosed = this->getValueFor( AppSettings::APP_LAST_CLOSED, QString(""));
 }
 
 QString AppSettings::getValueFor(const QString& settingName, const QString& defaultValue) {
@@ -49,5 +54,10 @@ void AppSettings::saveValueFor(const QString& settingName, const QString& inputV
 
 	QSettings settings;
 	settings.setValue(settingName,QVariant(inputValue));
+}
+
+QString AppSettings::lastClosed() const{
+	qDebug() << "[AppSettings::lastClosed]";
+	return m_lastClosed;
 }
 

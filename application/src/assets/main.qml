@@ -13,12 +13,23 @@ TabbedPane {
     }
     
     Tab {
+        id: teaserTab
+        title: qsTr("Wappy Camera")
+        imageSource: "asset:///icons/ic_edit_profile.png"
+        content: Teaser {
+        }
+    }
+    
+    // Disabling Custom Camera for now
+    /*
+    Tab {
         id: customCamera
         title: "Custom Camera"
         imageSource: "asset:///icons/ic_edit_profile.png"
         content: CustomCamera {
         }
     }
+    */
     
     Tab {
         id: tutorialsTab
@@ -42,7 +53,8 @@ TabbedPane {
         }
     }
     
-    onActiveTabChanged: {
+    // Disabling Custom Camera for now
+    /*onActiveTabChanged: {
         if(activeTab != customCamera){
             customCamera.content.shutDownCamera();
             
@@ -50,6 +62,6 @@ TabbedPane {
             customCamera.content.tutorial.visible = true;
             customCamera.content.tutorial.opacity = 1.0;
         }
-    }
+    }*/
 
 } // end of rootTabbedPane
