@@ -53,7 +53,8 @@
     <!-- <copyright></copyright> -->
 
     <!--  Name of author which is used for signing. Must match the developer name of your development certificate. -->
-    <author>Will Thrill Inc.</author>
+    <author>willthrill inc.</author>
+    <authorId>gYAAgGSMON3RR1Au0fcGoi7FWAk</authorId>
     <description>
        The happy wallpaper app!
     </description>
@@ -81,6 +82,18 @@
        <entryPointType>Qnx/Cascades</entryPointType>
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7/WallpaperRuler.so" entry="true" type="Qnx/Elf">WallpaperRuler.so</asset>
+    </configuration>
+    <configuration name="Device-Profile">
+       <platformArchitecture>armle-v7</platformArchitecture>
+       <asset path="arm-p/o.le-v7-g/WallpaperRuler" entry="true" type="Qnx/Elf">WallpaperRuler</asset>
+    </configuration>
+    <configuration name="Device-Debug">
+       <platformArchitecture>armle-v7</platformArchitecture>
+       <asset path="arm/o.le-v7-g/WallpaperRuler" entry="true" type="Qnx/Elf">WallpaperRuler</asset>
+    </configuration>
+    <configuration name="Simulator-Debug">
+       <platformArchitecture>x86</platformArchitecture>
+       <asset path="x86/o-g/WallpaperRuler" entry="true" type="Qnx/Elf">WallpaperRuler</asset>
     </configuration>
     
     <!--  The icon for the application, which should be 86x86. -->
