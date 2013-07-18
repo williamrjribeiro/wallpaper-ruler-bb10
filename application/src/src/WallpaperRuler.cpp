@@ -1,4 +1,5 @@
 #include "WallpaperRuler.hpp"
+#include "ImageLoader.h"
 
 #include <QDebug>
 #include <QDateTime>
@@ -13,6 +14,9 @@ WallpaperRuler::WallpaperRuler(QTranslator *translator, QObject *parent)
 	, imageGridDataProvider(new ImageGridDataProvider())
 	, cameraManager(new CameraManager(this->imageGridDataProvider))
 {
+
+	// Register custom type to QML
+	qmlRegisterType<ImageLoader>();
 
 	// read the App Language Property
 	QString appLang = this->appSettings->getValueFor( AppSettings::APP_LANG, QString("en") );

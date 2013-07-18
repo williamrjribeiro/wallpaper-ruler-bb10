@@ -1,65 +1,97 @@
-/*
- * ImageGridDataProvider.cpp
- *
- *  Created on: 8 feb. 2013
- *      Author: P623893
- */
-
 #include "ImageGridDataProvider.h"
-
+#include "ImageLoader.h"
 #include <QDebug>
+#include <QStringListIterator>
 
-ImageGridDataProvider::ImageGridDataProvider()
+using namespace bb::cascades;
+
+ImageGridDataProvider::ImageGridDataProvider(QObject *parent)
+	: QObject(parent)
+	, m_dataModel(new QListDataModel<QObject*>())
+	, m_loadedItems(0)
+	, MAX_ITENS(15)
 {
-	filesStack = new QStack<QString>();
-	m_dataModel = new bb::cascades::ArrayDataModel();
-	this->loadDataModel();
+	m_dataModel->setParent(this);
+
+	this->getAllImagePaths();
 }
 
-void ImageGridDataProvider::loadDataModel()
+ImageGridDataProvider::~ImageGridDataProvider()
 {
-	qDebug() << "[ImageGridDataProvider::loadDatamodel]";
+	m_dataModel->clear();
+	m_dataModel->deleteLater();
 
+	m_imageFiles.clear();
+}
 
-	QList<QString> listDirectories;
-	listDirectories.append("/shared/downloads/");
-	listDirectories.append("/shared/camera/");
-	listDirectories.append("/shared/documents/");
-	listDirectories.append("/shared/photos/");
+void ImageGridDataProvider::getAllImagePaths()
+{
+	//qDebug() << "[ImageGridDataProvider::getAllImagePaths]";
 
+	// All the folders that we look for images
+	QStringList listDirectories;
+	listDirectories << "/shared/downloads/"
+					<< "/shared/camera/"
+					<< "/shared/documents/"
+					<< "/shared/photos/";
+
+	// Only look for this type of images
 	QStringList filters;
 	filters << "*.jpeg" << "*.png" << "*.jpg";
 
-	QList<QString> listPictures;
-
 	QString workingDir = QDir::currentPath();
 
-	filesStack->clear();
+	m_imageFiles.clear();
 
 	for (int i = 0; i < listDirectories.size(); ++i) {
 		QDir dir(workingDir + listDirectories.at(i));
 		dir.setFilter(QDir::Files | QDir::Dirs | QDir::NoDot | QDir::NoDotDot);
 		dir.setNameFilters(filters);
-		addPicturesToList(dir);
-	}
-	m_dataModel->clear();
 
-	for (int i = 0; i < filesStack->size(); ++i) {
-		//m_dataModel->append(QUrl("file:///accounts/1000/shared/camera/Test.jpg"));
-		//m_dataModel->append(QUrl("file://" + filesStack->at(i)));
-		m_dataModel->append(QUrl(filesStack->at(i)));
-		//qDebug() << qPrintable(QString("%1").arg(filesStack->at(i)));
+		QDirIterator it(dir, QDirIterator::Subdirectories);
+
+		while(it.hasNext()) {
+			m_imageFiles.append(it.next());
+		}
 	}
+
+	qDebug() << "[ImageGridDataProvider::getAllImagePaths] m_imageFiles.size: " << m_imageFiles.size();
 }
 
-void ImageGridDataProvider::addPicturesToList(QDir dir)
+QUrl ImageGridDataProvider::getImageURL(int indexPath)
 {
-	QDirIterator it(dir, QDirIterator::Subdirectories);
-	while(it.hasNext()) {
-		filesStack->push("file://" + it.next());
-	}
+	qDebug() << "[ImageGridDataProvider::getImageURL] indexPath: " << indexPath;
+	return QUrl("file://" + this->m_imageFiles[indexPath]);
 }
 
-bb::cascades::DataModel* ImageGridDataProvider::dataModel() const {
+void ImageGridDataProvider::addImage(QString filePath)
+{
+	qDebug() << "[ImageGridDataProvider::addImage] filePath: " << filePath;
+	this->m_imageFiles.append(filePath);
+}
+
+bb::cascades::DataModel* ImageGridDataProvider::dataModel() const
+{
 	return m_dataModel;
+}
+
+void ImageGridDataProvider::loadMoreImages()
+{
+	int count = 0;
+	int s = this->m_imageFiles.size();
+
+		if(m_loadedItems < s){
+
+			while( count < MAX_ITENS && s > (count + m_loadedItems) ){
+
+				ImageLoader *loader = new ImageLoader( m_imageFiles.at(m_loadedItems + count), this );
+				loader->load();
+				m_dataModel->append( loader );
+				++count;
+			}
+
+			m_loadedItems += count;
+		}
+
+	qDebug() << "[ImageGridDataProvider::loadMoreImages] m_loadedItems: " << m_loadedItems;
 }

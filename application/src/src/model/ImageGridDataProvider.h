@@ -2,28 +2,41 @@
 #define IMAGEGRIDDATAPROVIDER_H
 
 #include <QObject>
-#include <QDir>
-#include <QStack>
-#include <bb/cascades/ArrayDataModel>
+#include <QStringList>
+#include <QUrl>
+#include <bb/cascades/QListDataModel>
 
 class ImageGridDataProvider: public QObject {
 
 	Q_OBJECT
 	Q_PROPERTY(bb::cascades::DataModel* dataModel READ dataModel CONSTANT)
 
-
 public:
-	ImageGridDataProvider();
-	virtual ~ImageGridDataProvider(){};
+	ImageGridDataProvider(QObject *parent = 0);
+	virtual ~ImageGridDataProvider();
 
-	QStack<QString> *filesStack;
+	// A list of all image files found on the device
+	QStringList m_imageFiles;
 
+	// A list of ImageLoader's that will load the image and start a new thread to create the thumbnail
 	bb::cascades::DataModel *dataModel() const;
 
-	Q_INVOKABLE void loadDataModel();
+	// Reads the folders dowloads, camera, photos, documents and get all jpg, jpeg and png files.
+	Q_INVOKABLE void getAllImagePaths();
 
-	void addPicturesToList(QDir dir);
+	// Start loading MAX_ITENS images
+	Q_INVOKABLE void loadMoreImages();
+
+	// Retrieves a file:// url from the specified indexPath. It has to be inside the bounds of the fileStack
+	Q_INVOKABLE QUrl getImageURL(int indexPath);
+
+	// Adds a new image to the fileStack
+	Q_INVOKABLE void addImage(QString);
+
 private:
-	bb::cascades::ArrayDataModel* m_dataModel;
+	bb::cascades::QListDataModel<QObject*>* m_dataModel;
+
+	int m_loadedItems;
+	int MAX_ITENS;
 };
 #endif /* IMAGEGRIDDATAPROVIDER_H */

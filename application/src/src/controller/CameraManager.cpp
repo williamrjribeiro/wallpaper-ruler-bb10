@@ -41,17 +41,21 @@ bool CameraManager::invokeCamera()
 	request.setAction("bb.action.CAPTURE");
 	request.setMimeType("image/jpg");
 	request.setData("photo");
-	bool ok = connect(invokeManager, SIGNAL(childCardDone(const bb::system::CardDoneMessage&)),
+	bool connectResult = false;
+	Q_UNUSED(connectResult);
+	connectResult = connect(invokeManager, SIGNAL(childCardDone(const bb::system::CardDoneMessage&)),
 				this, SLOT(onCameraInvoke(const bb::system::CardDoneMessage&)));
 
-	if(ok){
+	Q_ASSERT(connectResult);
+
+	if(connectResult){
 		// we can safely ignore the Reply from this invoke call. Everything is handled on the SLOT onCameraInvoke
 		invokeManager->invoke(request);
 	}
 	else{
 		qDebug() << "[CameraManager::invokeCamera] ERROR! Failed to invoke the Camera Card.";
 	}
-	return ok;
+	return connectResult;
 }
 
 void CameraManager::onCameraInvoke(const CardDoneMessage &message)
@@ -60,7 +64,7 @@ void CameraManager::onCameraInvoke(const CardDoneMessage &message)
 			<< ", message.reason: " << message.reason() << ", message.data: " << message.data();
 	if(!message.data().isEmpty()){
 		// add the path to the file of the captured image to the Application Model so it shows up on the IIC.
-		this->m_model->loadDataModel();
+		//this->m_model->loadMoreImages();
 
 		// update the m_capturedImage property with the value from the Data.
 		this->setCapturedImage(message.data());
@@ -80,12 +84,12 @@ void CameraManager::selectAspectRatio(Camera *camera, const float aspect)
 	// Find the closest match to the aspect parameter
 	for (int i = 0; i < reslist.count(); i++) {
 		QSize res = reslist[i].toSize();
-		qDebug() << "supported resolution: " << res.width() << "x" << res.height();
+		qDebug() << "[CameraManager::selectAspectRatio] supported resolution: " << res.width() << "x" << res.height();
 
 		// Check for w:h or h:w within 5px margin of error...
 		if ((DELTA(res.width() * aspect, res.height()) < 5)
 				|| (DELTA(res.width(), res.height() * aspect) < 5)) {
-			qDebug() << "picking resolution: " << res.width() << "x" << res.height();
+			qDebug() << "[CameraManager::selectAspectRatio] picking resolution: " << res.width() << "x" << res.height();
 			camsettings.setCaptureResolution(res);
 			break;
 		}
@@ -100,7 +104,7 @@ void CameraManager::selectAspectRatio(Camera *camera, const float aspect)
 	// Update the camera setting
 	camera->applySettings(&camsettings);
 
-	// update the Max Zoom Level of the curent Camear
+	// update the Max Zoom Level of the current Camera
 	this->m_maxZoomLevel = camera->maxZoomLevel();
 }
 
@@ -137,7 +141,8 @@ void CameraManager::setCapturedImage(const QString imagePath)
 	//qDebug() << "[CameraManager::setCapturedImage] imagePath: "  << imagePath;
 
 	// Add the file:// protocol if the imagePath doesn't have it yet. Or else the image won't be loaded.
-	this->m_capturedImage = !imagePath.startsWith("file://") ? "file://" + imagePath : imagePath;
+	//this->m_capturedImage = !imagePath.startsWith("file://") ? "file://" + imagePath : imagePath;
+	this->m_capturedImage = imagePath;
 
 	// emit a signal that the image has been captured
 	emit imageCaptured(this->m_capturedImage);
@@ -147,8 +152,7 @@ bool CameraManager::saveCapturedImage(const bool mirrored)
 {
 	qDebug() << "[CameraManager::saveCapturedImage] m_capturedImage: "  << this->m_capturedImage << ", mirrored: " << mirrored;
 
-	// reload the data model so the saved image is shown.
-	this->m_model->loadDataModel();
+	// TODO
 
 	return false;
 }
