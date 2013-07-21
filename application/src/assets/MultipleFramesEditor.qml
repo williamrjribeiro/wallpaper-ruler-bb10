@@ -1,5 +1,6 @@
 import bb.cascades 1.0
 import bb.system 1.0
+import bb.platform 1.0
 
 // It's better to work with JavaScript Object in separate js files. http://harmattan-dev.nokia.com/docs/library/html/qt4/qml-variant.html 
 import "js/togglebuttonmanager.js" as ToggleButtonManager;
@@ -154,6 +155,14 @@ Page {
 				    imageSource: "asset:///icons/ic_save.png"
 				    onTriggered: {
 				        console.log("[MultipleFramesEditor.saveActionItem.onTriggered]");
+                        var savedImage = _imageEditor.processImage(imageEditor.myImageElement.imageSource, imageEditor.myImageElement.scaleX, imageEditor.myImageElement.translationX, imageEditor.myImageElement.translationY,imageEditor.myImageElement.rotationZ);
+                        if (savedImage == ""){
+                            console.log("error saving image");
+                        }else {
+                            var result = myHomeScreen.setWallpaper("file://" + savedImage);
+                            _imageGridDataProvider.addImage("file://" + savedImage);
+                        }
+                        console.log(result);
 				    }
 				}
 				ActionItem {
@@ -195,6 +204,9 @@ Page {
                         finishedEditting();
                     }                        
                 }
+            },
+            HomeScreen {
+                id: myHomeScreen
             }
         ]
         layout: DockLayout {

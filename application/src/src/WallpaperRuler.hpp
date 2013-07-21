@@ -8,6 +8,7 @@
 #include "controller/AppSettings.hpp"
 #include "controller/AppLocalization.h"
 #include "controller/CameraManager.hpp"
+#include "ImageEditor.h"
 #include "model/ImageGridDataProvider.h"
 
 /*!
@@ -25,6 +26,7 @@ public:
 
     AppSettings* getAppSettings();
     AppLocalization* getAppLocalization();
+    ImageEditor* getImageEditor();
     ImageGridDataProvider* getImageGridDataProvider();
     CameraManager* getCameraManager();
 
@@ -35,6 +37,7 @@ private Q_SLOTS:
 private:
     AppSettings* appSettings;
     AppLocalization* appLocalization;
+    ImageEditor* imageEditor;
     ImageGridDataProvider* imageGridDataProvider;
     CameraManager* cameraManager;
 };

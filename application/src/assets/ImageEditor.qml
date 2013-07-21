@@ -5,7 +5,8 @@ Container {
     // always remain centered on the screen as it changes size
     layout: DockLayout {
     }
-    property alias image: imageTracker 
+    property alias image: imageTracker
+    property alias myImageElement: iv_image
     background: Color.Black
     verticalAlignment: VerticalAlignment.Fill
     horizontalAlignment: HorizontalAlignment.Fill

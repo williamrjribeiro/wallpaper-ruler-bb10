@@ -11,6 +11,7 @@ WallpaperRuler::WallpaperRuler(QTranslator *translator, QObject *parent)
 	: QObject(parent)
 	, appSettings(new AppSettings(this))
 	, appLocalization(new AppLocalization(translator, this))
+	, imageEditor(new ImageEditor)
 	, imageGridDataProvider(new ImageGridDataProvider())
 	, cameraManager(new CameraManager(this->imageGridDataProvider))
 {
@@ -62,6 +63,11 @@ AppSettings* WallpaperRuler::getAppSettings() {
 AppLocalization* WallpaperRuler::getAppLocalization() {
 	qDebug() << "[WallpaperRuler::getAppLocalization]";
 	return this->appLocalization;
+}
+
+ImageEditor* WallpaperRuler::getImageEditor(){
+	qDebug() << "[WallpaperRuler::getImageEditor]";
+	return this->imageEditor;
 }
 
 ImageGridDataProvider* WallpaperRuler::getImageGridDataProvider(){

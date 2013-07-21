@@ -2,8 +2,15 @@
 BASEDIR =  $$quote($$_PRO_FILE_PWD_)
 
 device {
-    CONFIG(release, debug|release) {
-        SOURCES +=  $$quote($$BASEDIR/src/WallpaperRuler.cpp) \
+    CONFIG(debug, debug|release) {
+        INCLUDEPATH +=  $$quote(${QNX_TARGET}/usr/include/qt4/QtGui)
+
+        DEPENDPATH +=  $$quote(${QNX_TARGET}/usr/include/qt4/QtGui)
+
+        LIBS += -lQtGui
+
+        SOURCES +=  $$quote($$BASEDIR/src/ImageEditor.cpp) \
+                 $$quote($$BASEDIR/src/WallpaperRuler.cpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.cpp) \
                  $$quote($$BASEDIR/src/controller/AppSettings.cpp) \
                  $$quote($$BASEDIR/src/controller/CameraManager.cpp) \
@@ -12,7 +19,8 @@ device {
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/model/ImageGridDataProvider.cpp)
 
-        HEADERS +=  $$quote($$BASEDIR/src/WallpaperRuler.hpp) \
+        HEADERS +=  $$quote($$BASEDIR/src/ImageEditor.h) \
+                 $$quote($$BASEDIR/src/WallpaperRuler.hpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.h) \
                  $$quote($$BASEDIR/src/controller/AppSettings.hpp) \
                  $$quote($$BASEDIR/src/controller/CameraManager.hpp) \
@@ -21,8 +29,15 @@ device {
                  $$quote($$BASEDIR/src/model/ImageGridDataProvider.h)
     }
 
-    CONFIG(debug, debug|release) {
-        SOURCES +=  $$quote($$BASEDIR/src/WallpaperRuler.cpp) \
+    CONFIG(release, debug|release) {
+        INCLUDEPATH +=  $$quote(${QNX_TARGET}/usr/include/qt4/QtGui)
+
+        DEPENDPATH +=  $$quote(${QNX_TARGET}/usr/include/qt4/QtGui)
+
+        LIBS += -lQtGui
+
+        SOURCES +=  $$quote($$BASEDIR/src/ImageEditor.cpp) \
+                 $$quote($$BASEDIR/src/WallpaperRuler.cpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.cpp) \
                  $$quote($$BASEDIR/src/controller/AppSettings.cpp) \
                  $$quote($$BASEDIR/src/controller/CameraManager.cpp) \
@@ -31,7 +46,37 @@ device {
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/model/ImageGridDataProvider.cpp)
 
-        HEADERS +=  $$quote($$BASEDIR/src/WallpaperRuler.hpp) \
+        HEADERS +=  $$quote($$BASEDIR/src/ImageEditor.h) \
+                 $$quote($$BASEDIR/src/WallpaperRuler.hpp) \
+                 $$quote($$BASEDIR/src/controller/AppLocalization.h) \
+                 $$quote($$BASEDIR/src/controller/AppSettings.hpp) \
+                 $$quote($$BASEDIR/src/controller/CameraManager.hpp) \
+                 $$quote($$BASEDIR/src/controller/ImageLoader.h) \
+                 $$quote($$BASEDIR/src/controller/ImageProcessor.h) \
+                 $$quote($$BASEDIR/src/model/ImageGridDataProvider.h)
+    }
+}
+
+simulator {
+    CONFIG(debug, debug|release) {
+        INCLUDEPATH +=  $$quote(${QNX_TARGET}/usr/include/qt4/QtGui)
+
+        DEPENDPATH +=  $$quote(${QNX_TARGET}/usr/include/qt4/QtGui)
+
+        LIBS += -lQtGui
+
+        SOURCES +=  $$quote($$BASEDIR/src/ImageEditor.cpp) \
+                 $$quote($$BASEDIR/src/WallpaperRuler.cpp) \
+                 $$quote($$BASEDIR/src/controller/AppLocalization.cpp) \
+                 $$quote($$BASEDIR/src/controller/AppSettings.cpp) \
+                 $$quote($$BASEDIR/src/controller/CameraManager.cpp) \
+                 $$quote($$BASEDIR/src/controller/ImageLoader.cpp) \
+                 $$quote($$BASEDIR/src/controller/ImageProcessor.cpp) \
+                 $$quote($$BASEDIR/src/main.cpp) \
+                 $$quote($$BASEDIR/src/model/ImageGridDataProvider.cpp)
+
+        HEADERS +=  $$quote($$BASEDIR/src/ImageEditor.h) \
+                 $$quote($$BASEDIR/src/WallpaperRuler.hpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.h) \
                  $$quote($$BASEDIR/src/controller/AppSettings.hpp) \
                  $$quote($$BASEDIR/src/controller/CameraManager.hpp) \
