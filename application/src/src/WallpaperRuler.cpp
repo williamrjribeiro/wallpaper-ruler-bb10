@@ -11,9 +11,10 @@ WallpaperRuler::WallpaperRuler(QTranslator *translator, QObject *parent)
 	: QObject(parent)
 	, appSettings(new AppSettings(this))
 	, appLocalization(new AppLocalization(translator, this))
-	, imageEditor(new ImageEditor)
-	, imageGridDataProvider(new ImageGridDataProvider())
-	, cameraManager(new CameraManager(this->imageGridDataProvider))
+	, imageEditor(new ImageEditor(this))
+	, imageGridDataProvider(new ImageGridDataProvider(this))
+	, cameraManager(new CameraManager(this->imageGridDataProvider,this))
+	, screenSize(new ScreenSize(this))
 {
 
 	// Register custom type to QML
@@ -50,7 +51,7 @@ void WallpaperRuler::onActiveFrame() {
 
 // triggered when the Application is closed
 void WallpaperRuler::onAboutToQuit() {
-	QString quitDate = QDateTime::currentDateTime().toString();
+	QString quitDate = QDateTime::currentDateTime().toString(AppSettings::APP_DATE_FORMAT);
 	qDebug() << "[WallpaperRuler::onAboutToQuit] Exiting application. quitDate" << quitDate;
 	this->appSettings->saveValueFor( AppSettings::APP_LAST_CLOSED, quitDate);
 }
@@ -78,4 +79,9 @@ ImageGridDataProvider* WallpaperRuler::getImageGridDataProvider(){
 CameraManager* WallpaperRuler::getCameraManager(){
 	qDebug() << "[WallpaperRuler::getCameraManager]";
 	return this->cameraManager;
+}
+
+ScreenSize* WallpaperRuler::getScreenSize(){
+	qDebug() << "[WallpaperRuler::getScreenSize]";
+	return this->screenSize;
 }

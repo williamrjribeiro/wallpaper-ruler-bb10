@@ -24,6 +24,13 @@
     </message>
 </context>
 <context>
+    <name>Home</name>
+    <message>
+        <source>Camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MultipleFramesEditor</name>
     <message>
         <source>Frames</source>
@@ -54,11 +61,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save as...</source>
+        <source>You&apos;re about to lose all your changes. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You&apos;re about to lose all your changes. Continue?</source>
+        <source>Set as Wallpaper!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -84,6 +91,18 @@
     <name>main</name>
     <message>
         <source>Wappy Camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Home</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Creators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

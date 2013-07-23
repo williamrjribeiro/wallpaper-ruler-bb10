@@ -6,14 +6,12 @@ Page {
         background: Color.DarkGray
         layout: StackLayout {
         }
-        Logo {
-        }
         InlineImageBrowser {
         }
     }
     actions: [
         InvokeActionItem {
-            ActionBar.placement: ActionBarPlacement.InOverflow
+            ActionBar.placement: ActionBarPlacement.OnBar
             title: "Share"
             imageSource: "asset:///icons/ic_share.png"
             query {
@@ -22,9 +20,9 @@ Page {
             }
         },
         ActionItem {
-            title: "Full Camera"
+            title: qsTr("Camera")
             ActionBar.placement: ActionBarPlacement.OnBar
-            imageSource: "asset:///icons/ic_edit_profile.png"
+            imageSource: "asset:///icons/ic_camera.png"
             onTriggered: {
                 // Switch to another tab from a TabbedPane
                 //rootTabbedPane.activeTab = rootTabbedPane.at(1);

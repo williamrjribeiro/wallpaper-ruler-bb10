@@ -1,13 +1,6 @@
 /**
-	An object where key is the ActionItem.objectName and the value is another Object with properties toggle and actionItem instance.
-	E.g.:
-	
-	toggleMap = {
-		'objectName1' : {
-			'toggled' : false,
-			'actionItem': ActionItem
-		}
-}
+	An object where key is the ActionItem.objectName and the value is another Object with some properties.
+	@see: MultipleFramesEditor.mfeRootPage.onCreationCompleted
 */
 var toggleMap = {};
 
@@ -32,18 +25,18 @@ function handleToggle(toggleButton){
     	if(buttonName == toggleButton.objectName){
     		if(item.toggled){
     			item.toggled = false;
-    			item.actionItem.imageSource = "asset:///icons/ic_checkbox.png";
+    			item.actionItem.imageSource = item.untoggledAsset;
     	    }
     	    else{
     	    	item.toggled = true;
-    	    	item.actionItem.imageSource = "asset:///icons/ic_checkbox_selected.png";
+    	    	item.actionItem.imageSource = item.toggledAsset;;
     	    }
     		
     		toggled = item.toggled;
     	}
     	else{
     		item.toggled = false;
-    		item.actionItem.imageSource = "asset:///icons/ic_checkbox.png";
+    		item.actionItem.imageSource = item.untoggledAsset;;
     	}
     }
     
@@ -52,17 +45,14 @@ function handleToggle(toggleButton){
 }
 
 /**
- * Creates the toggleMap object with the given ActionItems.
+ * Creates the toggleMap object with the given ActionItems. These buttons toggled state and UI will be managed by this class.
  * @param buttons array of ActionItem instances
  */
 function initToggleButtons(buttons) {
 	console.log("[togglebuttonmanager.initToggleButtons] buttons.length: " + buttons.length);
-	for(var name in buttons){
-		toggleMap[ buttons[name].objectName ] = {
-				toggled: false,
-				actionItem: buttons[name]
-		};
+
+	for(var i = buttons.length - 1; i >= 0 ; --i){
+		toggleMap[ buttons[i].actionItem.objectName ] = buttons[i];
 	}
-	
 	console.log("[togglebuttonmanager.initToggleButtons] toggleMap: " + Object.getOwnPropertyNames(toggleMap));
 }

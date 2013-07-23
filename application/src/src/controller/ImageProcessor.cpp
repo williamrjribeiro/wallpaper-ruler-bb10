@@ -23,6 +23,11 @@ ImageProcessor::ImageProcessor(const QString imagePath, QObject *parent)
 {
 }
 
+ImageProcessor::~ImageProcessor()
+{
+	this->deleteLater();
+}
+
 bb::ImageData ImageProcessor::start()
 {
 	qDebug() << "[ImageProcessor::start] m_imagePath: " << m_imagePath;

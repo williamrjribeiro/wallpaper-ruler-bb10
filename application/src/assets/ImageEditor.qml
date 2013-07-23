@@ -29,13 +29,19 @@ Container {
     	return (val ^ (val >> 31)) - (val >> 31);
     }
     function wallpapperFit(){
-        console.log("[ImageEditor.wallpapperFit] imageTracker.width: " + imageTracker.width+", imageTracker.height: " + imageTracker.height);
-        var ratio = 1.0;
+        
+        var ratio = 0.0;
         
         if(imageTracker.width > imageTracker.height)
-        	ratio = imageTracker.width / imageTracker.height;
+        	ratio += imageTracker.width / imageTracker.height;
         else if(imageTracker.width < imageTracker.height)
-            ratio = imageTracker.height / imageTracker.width;
+            ratio += imageTracker.height / imageTracker.width;
+        
+        ratio = _screenSize.width / _screenSize.height;
+        
+        console.log("[ImageEditor.wallpapperFit] imageTracker.width: " + imageTracker.width
+        			+", imageTracker.height: " + imageTracker.height
+        			+ ", ratio: " + ratio);
         
         iv_image.scaleX = ratio;
         iv_image.scaleY = ratio;
@@ -85,7 +91,7 @@ Container {
             ImageTracker {
                 id: imageTracker
                 onStateChanged: {
-                    console.log("[ImageEditor.iv_image.imageTracker] state: " + state);
+                    //console.log("[ImageEditor.iv_image.imageTracker] state: " + state);
                     if (state == ResourceState.Loaded){
                         // BB10 supposelly has some problems of images that are bigger than 2048x2048 px...
                         iv_image.image = imageTracker.image;
@@ -111,7 +117,7 @@ Container {
                     initialWindowY = event.windowY
                 } else if (dragHappening && event.isMove()) {
                     var tx = (event.windowX - initialWindowX), ty = (event.windowY - initialWindowY);
-                    console.log("[ImageEditor.iv_image.PinchHandler.onTouch] tx: " + tx+", ty: "+ty);
+                    //console.log("[ImageEditor.iv_image.PinchHandler.onTouch] tx: " + tx+", ty: "+ty);
                     // Move the image and record its new position ONLY if moved more than 2xdragFactor
                     if(!canMoveX){
                         initialWindowX = event.windowX
@@ -151,7 +157,7 @@ Container {
                     iv_image.pinchHappening = true
                 }
                 onPinchUpdated: {
-                    console.log("[ImageEditor.iv_image.PinchHandler.onPinchEnded] event.rotation: " + event.rotation+", event.distance: "+event.distance);
+                    //console.log("[ImageEditor.iv_image.PinchHandler.onPinchUpdated] event.rotation: " + event.rotation+", event.distance: "+event.distance);
                     // Rescale and rotate as the pinch expands/contracts/rotates
                     var s = iv_image.initialScale + ((event.pinchRatio - 1) * iv_image.scaleFactor);
                     iv_image.scaleX = s;

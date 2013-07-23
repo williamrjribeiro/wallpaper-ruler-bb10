@@ -5,11 +5,12 @@
 
 using namespace bb::cascades;
 
+const int ImageGridDataProvider::MAX_ITENS = 18;
+
 ImageGridDataProvider::ImageGridDataProvider(QObject *parent)
 	: QObject(parent)
 	, m_dataModel(new QListDataModel<QObject*>())
 	, m_loadedItems(0)
-	, MAX_ITENS(15)
 {
 	m_dataModel->setParent(this);
 
@@ -82,7 +83,7 @@ void ImageGridDataProvider::loadMoreImages()
 
 		if(m_loadedItems < s){
 
-			while( count < MAX_ITENS && s > (count + m_loadedItems) ){
+			while( count < ImageGridDataProvider::MAX_ITENS && s > (count + m_loadedItems) ){
 
 				ImageLoader *loader = new ImageLoader( m_imageFiles.at(m_loadedItems + count), this );
 				loader->load();

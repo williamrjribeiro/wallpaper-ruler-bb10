@@ -13,7 +13,36 @@ Page {
     property alias tutorial: iv_tutorialFrame
     onCreationCompleted: {
         console.log("[MultipleFramesEditor.mfeRootPage.onCreationCompleted]");
-        ToggleButtonManager.initToggleButtons([ai_homeFrame,ai_lockedFrame,ai_activeFrame]);
+        
+        // show or not the Long Press tutorial image
+        if(_appSettings.showTutorial){
+            iv_tutorialFrame.visible = true;
+            iv_tutorialFrame.opacity = 1.0;
+        }
+        
+        // These objects are managed by the ToggleButtonManager. The assets must be specified.
+        var buttons = [
+          {
+              'actionItem' : ai_homeFrame,
+              'toggled' : false,
+              'toggledAsset' : "asset:///icons/ic_home_screen_a.png",
+              'untoggledAsset' : "asset:///icons/ic_home_screen.png"
+          },
+          {
+              'actionItem' : ai_lockedFrame,
+              'toggled' : false,
+              'toggledAsset' : "asset:///icons/ic_locked.png",
+              'untoggledAsset' : "asset:///icons/ic_unlocked.png"
+          },
+          {
+              'actionItem' : ai_activeFrame,
+              'toggled' : false,
+              'toggledAsset' : "asset:///icons/ic_active_screen_a.png",
+              'untoggledAsset' : "asset:///icons/ic_active_screen.png"
+          }  
+        ];
+        
+        ToggleButtonManager.initToggleButtons(buttons);
     }
     function showFrame(show,filePath){
         console.log("[CustomCamera.showFrame] show: "+show+", filePath: "+filePath);
@@ -34,6 +63,23 @@ Page {
                 iv_lockedFrame.opacity = show ? 1.0 : 0.0;
                 break;
         }
+    }
+    function setAsDeviceWallpaper(savedImage){
+        var result = myHomeScreen.setWallpaper("file://" + savedImage); 
+        if(  result == false ){
+            console.log("[MultipleFramesEditor.setAsDeviceWallpaper] ERROR SETTING IMAGE AS DEVICE WALLPAPER!");
+        }
+        else {
+            _imageGridDataProvider.addImage(savedImage);
+        }
+        return result;
+    }
+    function saveImage(){
+        var savedImage = _imageEditor.processImage(imageEditor.myImageElement.imageSource, imageEditor.myImageElement.scaleX, imageEditor.myImageElement.translationX, imageEditor.myImageElement.translationY,imageEditor.myImageElement.rotationZ);
+        if (savedImage == ""){
+            console.log("[MultipleFramesEditor.saveImage] ERROR SAVING IMAGE!");
+        }
+        return savedImage;
     }
     Container {
         id: mainContainer
@@ -76,11 +122,10 @@ Page {
         
         ImageView {
             id: iv_tutorialFrame
-            // Only show the Tutorial Image if it's the first time the user runs the app
-            opacity: _appSettings.lastClosed == "" ? 1.0 : 0.0
-            visible: _appSettings.lastClosed == "" ? true : false
             scalingMethod: ScalingMethod.None
             loadEffect: ImageViewLoadEffect.None
+            visible: false
+            opacity: 0.0
             imageSource: "asset:///frames/fr_long_press.png"
             onTouch: {
                 console.log("[MultipleFramesEditor.iv_tutorialFrame.onTouch] event.isUp: " + event.isUp());
@@ -96,6 +141,9 @@ Page {
                     onEnded: {
                         // the tutorial image will remain invisible even after the user leaves the MFE.
                         iv_tutorialFrame.visible = false;
+                        
+                        // Don't show the tutorial image anymore
+                        _appSettings.showTutorial = false;
                     }
                 }
             ]
@@ -110,7 +158,7 @@ Page {
                     id: ai_homeFrame
                     objectName: "homeFrameToggle"
                     title: qsTr("Home Screen")
-                    imageSource: "asset:///icons/ic_checkbox.png"
+                    imageSource: "asset:///icons/ic_home_screen.png"
                     onTriggered: {
                         showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
                     }
@@ -124,7 +172,7 @@ Page {
                     id: ai_lockedFrame
                     objectName: "lockedFrameToggle"
                     title: qsTr("Locked Screen")
-                    imageSource: "asset:///icons/ic_checkbox.png"
+                    imageSource: "asset:///icons/ic_locked.png"
                     onTriggered: {
                         showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_locked.png");
                     }
@@ -138,7 +186,7 @@ Page {
                     id: ai_activeFrame
                     objectName: "activeFrameToggle"
                     title: qsTr("Active Frame")
-                    imageSource: "asset:///icons/ic_checkbox.png"
+                    imageSource: "asset:///icons/ic_active_screen.png"
                     onTriggered: {
                         showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_active.png");
                     }
@@ -148,40 +196,44 @@ Page {
                         }
                     ]
                 }
+                ActionItem {
+                    id: ai_setAsWallpaper
+                    title: qsTr("Set as Wallpaper!")
+                    ActionBar.placement: ActionBarPlacement.InOverflow
+                    imageSource: "asset:///icons/ic_save_as.png"
+                    onTriggered: {
+                        console.log("[MultipleFramesEditor.ai_setAsWallpaper.onTriggered]");
+                        setAsDeviceWallpaper( saveImage() );
+                    }
+                    shortcuts: [
+                        Shortcut {
+                            key: "w"
+                        }
+                    ]
+                }
 				ActionItem {
-				    id: saveActionItem
+				    id: ai_saveImage
 				    title: qsTr("Save")
 				    ActionBar.placement: ActionBarPlacement.InOverflow
 				    imageSource: "asset:///icons/ic_save.png"
 				    onTriggered: {
-				        console.log("[MultipleFramesEditor.saveActionItem.onTriggered]");
-                        var savedImage = _imageEditor.processImage(imageEditor.myImageElement.imageSource, imageEditor.myImageElement.scaleX, imageEditor.myImageElement.translationX, imageEditor.myImageElement.translationY,imageEditor.myImageElement.rotationZ);
-                        if (savedImage == ""){
-                            console.log("error saving image");
-                        }else {
-                            var result = myHomeScreen.setWallpaper("file://" + savedImage);
-                            _imageGridDataProvider.addImage("file://" + savedImage);
+				        console.log("[MultipleFramesEditor.ai_saveImage.onTriggered]");
+                        saveImage();
+				    }
+                    shortcuts: [
+                        Shortcut {
+                            key: "s"
                         }
-                        console.log(result);
-				    }
-				}
-				ActionItem {
-				    id: saveAsActionItem
-				    title: qsTr("Save as...")
-				    ActionBar.placement: ActionBarPlacement.InOverflow
-				    imageSource: "asset:///icons/ic_save_as.png"
-				    onTriggered: {
-                        console.log("[MultipleFramesEditor.saveAsActionItem.onTriggered]");
-				    }
+                    ]
 				}
                 ActionItem {
-                    id: finishedActionItem
+                    id: ai_cancel
                     title: qsTr("Cancel")
                     ActionBar.placement: ActionBarPlacement.InOverflow
                     imageSource: "asset:///icons/ic_cancel.png"
                     // When this action is selected, close the sheet
                     onTriggered: {
-                        console.log("[MultipleFramesEditor.finishedActionItem.onTriggered]");
+                        console.log("[MultipleFramesEditor.ai_cancel.onTriggered]");
                         cancelDialog.show();
                     }
                     shortcuts: [
@@ -238,6 +290,18 @@ Page {
             key: "h"
             onTriggered: {
                 showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
+            }
+        },
+        Shortcut {
+            key: "s"
+            onTriggered: {
+                saveImage();
+            }
+        },
+        Shortcut {
+            key: "w"
+            onTriggered: {
+                setAsDeviceWallpaper( saveImage() )
             }
         }
     ]

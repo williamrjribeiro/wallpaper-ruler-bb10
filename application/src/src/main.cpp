@@ -33,6 +33,9 @@ Q_DECL_EXPORT int main(int argc, char **argv)
 	// set parent to created document to ensure it exists for the whole application lifetime
     bb::cascades::QmlDocument *qml = bb::cascades::QmlDocument::create("asset:///main.qml").parent(wpr);
 
+    // Create the ScreenSize utility
+    qml->setContextProperty("_screenSize", wpr->getScreenSize());
+
 	// Make the AppSettings instance available to QML as _appSettings
 	qml->setContextProperty("_appSettings", wpr->getAppSettings());
 

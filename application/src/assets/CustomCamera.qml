@@ -179,7 +179,7 @@ Page {
                     id: ai_homeFrame
                     objectName: "homeFrameToggle"
                     title: qsTr("Home Screen")
-                    imageSource: "asset:///icons/ic_checkbox.png"
+                    imageSource: "asset:///icons/ic_home_screen.png"
                     onTriggered: {
                         showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
                     }
@@ -188,7 +188,7 @@ Page {
                     id: ai_lockedFrame
                     objectName: "lockedFrameToggle"
                     title: qsTr("Locked Screen")
-                    imageSource: "asset:///icons/ic_checkbox.png"
+                    imageSource: "asset:///icons/ic_unlocked.png"
                     onTriggered: {
                         showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_active.png");
                     }
@@ -197,7 +197,7 @@ Page {
                     id: ai_activeFrame
                     objectName: "activeFrameToggle"
                     title: qsTr("Active Frame")
-                    imageSource: "asset:///icons/ic_checkbox.png"
+                    imageSource: "asset:///icons/ic_active_screen.png"
                     onTriggered: {
                         showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_locked.png");
                     }

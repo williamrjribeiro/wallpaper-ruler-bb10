@@ -6,15 +6,21 @@
  */
 
 #include "ImageEditor.h"
+#include <QByteArray>
 #include <QDebug>
 
-ImageEditor::ImageEditor() {
-	// TODO Auto-generated constructor stub
+#include <QtGui/QImage>
+#include <QtGui/QImageReader>
+
+#include <bb/cascades/Image>
+
+ImageEditor::ImageEditor(QObject *parent)
+	:QObject(parent)
+{
 
 }
 
 ImageEditor::~ImageEditor() {
-	// TODO Auto-generated destructor stub
 }
 
 QString ImageEditor::processImage(const QString &qurl, const double scale, const double translationX, const double translationY, const double rotation){

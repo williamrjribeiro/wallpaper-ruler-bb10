@@ -10,6 +10,7 @@
 #include "controller/CameraManager.hpp"
 #include "ImageEditor.h"
 #include "model/ImageGridDataProvider.h"
+#include "ScreenSize.hpp"
 
 /*!
  * @brief Application pane object
@@ -29,6 +30,7 @@ public:
     ImageEditor* getImageEditor();
     ImageGridDataProvider* getImageGridDataProvider();
     CameraManager* getCameraManager();
+    ScreenSize* getScreenSize();
 
 private Q_SLOTS:
 	void onActiveFrame();
@@ -40,5 +42,6 @@ private:
     ImageEditor* imageEditor;
     ImageGridDataProvider* imageGridDataProvider;
     CameraManager* cameraManager;
+    ScreenSize* screenSize;
 };
 #endif /* WallpaperRuler_HPP_ */

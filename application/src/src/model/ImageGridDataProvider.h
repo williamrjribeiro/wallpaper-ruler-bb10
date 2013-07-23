@@ -12,6 +12,10 @@ class ImageGridDataProvider: public QObject {
 	Q_PROPERTY(bb::cascades::DataModel* dataModel READ dataModel CONSTANT)
 
 public:
+
+	// The maximum number of images that are added to the model at a single time
+	static const int MAX_ITENS;
+
 	ImageGridDataProvider(QObject *parent = 0);
 	virtual ~ImageGridDataProvider();
 
@@ -37,6 +41,5 @@ private:
 	bb::cascades::QListDataModel<QObject*>* m_dataModel;
 
 	int m_loadedItems;
-	int MAX_ITENS;
 };
 #endif /* IMAGEGRIDDATAPROVIDER_H */

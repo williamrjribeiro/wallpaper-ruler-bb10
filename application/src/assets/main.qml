@@ -6,8 +6,8 @@ TabbedPane {
     showTabsOnActionBar: false
     Tab {
         id: homeTab
-        title: "Home"
-        imageSource: "asset:///icons/ic_bbm.png"
+        title: qsTr("Home")
+        imageSource: "asset:///icons/ic_home.png"
         content: Home {
         }
     }
@@ -30,7 +30,8 @@ TabbedPane {
         }
     }
     */
-    
+    // Disabling Tutorials page for now
+    /*
     Tab {
         id: tutorialsTab
         title: "Tutorials"
@@ -38,17 +39,20 @@ TabbedPane {
         content: Tutorials {
         }
     }
+    */
     
     Tab {
         id: creatorsTab
-        title: "Creators"
+        title: qsTr("Creators")
+        imageSource: "asset:///icons/ic_creators.png"
         content: About {
         }
     }
     
     Tab {
         id: changeLogTab
-        title: "Change Log"
+        title: qsTr("Change Log")
+        imageSource: "asset:///icons/ic_change_log.png"
         content: Tutorials {
         }
     }

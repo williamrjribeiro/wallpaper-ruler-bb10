@@ -39,6 +39,7 @@ public:
 	 * @param parent The parent object.
 	 */
 	ImageProcessor(const QString, QObject *parent = 0);
+	~ImageProcessor();
 
 public Q_SLOTS:
 	/*

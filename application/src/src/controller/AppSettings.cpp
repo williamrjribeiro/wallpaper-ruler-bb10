@@ -8,16 +8,20 @@
 #include "AppSettings.hpp"
 
 #include <QDebug>
+#include <QDateTime>
 #include <QCoreApplication>
 #include <QSettings>
 #include <QVariant>
 
+const int AppSettings::APP_MAX_DAYS = 7;
+const QString AppSettings::APP_DATE_FORMAT = "dd/MM/yyyy hh:mm:ss";
 const QString AppSettings::APP_LANG = "APP_LANG";
 const QString AppSettings::APP_LAST_CLOSED = "APP_LAST_CLOSED";
 
 AppSettings::AppSettings(QObject *parent)
 	: QObject(parent)
 	, m_lastClosed(QString("") )
+	, m_showTutorial(false)
 {
 
 	qDebug() << "[AppSettings::AppSettings]";
@@ -29,9 +33,22 @@ AppSettings::AppSettings(QObject *parent)
 
 	// Get the date and time of last time user closed the application
 	m_lastClosed = this->getValueFor( AppSettings::APP_LAST_CLOSED, QString(""));
+
+	// Determine if the long-press tutorial image should be displayed
+	// rule: always show if it's been more than 1 week since user last used the app
+	if( m_lastClosed.length() == 0) {
+		m_showTutorial = true;
+	}
+	else {
+		QDateTime lastClosed = QDateTime::fromString(m_lastClosed, AppSettings::APP_DATE_FORMAT);
+		QDateTime now = QDateTime::currentDateTime();
+		qDebug() << "[AppSettings::AppSettings] days: " << lastClosed.daysTo(now);
+		setShowTutorial( lastClosed.daysTo(now) > AppSettings::APP_MAX_DAYS );
+	}
 }
 
-QString AppSettings::getValueFor(const QString& settingName, const QString& defaultValue) {
+QString AppSettings::getValueFor(const QString& settingName, const QString& defaultValue)
+{
 	qDebug() << "[AppSettings::getValueFor] settingName: " << settingName << " defaultValue: " << defaultValue;
 
 	// get the reference to the global QSettings object
@@ -49,15 +66,27 @@ QString AppSettings::getValueFor(const QString& settingName, const QString& defa
 	return value.toString();
 }
 
-void AppSettings::saveValueFor(const QString& settingName, const QString& inputValue) {
+void AppSettings::saveValueFor(const QString& settingName, const QString& inputValue)
+{
 	qDebug() << "[AppSettings::saveValueFor] settingName: " << settingName << " inputValue: " << inputValue;
-
 	QSettings settings;
 	settings.setValue(settingName,QVariant(inputValue));
 }
 
-QString AppSettings::lastClosed() const{
-	qDebug() << "[AppSettings::lastClosed]";
+QString AppSettings::lastClosed() const
+{
+	qDebug() << "[AppSettings::lastClosed] m_lastClosed: " << m_lastClosed;
 	return m_lastClosed;
 }
 
+bool AppSettings::showTutorial() const
+{
+	qDebug() << "[AppSettings::showTutorial] m_showTutorial: " << m_showTutorial;
+	return m_showTutorial;
+}
+
+void AppSettings::setShowTutorial(bool value)
+{
+	qDebug() << "[AppSettings::setShowTutorial] value: " << value;
+	m_showTutorial = value;
+}
