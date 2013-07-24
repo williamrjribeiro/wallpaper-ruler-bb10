@@ -7,14 +7,14 @@ Container {
     }
     property alias image: imageTracker
     property alias myImageElement: iv_image
-    background: Color.Black
+    background: Color.Yellow
     verticalAlignment: VerticalAlignment.Fill
     horizontalAlignment: HorizontalAlignment.Fill
     implicitLayoutAnimationsEnabled: false
     function resetEdits(){
         console.log("[ImageEditor.resetEdits]");
-        iv_image.scaleX = 0.0;
-        iv_image.scaleY = 0.0;
+        iv_image.scaleX = 1.0;
+        iv_image.scaleY = 1.0;
         iv_image.translationX = 0.0;
         iv_image.translationY = 0.0;
         iv_image.rotationZ = 0.0;
@@ -29,27 +29,29 @@ Container {
     	return (val ^ (val >> 31)) - (val >> 31);
     }
     function wallpapperFit(){
+        var ratio = 1.0;
         
-        var ratio = 0.0;
-        
+        // Calculate the correct scale based on the loaded image!
         if(imageTracker.width > imageTracker.height)
-        	ratio += imageTracker.width / imageTracker.height;
+            ratio = imageTracker.width / imageTracker.height;
         else if(imageTracker.width < imageTracker.height)
-            ratio += imageTracker.height / imageTracker.width;
-        
-        ratio = _screenSize.width / _screenSize.height;
-        
-        console.log("[ImageEditor.wallpapperFit] imageTracker.width: " + imageTracker.width
-        			+", imageTracker.height: " + imageTracker.height
-        			+ ", ratio: " + ratio);
+            ratio = imageTracker.height / imageTracker.width;
         
         iv_image.scaleX = ratio;
         iv_image.scaleY = ratio;
         
-        console.log("[ImageEditor.wallpapperFit] iv_image.scaleX: " + iv_image.scaleX+", iv_image.scaleY: " + iv_image.scaleY);
+        console.log("[ImageEditor.wallpapperFit] imageTracker.width: " + imageTracker.width
+        +", imageTracker.height: " + imageTracker.height
+        + ", ratio: " + ratio);
     }
     ImageView {
         id: iv_image
+        scalingMethod: ScalingMethod.AspectFit	// The wallpaperFit() only works with this scalingMethod
+        loadEffect: ImageViewLoadEffect.None
+        minHeight: _screenSize.height			// The wallpaper image is always a square with the biggest device size
+        minWidth: _screenSize.height
+        horizontalAlignment: HorizontalAlignment.Center // The image is initially centered on the container
+        verticalAlignment: VerticalAlignment.Center
         
         // Flag to prevent a drag gesture from starting during pinch
         property bool pinchHappening: false
@@ -82,10 +84,6 @@ Container {
         
         property bool canMoveX: false
         property bool canMoveY: false
-        
-        // The image is initially centered on the container
-        horizontalAlignment: HorizontalAlignment.Center
-        verticalAlignment: VerticalAlignment.Center
         
         attachedObjects: [
             ImageTracker {
@@ -171,7 +169,5 @@ Container {
                 }
             }
         ]
-        scalingMethod: ScalingMethod.AspectFit
-        loadEffect: ImageViewLoadEffect.None
     } // end of ImageView
 } // end of Container

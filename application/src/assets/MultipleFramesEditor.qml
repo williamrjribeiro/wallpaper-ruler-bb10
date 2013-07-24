@@ -86,7 +86,7 @@ Page {
         verticalAlignment: VerticalAlignment.Fill
         horizontalAlignment: HorizontalAlignment.Fill
         implicitLayoutAnimationsEnabled: false
-        background: Color.create(181,255,212,1)
+        background: Color.Yellow
         
         ImageEditor {
             id: imageEditor

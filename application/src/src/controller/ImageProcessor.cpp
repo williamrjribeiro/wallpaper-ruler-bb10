@@ -30,7 +30,7 @@ ImageProcessor::~ImageProcessor()
 
 bb::ImageData ImageProcessor::start()
 {
-	qDebug() << "[ImageProcessor::start] m_imagePath: " << m_imagePath;
+	//qDebug() << "[ImageProcessor::start] m_imagePath: " << m_imagePath;
 
 	QImage image, swappedImage;
 	bb::ImageData imageData;
@@ -39,7 +39,7 @@ bb::ImageData ImageProcessor::start()
 		QImageReader reader(m_imagePath);
 		image = reader.read();
 
-		qDebug() << "[ImageProcessor::start] image.width: " << image.width() << ", bytes: " << image.numBytes();
+		//qDebug() << "[ImageProcessor::start] image.width: " << image.width() << ", bytes: " << image.numBytes();
 
 		if(image.width() > 0){
 			swappedImage = image.scaled(400, 400, Qt::KeepAspectRatioByExpanding).scaled(200, 200, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).rgbSwapped();

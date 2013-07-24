@@ -76,7 +76,7 @@ Container {
                 console.log("[InlineImageBrowser.mfeSheet.onClosed]");
                 mfeContent.imageEditor.resetEdits();
                 
-                _imageGridDataProvider.loadMoreImages();
+                //_imageGridDataProvider.loadMoreImages();
             }
         }    
     ]
