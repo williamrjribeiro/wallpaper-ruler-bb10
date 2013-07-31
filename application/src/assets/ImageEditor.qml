@@ -11,6 +11,7 @@ Container {
     verticalAlignment: VerticalAlignment.Fill
     horizontalAlignment: HorizontalAlignment.Fill
     implicitLayoutAnimationsEnabled: false
+    signal imageReady()
     function resetEdits(){
         console.log("[ImageEditor.resetEdits]");
         iv_image.scaleX = 1.0;
@@ -23,10 +24,10 @@ Container {
         // it won't be loaded
         iv_image.resetImage();
         imageTracker.imageSource = "";
-        
+    
     }
     function mabs(val){
-    	return (val ^ (val >> 31)) - (val >> 31);
+        return (val ^ (val >> 31)) - (val >> 31);
     }
     function wallpapperFit(){
         var ratio = 1.0;
@@ -39,10 +40,13 @@ Container {
         
         iv_image.scaleX = ratio;
         iv_image.scaleY = ratio;
+        iv_image.wallpaperRatio = ratio;
         
         console.log("[ImageEditor.wallpapperFit] imageTracker.width: " + imageTracker.width
         +", imageTracker.height: " + imageTracker.height
         + ", ratio: " + ratio);
+        
+        imageReady();
     }
     ImageView {
         id: iv_image
@@ -58,6 +62,9 @@ Container {
         
         // The scale of the image when a pinch gesture begins
         property double initialScale: 1.0
+        
+        // The scale of the image when used as the device wallpaper - set on wallpaperFit()
+        property double wallpaperRatio: 0.0
         
         // How fast the image grows/shrinks in response to the pinch gesture
         property double scaleFactor: 1.25
@@ -98,76 +105,129 @@ Container {
                 }
             }
         ]
-        
-        // Drag gesture
-        onTouch: {
-            // Determine the location inside the image that was touched,
-            // relative to the container, and move it accordingly
-            if (pinchHappening) {
-                // A pinch was started by touching the image with a second finger
-                // so interrupt any ongoing drag gesture
-                dragHappening = false
+    } // end of ImageView
+    // Drag gesture
+    onTouch: {
+        // Determine the location inside the image that was touched,
+        // relative to the container, and move it accordingly
+        if (iv_image.pinchHappening) {
+            // A pinch was started by touching the image with a second finger
+            // so interrupt any ongoing drag gesture
+            iv_image.dragHappening = false
+        } else {
+            if (event.isDown()) {
+                // Start a dragging gesture
+                iv_image.dragHappening = true
+                iv_image.initialWindowX = event.windowX
+                iv_image.initialWindowY = event.windowY
+            } else if (iv_image.dragHappening && event.isMove()) {
+                var tx = (event.windowX - iv_image.initialWindowX), ty = (event.windowY - iv_image.initialWindowY);
+                //console.log("[ImageEditor.iv_image.PinchHandler.onTouch.move] tx: " + tx+", ty: "+ty);
+                // Move the image and record its new position ONLY if moved more than 2xdragFactor
+                if(!iv_image.canMoveX){
+                    iv_image.initialWindowX = event.windowX
+                    iv_image.canMoveX = mabs(tx) > iv_image.minimalMovement;
+                }
+                else{
+                    iv_image.translationX += tx * iv_image.dragFactor
+                    iv_image.initialWindowX = event.windowX
+                }
+                
+                if(!iv_image.canMoveY){
+                    iv_image.initialWindowY = event.windowY
+                    iv_image.canMoveY = mabs(ty) > iv_image.minimalMovement;
+                }
+                else{
+                    iv_image.translationY += ty * iv_image.dragFactor
+                    iv_image.initialWindowY = event.windowY
+                }
+                
+                console.log("[ImageEditor.iv_image.PinchHandler.onTouch.move] translationX: " + iv_image.translationX+", translationY: "+iv_image.translationY);
             } else {
-                if (event.isDown()) {
-                    // Start a dragging gesture
-                    dragHappening = true
-                    initialWindowX = event.windowX
-                    initialWindowY = event.windowY
-                } else if (dragHappening && event.isMove()) {
-                    var tx = (event.windowX - initialWindowX), ty = (event.windowY - initialWindowY);
-                    //console.log("[ImageEditor.iv_image.PinchHandler.onTouch] tx: " + tx+", ty: "+ty);
-                    // Move the image and record its new position ONLY if moved more than 2xdragFactor
-                    if(!canMoveX){
-                        initialWindowX = event.windowX
-                    	canMoveX = mabs(tx) > minimalMovement;
+                // Event type is Up or Cancel
+                // Interrupt any ongoing drag gesture
+                iv_image.dragHappening = false;
+                iv_image.canMoveX = false; 
+                iv_image.canMoveY = false;
+                
+                // use 6 digit precision
+                var s = iv_image.scaleX.toFixed(6);
+                
+                console.log("[ImageEditor.iv_image.PinchHandler.onTouch.end] s: " + s+", wallpaperRatio: "+iv_image.wallpaperRatio);
+                
+                // don't let the image be out of position if not zoomed in
+                
+            }
+        }
+    }
+    
+    gestureHandlers: [
+        // Add a handler for pinch gestures
+        PinchHandler {
+            onPinchStarted: {
+                // Save the initial scale and rotation of the image
+                iv_image.initialScale = iv_image.scaleX
+                iv_image.initialRotationZ = iv_image.rotationZ
+                // Prevent a drag gesture from starting during pinch
+                iv_image.pinchHappening = true
+            }
+            onPinchUpdated: {
+                //console.log("[ImageEditor.iv_image.PinchHandler.onPinchUpdated] event.rotation: " + event.rotation+", event.distance: "+event.distance);
+                // Rescale and rotate as the pinch expands/contracts/rotates
+                var s = iv_image.initialScale + ((event.pinchRatio - 1) * iv_image.scaleFactor);
+                iv_image.scaleX = s;
+                iv_image.scaleY = s;
+                iv_image.rotationZ = iv_image.initialRotationZ + ((event.rotation) * iv_image.rotationFactor);
+            }
+            onPinchEnded: {
+                // Allow a drag gesture to begin
+                iv_image.pinchHappening = false;
+                console.log("[ImageEditor.iv_image.PinchHandler.onPinchEnded] scaleX: " + iv_image.scaleX+", scaleY: " + iv_image.scaleY+", rotationZ: "+iv_image.rotationZ);
+                
+                // The user can't scale down the image
+                if(iv_image.scaleX < iv_image.wallpaperRatio){
+                    iv_image.scaleX = iv_image.wallpaperRatio; 
+                }
+                if(iv_image.scaleY < iv_image.wallpaperRatio){
+                    iv_image.scaleY = iv_image.wallpaperRatio; 
+                }
+                
+                // the image is on the minimal scale: rotate every 90o
+                if(iv_image.scaleY == iv_image.wallpaperRatio && iv_image.scaleX == iv_image.wallpaperRatio){
+                    var rz = iv_image.rotationZ;
+                    
+                    // rotating clock-wize
+                    if(rz > -15.0 && rz < 15.0){
+                        iv_image.rotationZ = 0.0;
                     }
-                    else{
-                        translationX += tx * dragFactor
-                        initialWindowX = event.windowX
+                    else if(rz >= 15.0 && rz < 105.0){
+                        iv_image.rotationZ = 90.0;
+                    }
+                    else if(rz >= 105.0 && rz < 195.0){
+                        iv_image.rotationZ = 180.0;
+                    }
+                    else if(rz >= 195.0 && rz < 285.0){
+                        iv_image.rotationZ = 270.0;                    
+                    }
+                    else if(rz >= 285.0 && rz < 360.0){
+                        iv_image.rotationZ = 360.0;                    
                     }
                     
-                    if(!canMoveY){
-                    	initialWindowY = event.windowY
-                    	canMoveY = mabs(ty) > minimalMovement;
+                    // rotating COUNTER clock-wize
+                    if(rz <= -15.0 && rz > -105.0){
+                        iv_image.rotationZ = -90.0;
                     }
-                    else{
-                    	translationY += ty * dragFactor
-                    	initialWindowY = event.windowY
+                    else if(rz <= -105.0 && rz > -195.0){
+                        iv_image.rotationZ = -180.0;
                     }
-                } else {
-                    // Event type is Up or Cancel
-                    // Interrupt any ongoing drag gesture
-                    dragHappening = false
-                    canMoveX = false 
-                    canMoveY = false
+                    else if(rz <= -195.0 && rz > -285.0){
+                        iv_image.rotationZ = -270.0;                    
+                    }
+                    else if(rz <= -285.0 && rz > -360.0){
+                        iv_image.rotationZ = -360.0;                    
+                    }
                 }
             }
         }
-        
-        gestureHandlers: [
-            // Add a handler for pinch gestures
-            PinchHandler {
-                onPinchStarted: {
-                    // Save the initial scale and rotation of the image
-                    iv_image.initialScale = iv_image.scaleX
-                    iv_image.initialRotationZ = iv_image.rotationZ
-                    // Prevent a drag gesture from starting during pinch
-                    iv_image.pinchHappening = true
-                }
-                onPinchUpdated: {
-                    //console.log("[ImageEditor.iv_image.PinchHandler.onPinchUpdated] event.rotation: " + event.rotation+", event.distance: "+event.distance);
-                    // Rescale and rotate as the pinch expands/contracts/rotates
-                    var s = iv_image.initialScale + ((event.pinchRatio - 1) * iv_image.scaleFactor);
-                    iv_image.scaleX = s;
-                    iv_image.scaleY = s;
-                    iv_image.rotationZ = iv_image.initialRotationZ + ((event.rotation) * iv_image.rotationFactor);
-                }
-                onPinchEnded: {
-                    // Allow a drag gesture to begin
-                    iv_image.pinchHappening = false
-                    console.log("[ImageEditor.iv_image.PinchHandler.onPinchEnded] iv_image.scaleX: " + iv_image.scaleX+", iv_image.scaleY: " + iv_image.scaleY);
-                }
-            }
-        ]
-    } // end of ImageView
+    ]
 } // end of Container

@@ -45,7 +45,11 @@ Container {
         onTriggered: {
             console.log("[InlineImageBrowser.imagesList.onTriggered] indexPath: " + indexPath);
             selectedPath = _imageGridDataProvider.getImageURL( indexPath );
-            mfeSheet.open();
+            // step 1: set the image path on the ImageView of the ImageEditor so that it's loaded
+            mfeContent.imageEditor.image.imageSource = selectedPath;
+            
+            // step 2: Open the page once the imageReady signal is emmited. This means the image has finished load and it's scaled.
+            mfeContent.imageEditor.imageReady.connect(mfeSheet.open);
         }
         
         attachedObjects: [
@@ -68,15 +72,11 @@ Container {
             content: MultipleFramesEditor {
                 id: mfeContent
             }
-            onOpened: {
-                console.log("[InlineImageBrowser.mfeSheet.onOpened] selectedPath: " + selectedPath);
-                mfeContent.imageEditor.image.imageSource = selectedPath;
-            }
             onClosed: {
                 console.log("[InlineImageBrowser.mfeSheet.onClosed]");
                 mfeContent.imageEditor.resetEdits();
                 
-                //_imageGridDataProvider.loadMoreImages();
+                _imageGridDataProvider.loadMoreImages();
             }
         }    
     ]
@@ -110,14 +110,6 @@ Container {
     
     function handleMFEFinished() {
         console.log("[InlineImageBrowser.handleMFEFinished] imageCaptured: "+imageCaptured);
-        
         mfeSheet.close();
-        
-        // TODO: remove the code that re-opens the Camera.
-        /*if(imageCaptured){
-            imageCaptured = false;
-            _cameraManager.invokeCamera();
-        }
-        */
     }
 }
