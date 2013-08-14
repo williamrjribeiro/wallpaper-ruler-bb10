@@ -19,8 +19,7 @@ Container {
         iv_image.translationX = 0.0;
         iv_image.translationY = 0.0;
         iv_image.rotationZ = 0.0;
-        step = 0;
-        // Must reset the ImageView and the ImageTracker or else if the user selecs the same file
+        // Must reset the ImageView and the ImageTracker or else if the user selecs the same file again
         // it won't be loaded
         iv_image.resetImage();
         imageTracker.imageSource = "";
@@ -38,7 +37,7 @@ Container {
         
         // Calculate the correct scale based on the loaded image!
         if(imageTracker.width > imageTracker.height)
-            ratio = imageTracker.width / imageTracker.height;
+            ratio = (imageTracker.width / imageTracker.height).toFixed(3);
         
         iv_image.scaleX = ratio;
         iv_image.scaleY = ratio;
@@ -167,25 +166,7 @@ Container {
             }
         }
     }
-    property int step: 1
     gestureHandlers: [
-        TapHandler {
-            onTapped: {
-                /*if(step == 0){
-                    iv_image.scaleX = 0.5;
-                    iv_image.scaleY = 0.5;
-                }
-                else if(step == 1){
-                    iv_image.rotationZ = 45;
-                }
-                else if(step == 2){
-                    iv_image.translationX = - (imageTracker.width * 0.5) / 2;
-                    iv_image.translationY = - (imageTracker.height * 0.5) / 2;
-                }*/
-                iv_image.rotationZ = 45;
-                step++;
-            }
-        },
         // Add a handler for pinch gestures
         PinchHandler {
             onPinchStarted: {

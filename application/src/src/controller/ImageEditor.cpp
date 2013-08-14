@@ -12,6 +12,7 @@
 #include <QtGui/QImageReader>
 
 #include <bb/cascades/Image>
+#include <math.h>
 
 ImageEditor::ImageEditor(QObject *parent)
 	:QObject(parent)
@@ -20,39 +21,6 @@ ImageEditor::ImageEditor(QObject *parent)
 }
 
 ImageEditor::~ImageEditor() {
-}
-
-QString ImageEditor::processImage(const QString &qurl, const double scale, const double translationX, const double translationY, const double rotation){
-	QString imagePath = qurl;
-	imagePath.replace("file://","",Qt::CaseInsensitive);
-	QImageReader reader(imagePath);
-	QImage image = reader.read();
-	qDebug() << "[ImageEditor::processImage] scale: " << scale << ", translationX: " << translationX << ", translationY: " << translationY << ", rotation: " << rotation;
-	double factor = 1.0;
-	if(image.width() > image.height())
-	{
-		factor = 720.0/image.width();
-	}else
-	{
-		factor = 720.0/image.height();
-	}
-	QTransform transform;
-	//transform.translate(translationX,translationY);
-	transform.scale(factor*scale,factor*scale);
-	transform.rotate(rotation);
-	QImage tranformedImage = image.transformed(transform,Qt::SmoothTransformation);
-	QImage croppedImage = tranformedImage.copy( 0 - translationX, 0 - translationY, 720, 720);
-	QString workingDir = QDir::currentPath();
-	bool t;
-	QString imageName = decideImageName();
-	t = croppedImage.save(workingDir + "/shared/photos/wappy/wappy-" + imageName + ".jpg","JPG");
-	qDebug() << t;
-	if(t==true){
-		return workingDir + "/shared/photos/wappy/wappy-" + imageName + ".jpg";
-	}
-	else{
-		return "";
-	}
 }
 
 QImage ImageEditor::readImage(const QString &qurl){
@@ -69,58 +37,48 @@ QString ImageEditor::processImage(const QString &qurl, const double scale, const
 				<<", screenWidth: "<<screenWidth<<", screenHeight: "<<screenHeight;
 
 	QString workingDir = QDir::currentPath();
-
-	// Load the original image
+	QString imageName = decideImageName();
 	QImage original = this->readImage(qurl);
-
-	qDebug() << "[ImageEditor::processImage] original.width: "<<original.width();
-
-	// scale it to the device height
+	// scale it to the device height (shrink or grow) maintaining the aspect ratio of the image
 	original = original.scaledToHeight(screenHeight,Qt::SmoothTransformation);
 
-	qDebug() << "[ImageEditor::processImage] scaledToHeight.width: "<<original.width();
+	QRect rect = QRect(0,0,original.width(),original.height());
 
-	//double factor = original.width() > original.height() ? screenHeight / original.width() : screenHeight / original.height();
+	qDebug() << "[ImageEditor::processImage] scaledToHeight.width: "<<original.width();
 
 	// create a new image with the size of the screen so we can draw on it
 	QImage created (QSize(screenWidth,screenHeight), QImage::Format_RGB32);
 
 	// calculate the vertical middle of the image
-	double sx = ( (original.width() - screenWidth) * 0.5 ) - translationX;
-	// xc and yc are the center of the widget's rect.
-	int xc = screenWidth * 0.5;
-	int yc = screenHeight * 0.5;
+	const double sx = ( (original.width() - screenWidth) * 0.5 ) - translationX;
+	const double hiw = original.width() * 0.5;
+	const double hih = original.height() * 0.5;
+	double ratio = scale;
 
-	qDebug() << "[ImageEditor::processImage] sx: " << sx;
+	qDebug() << "[ImageEditor::processImage] sx: " << sx << ", hiw: " << hiw<< ", hih: " << hih;
+	if( hiw != hih){
+		const double oar = hiw / hih;					// original aspect ratio
+		ratio = scale / oar;
+		qDebug() << "[ImageEditor::processImage] oar: " << QString::number( oar, 'd', 3 )<< ", ratio: " << QString::number( ratio, 'd', 3 );
+	}
 
-	QTransform trans;
-	trans.translate(xc,yc);
-	trans.translate(-sx,translationY);
-	//trans.scale(scale, scale);
-	trans.rotate(rotation);
-	trans.translate(-xc,-yc);
-
-	original = original.transformed(trans);
-
-	// create a painter so we can draw on the image
+	// Create Painter so we can draw the original image on the created one
 	QPainter painter(&created);
+
 	QTransform ptrans;
 	ptrans.translate(-sx,translationY);
-	painter.setTransform(ptrans);
-	if(rotation != 0)
-		painter.drawImage(0,0,original,sx,sx); // works with rotation but no translations
-	else
-		painter.drawImage(0,0,original,0,0);
+	ptrans.translate(hiw,hih);
+	ptrans.scale(ratio,ratio);
+	ptrans.rotate(rotation);
+	ptrans.translate(-hiw,-hih);
 
-	// Draw the center cross of the Painter
-	painter.setPen(Qt::red);
-	painter.drawLine(xc+sx, -translationY, xc+sx, screenHeight-translationY);
-	painter.drawLine(sx, yc-translationY, screenWidth+sx, yc-translationY);
+	painter.setTransform(ptrans);
+	painter.drawImage(rect,original);
 
 	// save the modified/painted image to the device
-	QString imageName = decideImageName();
 	created.save(workingDir + "/shared/photos/wappy/wappy-" + imageName+".jpg","JPG");
 
+	// return the path of the saved file so we can set it as wallpaper
 	return workingDir + "/shared/photos/wappy/wappy-" + imageName+".jpg";
 }
 
@@ -134,8 +92,9 @@ QString ImageEditor::decideImageName(){
 	QString workingDir = QDir::currentPath();
 	QStringList filters;
 	filters << "*.jpeg" << "*.png" << "*.jpg";
+
 	QDir dir(workingDir + "/shared/photos/wappy/");
-	bool exist = dir.mkdir(workingDir + "/shared/photos/wappy/");
+	dir.mkdir(workingDir + "/shared/photos/wappy/");
 	dir.setFilter(QDir::Files | QDir::Dirs | QDir::NoDot | QDir::NoDotDot);
 	dir.setNameFilters(filters);
 

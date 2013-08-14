@@ -22,12 +22,6 @@ public:
 	virtual ~ImageEditor();
 
 	Q_INVOKABLE QString processImage(const QString &qurl,
-									 const double scale,
-									 const double translationX,
-									 const double translationY,
-									 const double rotation);
-
-	Q_INVOKABLE QString processImage(const QString &qurl,
 										 const double scale,
 										 const double translationX,
 										 const double translationY,
