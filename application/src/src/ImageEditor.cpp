@@ -86,27 +86,33 @@ QString ImageEditor::processImage(const QString &qurl, const double scale, const
 	QImage created (QSize(screenWidth,screenHeight), QImage::Format_RGB32);
 
 	// calculate the vertical middle of the image
-	const double sx = ( (original.width() - screenWidth) * 0.5 ) - translationX;
+	double sx = ( (original.width() - screenWidth) * 0.5 ) - translationX;
 	// xc and yc are the center of the widget's rect.
-	const int xc = screenWidth * 0.5;
-	const int yc = screenHeight * 0.5;
+	int xc = screenWidth * 0.5;
+	int yc = screenHeight * 0.5;
 
 	qDebug() << "[ImageEditor::processImage] sx: " << sx;
 
 	QTransform trans;
-	trans.translate(-sx,translationY);
 	trans.translate(xc,yc);
-	//trans.scale(factor, factor);
-	//trans.rotate(rotation);
+	trans.translate(-sx,translationY);
+	//trans.scale(scale, scale);
+	trans.rotate(rotation);
 	trans.translate(-xc,-yc);
+
+	original = original.transformed(trans);
 
 	// create a painter so we can draw on the image
 	QPainter painter(&created);
+	QTransform ptrans;
+	ptrans.translate(-sx,translationY);
+	painter.setTransform(ptrans);
+	if(rotation != 0)
+		painter.drawImage(0,0,original,sx,sx); // works with rotation but no translations
+	else
+		painter.drawImage(0,0,original,0,0);
 
-	painter.setTransform(trans);
-	painter.drawImage(0,0,original,0,0, sx+screenWidth, screenHeight-translationY);
-
-	// Draw the center circle!
+	// Draw the center cross of the Painter
 	painter.setPen(Qt::red);
 	painter.drawLine(xc+sx, -translationY, xc+sx, screenHeight-translationY);
 	painter.drawLine(sx, yc-translationY, screenWidth+sx, yc-translationY);

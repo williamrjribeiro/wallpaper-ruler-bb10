@@ -113,6 +113,7 @@ Container {
                 }
             }
         ]
+        implicitLayoutAnimationsEnabled: false
     } // end of ImageView
     // Drag gesture
     onTouch: {
