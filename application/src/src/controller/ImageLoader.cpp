@@ -71,7 +71,8 @@ void ImageLoader::load()
 	Q_UNUSED(connectResult);
 
 	// Invoke our onProcessingFinished slot after the processing has finished.
-	connectResult = connect(&m_watcher, SIGNAL(finished()), this, SLOT(onImageProcessingFinished()));
+	// http://qt-project.org/doc/qt-4.8/qt.html#ConnectionType-enum
+	connectResult = connect(&m_watcher, SIGNAL(finished()), this, SLOT(onImageProcessingFinished()), Qt::QueuedConnection);
 
 	// This affects only Debug builds.
 	Q_ASSERT(connectResult);

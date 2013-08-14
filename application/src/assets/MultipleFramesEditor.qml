@@ -10,14 +10,13 @@ Page {
     resizeBehavior: PageResizeBehavior.None
     signal finishedEditting()
     property alias imageEditor: imageEditor
-    property alias tutorial: iv_tutorialFrame
+    property alias tutorial: controlDelegate.sourceComponent
     onCreationCompleted: {
         console.log("[MultipleFramesEditor.mfeRootPage.onCreationCompleted]");
         
         // show or not the Long Press tutorial image
         if(_appSettings.showTutorial){
-            iv_tutorialFrame.visible = true;
-            iv_tutorialFrame.opacity = 1.0;
+            controlDelegate.delegateActive = true;
         }
         
         // These objects are managed by the ToggleButtonManager. The assets must be specified.
@@ -75,7 +74,14 @@ Page {
         return result;
     }
     function saveImage(){
-        var savedImage = _imageEditor.processImage(imageEditor.myImageElement.imageSource, imageEditor.myImageElement.scaleX, imageEditor.myImageElement.translationX, imageEditor.myImageElement.translationY,imageEditor.myImageElement.rotationZ);
+        //var savedImage = _imageEditor.processImage(imageEditor.myImageElement.imageSource, imageEditor.myImageElement.scaleX, imageEditor.myImageElement.translationX, imageEditor.myImageElement.translationY,imageEditor.myImageElement.rotationZ);
+        var savedImage = _imageEditor.processImage( imageEditor.myImageElement.imageSource
+            										,imageEditor.myImageElement.scaleX
+            										,imageEditor.myImageElement.translationX
+            										,imageEditor.myImageElement.translationY
+            										,imageEditor.myImageElement.rotationZ
+            										,_screenSize.width
+                                                    ,_screenSize.height);
         if (savedImage == ""){
             console.log("[MultipleFramesEditor.saveImage] ERROR SAVING IMAGE!");
         }
@@ -87,6 +93,7 @@ Page {
         horizontalAlignment: HorizontalAlignment.Fill
         implicitLayoutAnimationsEnabled: false
         background: Color.Yellow
+        focusPolicy: FocusPolicy.KeyAndTouch
         
         ImageEditor {
             id: imageEditor
@@ -120,35 +127,11 @@ Page {
             imageSource: "asset:///frames/fr_locked.png"
         }
         
-        ImageView {
-            id: iv_tutorialFrame
-            scalingMethod: ScalingMethod.None
-            loadEffect: ImageViewLoadEffect.None
-            visible: false
-            opacity: 0.0
-            imageSource: "asset:///frames/fr_long_press.png"
-            onTouch: {
-                console.log("[MultipleFramesEditor.iv_tutorialFrame.onTouch] event.isUp: " + event.isUp());
-                if(event.isUp()){
-                    trans_fadeOut.play();
-                }
-            }
-            animations: [
-                FadeTransition {
-                    id: trans_fadeOut
-                    fromOpacity: 1.0
-                    toOpacity: 0.0
-                    onEnded: {
-                        // the tutorial image will remain invisible even after the user leaves the MFE.
-                        iv_tutorialFrame.visible = false;
-                        
-                        // Don't show the tutorial image anymore
-                        _appSettings.showTutorial = false;
-                    }
-                }
-            ]
+        ControlDelegate {
+            id: controlDelegate
+            delegateActive: false;
+            sourceComponent: cd_tutorialImage
         }
-        focusPolicy: FocusPolicy.KeyAndTouch
         
         contextActions: [
             ActionSet {
@@ -159,9 +142,7 @@ Page {
                     objectName: "homeFrameToggle"
                     title: qsTr("Home Screen")
                     imageSource: "asset:///icons/ic_home_screen.png"
-                    onTriggered: {
-                        showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
-                    }
+                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
                     shortcuts: [
                         Shortcut {
                             key: "h"
@@ -173,9 +154,7 @@ Page {
                     objectName: "lockedFrameToggle"
                     title: qsTr("Locked Screen")
                     imageSource: "asset:///icons/ic_locked.png"
-                    onTriggered: {
-                        showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_locked.png");
-                    }
+                    onTriggered:  showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_locked.png");
                     shortcuts: [
                         Shortcut {
                             key: "l"
@@ -187,9 +166,7 @@ Page {
                     objectName: "activeFrameToggle"
                     title: qsTr("Active Frame")
                     imageSource: "asset:///icons/ic_active_screen.png"
-                    onTriggered: {
-                        showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_active.png");
-                    }
+                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_active.png")
                     shortcuts: [
                         Shortcut {
                             key: "a"
@@ -201,10 +178,7 @@ Page {
                     title: qsTr("Set as Wallpaper!")
                     ActionBar.placement: ActionBarPlacement.InOverflow
                     imageSource: "asset:///icons/ic_save_as.png"
-                    onTriggered: {
-                        console.log("[MultipleFramesEditor.ai_setAsWallpaper.onTriggered]");
-                        setAsDeviceWallpaper( saveImage() );
-                    }
+                    onTriggered: setAsDeviceWallpaper( saveImage() )
                     shortcuts: [
                         Shortcut {
                             key: "w"
@@ -216,10 +190,7 @@ Page {
 				    title: qsTr("Save")
 				    ActionBar.placement: ActionBarPlacement.InOverflow
 				    imageSource: "asset:///icons/ic_save.png"
-				    onTriggered: {
-				        console.log("[MultipleFramesEditor.ai_saveImage.onTriggered]");
-                        saveImage();
-				    }
+				    onTriggered: saveImage()
                     shortcuts: [
                         Shortcut {
                             key: "s"
@@ -232,10 +203,7 @@ Page {
                     ActionBar.placement: ActionBarPlacement.InOverflow
                     imageSource: "asset:///icons/ic_cancel.png"
                     // When this action is selected, close the sheet
-                    onTriggered: {
-                        console.log("[MultipleFramesEditor.ai_cancel.onTriggered]");
-                        cancelDialog.show();
-                    }
+                    onTriggered: cancelDialog.show()
                     shortcuts: [
                         Shortcut {
                             key: "c"
@@ -246,24 +214,69 @@ Page {
             } // end of ActionSet
         ]// end of contextActions list
         
+        contextMenuHandler: ContextMenuHandler {
+            id: cmh_handler
+            // Abort the showing of the context menu if the user is interacting with the Image
+            onPopulating: if (imageEditor.myImageElement.pinchHappening) event.abort(); else event;
+            onVisualStateChanged: {
+                // Don't allow dragging or pinching if Context Menu is shown
+                if (ContextMenuVisualState.VisibleCompact == cmh_handler.visualState) {
+                    imageEditor.myImageElement.pinchHappening = true;
+                }
+                else if (ContextMenuVisualState.Hidden == cmh_handler.visualState) {
+                    imageEditor.myImageElement.pinchHappening = false;
+                }
+            }
+        }
+        
         attachedObjects: [
             SystemDialog {
                 id: cancelDialog
                 title: "Friendly Warning"
                 body: qsTr("You're about to lose all your changes. Continue?")
-                onFinished: {
-                    if (cancelDialog.result == SystemUiResult.ConfirmButtonSelection){
-                        finishedEditting();
-                    }                        
-                }
+                onFinished: if (cancelDialog.result == SystemUiResult.ConfirmButtonSelection) finishedEditting(); else cancelDialog;
             },
             HomeScreen {
                 id: myHomeScreen
+            },
+            ComponentDefinition {
+                id: cd_tutorialImage
+                ImageView {
+                    id: iv_tutorialFrame
+                    scalingMethod: ScalingMethod.None
+                    loadEffect: ImageViewLoadEffect.None
+                    visible: true
+                    opacity: 1.0
+                    imageSource: "asset:///frames/fr_long_press.png"
+                    gestureHandlers: [
+                        TapHandler {
+                            onTapped: {
+                                console.log("[MultipleFramesEditor.iv_tutorialFrame.onTapped]");
+                                trans_fadeOut.play();
+                            }
+                        }
+                    ]
+                    animations: [
+                        FadeTransition {
+                            id: trans_fadeOut
+                            fromOpacity: 1.0
+                            toOpacity: 0.0
+                            onEnded: {
+                                // the tutorial image will remain invisible even after the user leaves the MFE.
+                                iv_tutorialFrame.visible = false;
+                                
+                                // Don't show the tutorial image anymore
+                                _appSettings.showTutorial = false;
+                                
+                                // remove this instance
+                                controlDelegate.delegateActive = false;
+                            }
+                        }
+                    ]
+                }
             }
         ]
-        layout: DockLayout {
-
-        }
+        layout: DockLayout { }
 
     }
     shortcuts: [

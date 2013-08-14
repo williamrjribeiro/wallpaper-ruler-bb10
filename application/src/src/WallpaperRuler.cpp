@@ -10,7 +10,7 @@ using namespace bb::cascades;
 WallpaperRuler::WallpaperRuler(QTranslator *translator, QObject *parent)
 	: QObject(parent)
 	, appSettings(new AppSettings(this))
-	, appLocalization(new AppLocalization(translator, this))
+	//, appLocalization(new AppLocalization(translator, this))
 	, imageEditor(new ImageEditor(this))
 	, imageGridDataProvider(new ImageGridDataProvider(this))
 	, cameraManager(new CameraManager(this->imageGridDataProvider,this))
@@ -25,7 +25,7 @@ WallpaperRuler::WallpaperRuler(QTranslator *translator, QObject *parent)
 
 	// create the AppLocalization instance
 	//this->appLocalization = new AppLocalization(translator, this);
-	this->appLocalization->loadTranslator(appLang);
+	//this->appLocalization->loadTranslator(appLang);
 
 	// This signal is fired when the application is minimized (active frame)
 	bool ok = connect( Application::instance(), SIGNAL(thumbnail()), this, SLOT(onActiveFrame()));

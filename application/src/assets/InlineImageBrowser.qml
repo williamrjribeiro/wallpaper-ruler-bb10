@@ -88,8 +88,6 @@ Container {
         
         console.log("[InlineImageBrowser.onCreationCompleted]");
         
-        //_imageGridDataProvider.loadMoreImages();
-        
         // this signal is dispatched when the user taps on Finished/Cancel.
         // It must go back to this screen
         mfeContent.finishedEditting.connect( handleMFEFinished );

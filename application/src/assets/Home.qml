@@ -24,13 +24,15 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
             imageSource: "asset:///icons/ic_camera.png"
             onTriggered: {
-                // Switch to another tab from a TabbedPane
-                //rootTabbedPane.activeTab = rootTabbedPane.at(1);
-
                 if( _cameraManager.invokeCamera() == false){
                     console.log("[ERROR] Could not invoke the device Camera!");
                 }
             }
+        },
+        ActionItem {
+            title: qsTr("Ponyo")
+            ActionBar.placement: ActionBarPlacement.InOverflow
+            imageSource: "asset:///icons/ic_camera.png"
         }
     ]
 }

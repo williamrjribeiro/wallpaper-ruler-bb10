@@ -10,6 +10,8 @@
 
 #include <QObject>
 #include <QString>
+#include <QtGui/QImage>
+#include <QtGui/QTransform>
 
 class ImageEditor: public QObject {
 
@@ -19,9 +21,25 @@ public:
 	ImageEditor(QObject *parent = 0);
 	virtual ~ImageEditor();
 
-	Q_INVOKABLE QString processImage(const QString &qurl, const double scale, const double translationX, const double translationY, const double rotation);
+	Q_INVOKABLE QString processImage(const QString &qurl,
+									 const double scale,
+									 const double translationX,
+									 const double translationY,
+									 const double rotation);
+
+	Q_INVOKABLE QString processImage(const QString &qurl,
+										 const double scale,
+										 const double translationX,
+										 const double translationY,
+										 const double rotation,
+										 const int screenWidth,
+										 const int screenHeight);
 
 	QString decideImageName();
+
+private:
+	QImage readImage(const QString &qurl);
+	QImage applyTransformAndSave(const QImage &image, const QTransform &trans,const QString &name);
 };
 
 #endif /* IMAGEEDITOR_H_ */

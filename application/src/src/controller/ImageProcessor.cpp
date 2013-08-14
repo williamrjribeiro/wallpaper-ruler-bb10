@@ -41,16 +41,21 @@ bb::ImageData ImageProcessor::start()
 
 		//qDebug() << "[ImageProcessor::start] image.width: " << image.width() << ", bytes: " << image.numBytes();
 
-		if(image.width() > 0){
+		// Only scale images that are bigger than 400px wide
+		if(image.width() > 400){
 			swappedImage = image.scaled(400, 400, Qt::KeepAspectRatioByExpanding).scaled(200, 200, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).rgbSwapped();
 			//swappedImage = halfSized(image).rgbSwapped();
 			//swappedImage = image.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation).rgbSwapped();
-			imageData = bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
 		}
-		else {
+		else if (image.width() == 0 ){
 			qWarning() << "[ImageProcessor::start] could not load image file path!!! errorString: " << reader.errorString();
 			return imageData;
 		}
+		else {
+			swappedImage = image.rgbSwapped();
+		}
+
+		imageData = bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
 	}
 	return imageData;
 }

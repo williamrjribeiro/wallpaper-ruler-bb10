@@ -9,6 +9,9 @@
 
 #include <Qt/qdeclarativedebug.h>
 
+ #define QT_USE_FAST_CONCATENATION
+ #define QT_USE_FAST_OPERATOR_PLUS
+
 Q_DECL_EXPORT int main(int argc, char **argv)
 {
     // this is where the server is started etc
@@ -39,8 +42,8 @@ Q_DECL_EXPORT int main(int argc, char **argv)
 	// Make the AppSettings instance available to QML as _appSettings
 	qml->setContextProperty("_appSettings", wpr->getAppSettings());
 
-	// Make the AppSettings instance available to QML as _appLocalization
-	qml->setContextProperty("_appLocalization", wpr->getAppLocalization());
+	// Make the AppLocalization instance available to QML as _appLocalization
+	//qml->setContextProperty("_appLocalization", wpr->getAppLocalization());
 
 	// Make the CameraManager instance available to QML as _cameraManager
 	qml->setContextProperty("_cameraManager", wpr->getCameraManager());

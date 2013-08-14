@@ -9,7 +9,6 @@
 #include <QByteArray>
 #include <QDebug>
 
-#include <QtGui/QImage>
 #include <QtGui/QImageReader>
 
 #include <bb/cascades/Image>
@@ -54,6 +53,75 @@ QString ImageEditor::processImage(const QString &qurl, const double scale, const
 	else{
 		return "";
 	}
+}
+
+QImage ImageEditor::readImage(const QString &qurl){
+	qDebug() << "[ImageEditor::readImage] qurl: " << qurl;
+	QString imagePath = qurl;
+	imagePath.replace("file://","",Qt::CaseInsensitive);
+	QImageReader reader(imagePath);
+	return reader.read();
+}
+
+QString ImageEditor::processImage(const QString &qurl, const double scale, const double translationX, const double translationY, const double rotation,
+		 const int screenWidth, const int screenHeight){
+	qDebug() << "[ImageEditor::processImage] scale: "<<scale<<", translationX: "<<translationX<<", translationY: "<<translationY<<", rotation: "<<rotation
+				<<", screenWidth: "<<screenWidth<<", screenHeight: "<<screenHeight;
+
+	QString workingDir = QDir::currentPath();
+
+	// Load the original image
+	QImage original = this->readImage(qurl);
+
+	qDebug() << "[ImageEditor::processImage] original.width: "<<original.width();
+
+	// scale it to the device height
+	original = original.scaledToHeight(screenHeight,Qt::SmoothTransformation);
+
+	qDebug() << "[ImageEditor::processImage] scaledToHeight.width: "<<original.width();
+
+	//double factor = original.width() > original.height() ? screenHeight / original.width() : screenHeight / original.height();
+
+	// create a new image with the size of the screen so we can draw on it
+	QImage created (QSize(screenWidth,screenHeight), QImage::Format_RGB32);
+
+	// calculate the vertical middle of the image
+	const double sx = ( (original.width() - screenWidth) * 0.5 ) - translationX;
+	// xc and yc are the center of the widget's rect.
+	const int xc = screenWidth * 0.5;
+	const int yc = screenHeight * 0.5;
+
+	qDebug() << "[ImageEditor::processImage] sx: " << sx;
+
+	QTransform trans;
+	trans.translate(-sx,translationY);
+	trans.translate(xc,yc);
+	//trans.scale(factor, factor);
+	//trans.rotate(rotation);
+	trans.translate(-xc,-yc);
+
+	// create a painter so we can draw on the image
+	QPainter painter(&created);
+
+	painter.setTransform(trans);
+	painter.drawImage(0,0,original,0,0, sx+screenWidth, screenHeight-translationY);
+
+	// Draw the center circle!
+	painter.setPen(Qt::red);
+	painter.drawLine(xc+sx, -translationY, xc+sx, screenHeight-translationY);
+	painter.drawLine(sx, yc-translationY, screenWidth+sx, yc-translationY);
+
+	// save the modified/painted image to the device
+	QString imageName = decideImageName();
+	created.save(workingDir + "/shared/photos/wappy/wappy-" + imageName+".jpg","JPG");
+
+	return workingDir + "/shared/photos/wappy/wappy-" + imageName+".jpg";
+}
+
+QImage ImageEditor::applyTransformAndSave(const QImage &image, const QTransform &trans,const QString &name){
+	QImage transformed = image.transformed(trans,Qt::SmoothTransformation);
+	transformed.save( QDir::currentPath() + "/shared/photos/wappy/wappy-"+name+".jpg","JPG");
+	return transformed;
 }
 
 QString ImageEditor::decideImageName(){
