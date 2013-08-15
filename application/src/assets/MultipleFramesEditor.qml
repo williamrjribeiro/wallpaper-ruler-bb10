@@ -10,13 +10,13 @@ Page {
     resizeBehavior: PageResizeBehavior.None
     signal finishedEditting()
     property alias imageEditor: imageEditor
-    property alias tutorial: controlDelegate.sourceComponent
+    property alias tutorial: cdl_tutorialFrame.sourceComponent
     onCreationCompleted: {
         console.log("[MultipleFramesEditor.mfeRootPage.onCreationCompleted]");
         
         // show or not the Long Press tutorial image
         if(_appSettings.showTutorial){
-            controlDelegate.delegateActive = true;
+            cdl_tutorialFrame.delegateActive = true;
         }
         
         // These objects are managed by the ToggleButtonManager. The assets must be specified.
@@ -24,20 +24,20 @@ Page {
           {
               'actionItem' : ai_homeFrame,
               'toggled' : false,
-              'toggledAsset' : "asset:///icons/ic_home_screen_a.png",
-              'untoggledAsset' : "asset:///icons/ic_home_screen.png"
+              'toggledAsset' : "icons/ic_home_screen_a.png",
+              'untoggledAsset' : "icons/ic_home_screen.png"
           },
           {
               'actionItem' : ai_lockedFrame,
               'toggled' : false,
-              'toggledAsset' : "asset:///icons/ic_locked.png",
-              'untoggledAsset' : "asset:///icons/ic_unlocked.png"
+              'toggledAsset' : "icons/ic_locked.png",
+              'untoggledAsset' : "icons/ic_unlocked.png"
           },
           {
               'actionItem' : ai_activeFrame,
               'toggled' : false,
-              'toggledAsset' : "asset:///icons/ic_active_screen_a.png",
-              'untoggledAsset' : "asset:///icons/ic_active_screen.png"
+              'toggledAsset' : "icons/ic_active_screen_a.png",
+              'untoggledAsset' : "icons/ic_active_screen.png"
           }  
         ];
         
@@ -46,17 +46,17 @@ Page {
     function showFrame(show,filePath){
         console.log("[CustomCamera.showFrame] show: "+show+", filePath: "+filePath);
         switch(filePath){
-            case "asset:///frames/fr_home.png":
+            case "frames/fr_home.png":
                 iv_homeFrame.opacity = show ? 1.0 : 0.0;
                 iv_activeFrame.opacity = 0.0;
                 iv_lockedFrame.opacity = 0.0;
                 break;
-            case "asset:///frames/fr_active.png":
+            case "frames/fr_active.png":
                 iv_homeFrame.opacity = 0.0;
                 iv_activeFrame.opacity = show ? 1.0 : 0.0;
                 iv_lockedFrame.opacity = 0.0;
                 break;
-            case "asset:///frames/fr_locked.png":
+            case "frames/fr_locked.png":
                 iv_homeFrame.opacity = 0.0;
                 iv_activeFrame.opacity = 0.0;
                 iv_lockedFrame.opacity = show ? 1.0 : 0.0;
@@ -106,7 +106,7 @@ Page {
             scalingMethod: ScalingMethod.None
             touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
             loadEffect: ImageViewLoadEffect.None
-            imageSource: "asset:///frames/fr_home.png"
+            imageSource: "frames/fr_home.png"
         }
         
         ImageView {
@@ -115,7 +115,7 @@ Page {
             scalingMethod: ScalingMethod.None
             touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
             loadEffect: ImageViewLoadEffect.None
-            imageSource: "asset:///frames/fr_active.png"
+            imageSource: "frames/fr_active.png"
         }
         
         ImageView {
@@ -124,13 +124,13 @@ Page {
             scalingMethod: ScalingMethod.None
             touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
             loadEffect: ImageViewLoadEffect.None
-            imageSource: "asset:///frames/fr_locked.png"
+            imageSource: "frames/fr_locked.png"
         }
         
         ControlDelegate {
-            id: controlDelegate
+            id: cdl_tutorialFrame
             delegateActive: false;
-            sourceComponent: cd_tutorialImage
+            sourceComponent: cdf_tutorialImage
         }
         
         contextActions: [
@@ -141,8 +141,8 @@ Page {
                     id: ai_homeFrame
                     objectName: "homeFrameToggle"
                     title: qsTr("Home Screen")
-                    imageSource: "asset:///icons/ic_home_screen.png"
-                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
+                    imageSource: "icons/ic_home_screen.png"
+                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"frames/fr_home.png");
                     shortcuts: [
                         Shortcut {
                             key: "h"
@@ -153,8 +153,8 @@ Page {
                     id: ai_lockedFrame
                     objectName: "lockedFrameToggle"
                     title: qsTr("Locked Screen")
-                    imageSource: "asset:///icons/ic_locked.png"
-                    onTriggered:  showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_locked.png");
+                    imageSource: "icons/ic_locked.png"
+                    onTriggered:  showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"frames/fr_locked.png");
                     shortcuts: [
                         Shortcut {
                             key: "l"
@@ -165,8 +165,8 @@ Page {
                     id: ai_activeFrame
                     objectName: "activeFrameToggle"
                     title: qsTr("Active Frame")
-                    imageSource: "asset:///icons/ic_active_screen.png"
-                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_active.png")
+                    imageSource: "icons/ic_active_screen.png"
+                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"frames/fr_active.png")
                     shortcuts: [
                         Shortcut {
                             key: "a"
@@ -177,7 +177,7 @@ Page {
                     id: ai_setAsWallpaper
                     title: qsTr("Set as Wallpaper!")
                     ActionBar.placement: ActionBarPlacement.InOverflow
-                    imageSource: "asset:///icons/ic_save_as.png"
+                    imageSource: "icons/ic_save_as.png"
                     onTriggered: setAsDeviceWallpaper( saveImage() )
                     shortcuts: [
                         Shortcut {
@@ -189,7 +189,7 @@ Page {
 				    id: ai_saveImage
 				    title: qsTr("Save")
 				    ActionBar.placement: ActionBarPlacement.InOverflow
-				    imageSource: "asset:///icons/ic_save.png"
+				    imageSource: "icons/ic_save.png"
 				    onTriggered: saveImage()
                     shortcuts: [
                         Shortcut {
@@ -201,7 +201,7 @@ Page {
                     id: ai_cancel
                     title: qsTr("Cancel")
                     ActionBar.placement: ActionBarPlacement.InOverflow
-                    imageSource: "asset:///icons/ic_cancel.png"
+                    imageSource: "icons/ic_cancel.png"
                     // When this action is selected, close the sheet
                     onTriggered: cancelDialog.show()
                     shortcuts: [
@@ -240,14 +240,14 @@ Page {
                 id: myHomeScreen
             },
             ComponentDefinition {
-                id: cd_tutorialImage
+                id: cdf_tutorialImage
                 ImageView {
                     id: iv_tutorialFrame
                     scalingMethod: ScalingMethod.None
                     loadEffect: ImageViewLoadEffect.None
                     visible: true
                     opacity: 1.0
-                    imageSource: "asset:///frames/fr_long_press.png"
+                    imageSource: "frames/fr_long_press.png"
                     gestureHandlers: [
                         TapHandler {
                             onTapped: {
@@ -269,7 +269,7 @@ Page {
                                 _appSettings.showTutorial = false;
                                 
                                 // remove this instance
-                                controlDelegate.delegateActive = false;
+                                cdl_tutorialFrame.delegateActive = false;
                             }
                         }
                     ]
@@ -290,19 +290,19 @@ Page {
         Shortcut {
             key: "a"
             onTriggered: {
-                showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_active.png");
+                showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"frames/fr_active.png");
             }
         },
         Shortcut {
             key: "l"
             onTriggered: {
-                showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_locked.png");
+                showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"frames/fr_locked.png");
             }
         },
         Shortcut {
             key: "h"
             onTriggered: {
-                showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
+                showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"frames/fr_home.png");
             }
         },
         Shortcut {

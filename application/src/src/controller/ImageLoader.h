@@ -18,6 +18,9 @@
 
 #include <QByteArray>
 #include <bb/cascades/Image>
+#include <bb/ImageData>
+
+#include "ImageProcessor.h"
 
 /*
  * This class retrieves an image from the web, then converts the binary
@@ -68,6 +71,7 @@ private:
 
     // The property values
     bb::cascades::Image m_image;
+    ImageProcessor *m_imageProcessor;
     bool m_loading;
 
     // The URL of the image that should be loaded

@@ -14,9 +14,6 @@
  */
 
 #include "ImageLoader.h"
-#include "ImageProcessor.h"
-
-#include <bb/ImageData>
 
 #include <QUrl>
 #include <QDebug>
@@ -32,8 +29,11 @@
  */
 ImageLoader::ImageLoader(const QString &imageUrl, QObject* parent)
 	: QObject(parent)
+	, m_image(NULL)
+	, m_imageProcessor(NULL)
 	, m_loading(false)
 	, m_imageUrl(imageUrl)
+	, m_watcher(NULL)
 {
 	//qDebug() << "[ImageLoader::ImageLoader] m_imageUrl: " << m_imageUrl;
 }
@@ -41,7 +41,12 @@ ImageLoader::ImageLoader(const QString &imageUrl, QObject* parent)
 /**
  * Destructor
  */
-ImageLoader::~ImageLoader() { }
+ImageLoader::~ImageLoader() {
+	m_watcher.deleteLater();
+	if(m_imageProcessor != NULL){
+		delete m_imageProcessor;
+	}
+}
 
 /**
  * ImageLoader::load()
@@ -58,9 +63,9 @@ void ImageLoader::load()
 	emit loadingChanged();
 
 	// Setup the image processing thread
-	ImageProcessor *imageProcessor = new ImageProcessor(m_imageUrl);
+	this->m_imageProcessor = new ImageProcessor(m_imageUrl,this);
 
-	QFuture<bb::ImageData> future = QtConcurrent::run(imageProcessor, &ImageProcessor::start);
+	QFuture<bb::ImageData> future = QtConcurrent::run(m_imageProcessor, &ImageProcessor::start);
 
 	// If any Q_ASSERT statement(s) indicate that the slot failed to connect to
 	// the signal, make sure you know exactly why this has happened. This is not
@@ -91,6 +96,7 @@ void ImageLoader::onImageProcessingFinished()
 	//qDebug() << "[ImageLoader::onImageProcessingFinished] m_imageUrl: " << m_imageUrl;
 
 	m_image = bb::cascades::Image(m_watcher.future().result());
+
 	emit imageChanged();
 
 	m_loading = false;

@@ -34,11 +34,6 @@
         <source>Camera</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../assets/Home.qml" line="33"/>
-        <source>Ponyo</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MultipleFramesEditor</name>

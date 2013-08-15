@@ -15,6 +15,7 @@
 
 #include "ImageProcessor.h"
 #include <QtGui/QImageReader>
+#include <QtGui/QImage>
 #include <QDebug>
 
 ImageProcessor::ImageProcessor(const QString imagePath, QObject *parent)
@@ -32,8 +33,9 @@ bb::ImageData ImageProcessor::start()
 {
 	//qDebug() << "[ImageProcessor::start] m_imagePath: " << m_imagePath;
 
-	QImage image, swappedImage;
+	// XXX: Fix this when app quits -> ERROR: Context: Object name=" "ImageData" " [objectId= xyz ] not unrealized
 	bb::ImageData imageData;
+	QImage image, swappedImage;
 
 	if(m_imagePath.length() > 0){
 		QImageReader reader(m_imagePath);
@@ -41,52 +43,19 @@ bb::ImageData ImageProcessor::start()
 
 		//qDebug() << "[ImageProcessor::start] image.width: " << image.width() << ", bytes: " << image.numBytes();
 
-		// Only scale images that are bigger than 400px wide
-		if(image.width() > 400){
-			swappedImage = image.scaled(400, 400, Qt::KeepAspectRatioByExpanding).scaled(200, 200, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation).rgbSwapped();
-			//swappedImage = halfSized(image).rgbSwapped();
-			//swappedImage = image.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation).rgbSwapped();
+		// Scale all images really fast to the same square size
+		if(image.width() > 0){
+			swappedImage = image.scaled(512, 512, Qt::KeepAspectRatioByExpanding).scaled(256, 256, Qt::KeepAspectRatioByExpanding).rgbSwapped();
 		}
-		else if (image.width() == 0 ){
+		else {
 			qWarning() << "[ImageProcessor::start] could not load image file path!!! errorString: " << reader.errorString();
 			return imageData;
 		}
-		else {
-			swappedImage = image.rgbSwapped();
-		}
+
+		// Images can have different aspect ratios so we get only a square part of it so that the IIB (grid) looks even
+		swappedImage = swappedImage.copy(QRect(0,0,256,256));
 
 		imageData = bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
 	}
 	return imageData;
-}
-
-// for the explanation of the trick, check out:
-// http://www.virtualdub.org/blog/pivot/entry.php?id=116
-// http://www.compuphase.com/graphic/scale3.htm
-// http://qt.gitorious.org/qt-labs/graphics-dojo/blobs/master/halfscale/halfscale.cpp
-// http://blog.qt.digia.com/blog/2009/01/20/50-scaling-of-argb32-image/
-#define AVG(a,b)  ( ((((a)^(b)) & 0xfefefefeUL) >> 1) + ((a)&(b)) )
-
-QImage ImageProcessor::halfSized(const QImage &source)
-{
-    QImage dest(source.size() * 0.5, QImage::Format_ARGB32_Premultiplied);
-
-    const quint32 *src = reinterpret_cast<const quint32*>(source.bits());
-    int sx = source.bytesPerLine() >> 2;
-    int sx2 = sx << 1;
-
-    quint32 *dst = reinterpret_cast<quint32*>(dest.bits());
-    int dx = dest.bytesPerLine() >> 2;
-    int ww = dest.width();
-    int hh = dest.height();
-
-    for (int y = hh; y; --y, dst += dx, src += sx2) {
-        const quint32 *p1 = src;
-        const quint32 *p2 = src + sx;
-        quint32 *q = dst;
-        for (int x = ww; x; --x, q++, p1 += 2, p2 += 2)
-            * q = AVG(AVG(p1[0], p1[1]), AVG(p2[0], p2[1]));
-    }
-
-    return dest;
 }

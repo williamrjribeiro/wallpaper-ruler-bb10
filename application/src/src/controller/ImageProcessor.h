@@ -16,9 +16,7 @@
 #ifndef IMAGESCALER_HPP
 #define IMAGESCALER_HPP
 
-#include <QtCore/QByteArray>
 #include <QtCore/QObject>
-#include <QtGui/QImage>
 #include <bb/ImageData>
 
 /**
@@ -48,8 +46,6 @@ public Q_SLOTS:
 	bb::ImageData start();
 
 private:
-	QImage halfSized(const QImage &source);
-
 	QString m_imagePath;
 };
 

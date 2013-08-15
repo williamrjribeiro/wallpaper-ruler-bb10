@@ -42,8 +42,6 @@ QString ImageEditor::processImage(const QString &qurl, const double scale, const
 	// scale it to the device height (shrink or grow) maintaining the aspect ratio of the image
 	original = original.scaledToHeight(screenHeight,Qt::SmoothTransformation);
 
-	QRect rect = QRect(0,0,original.width(),original.height());
-
 	qDebug() << "[ImageEditor::processImage] scaledToHeight.width: "<<original.width();
 
 	// create a new image with the size of the screen so we can draw on it
@@ -73,7 +71,8 @@ QString ImageEditor::processImage(const QString &qurl, const double scale, const
 	ptrans.translate(-hiw,-hih);
 
 	painter.setTransform(ptrans);
-	painter.drawImage(rect,original);
+	//painter.drawImage(rect,original);
+	painter.drawImage(original.rect(),original);
 
 	// save the modified/painted image to the device
 	created.save(workingDir + "/shared/photos/wappy/wappy-" + imageName+".jpg","JPG");

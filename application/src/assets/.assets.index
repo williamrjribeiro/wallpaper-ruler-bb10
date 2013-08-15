@@ -1,5 +1,11 @@
 1
-33
+41
+720x720/fr_active.png
+720x720/fr_home.png
+720x720/fr_locked.png
+720x720/fr_long_press.png
+720x720/images/creators_1.jpg
+720x720/images/logchange_back.jpg
 About.qml
 CustomCamera.qml
 data/creators.xml
@@ -26,9 +32,11 @@ icons/ic_save_as.png
 icons/ic_share.png
 icons/ic_unlocked.png
 ImageEditor.qml
+images/creators_1.jpg
+images/loading.png
+images/logchange_back.jpg
 InlineImageBrowser.qml
 js/togglebuttonmanager.js
-Logo.qml
 main.qml
 MultipleFramesEditor.qml
 Teaser.qml

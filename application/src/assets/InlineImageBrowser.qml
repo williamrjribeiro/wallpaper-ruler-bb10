@@ -9,33 +9,39 @@ Container {
         layout: GridListLayout {
             columnCount: 3
             headerMode: ListHeaderMode.None
-            verticalCellSpacing: 25
-            horizontalCellSpacing: 22
+            verticalCellSpacing: 10
+            horizontalCellSpacing: 10
         }
         
-        leftPadding: 30
-        rightPadding: 30
-        topPadding: 20
-
         dataModel: _imageGridDataProvider.dataModel
 
 		listItemComponents: ListItemComponent {
             Container {
                 layout: DockLayout {}
                 
-                // The ActivityIndicator that is only active and visible while the image is loading
-                ActivityIndicator {
+                // The loading image that is only active and visible while the image is loading
+                ImageView {
+                    imageSource: "images/loading.png"
                     horizontalAlignment: HorizontalAlignment.Center
                     verticalAlignment: VerticalAlignment.Center
-                    preferredHeight: 150
-                    
+                    preferredHeight: 90
+                    preferredWidth: 90
                     visible: ListItemData.loading
-                    running: ListItemData.loading
+                    animations: [
+                        RotateTransition {
+                            id: rotateAnimation
+                            toAngleZ: 360
+                            duration: 1000
+                            repeatCount: AnimationRepeatCount.Forever 
+                        }
+                    ]
+                    onCreationCompleted: rotateAnimation.play()
+                    onVisibleChanged: visible ? rotateAnimation.play() : rotateAnimation.stop()
                 }
 	            ImageView {
 	                image: ListItemData.image
                     visible: !ListItemData.loading
-	                scalingMethod: ScalingMethod.AspectFill
+                    scalingMethod: ScalingMethod.AspectFill
 	                verticalAlignment: VerticalAlignment.Center
 	                horizontalAlignment: HorizontalAlignment.Center
 	            }

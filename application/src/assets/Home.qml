@@ -3,7 +3,7 @@ import bb.cascades 1.0
 Page {
     id: homeRootPage
     content: Container {
-        background: Color.DarkGray
+        background: Color.Black
         layout: StackLayout {
         }
         InlineImageBrowser {
@@ -28,11 +28,6 @@ Page {
                     console.log("[ERROR] Could not invoke the device Camera!");
                 }
             }
-        },
-        ActionItem {
-            title: qsTr("Ponyo")
-            ActionBar.placement: ActionBarPlacement.InOverflow
-            imageSource: "asset:///icons/ic_camera.png"
         }
     ]
 }

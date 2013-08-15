@@ -75,17 +75,11 @@
     <!--  The category where the application appears. Either core.games or core.media. -->
     <category>core.media</category>
     <splashScreens>
-       <image>app_splash.png</image>
-       <image>
-          <text xml:lang="pt-BR">app_splash.png</text>
-       </image>
+       <image>1280_app_splash.jpg</image>
+       <image>720_app_splash.jpg</image>
     </splashScreens>
     <icon>
-       <image/>
        <image>app_icon.png</image>
-       <image>
-          <text xml:lang="pt-BR">app_icon.png</text>
-       </image>
     </icon>
     <configuration name="Device-Release">
        <entryPointType>Qnx/Cascades</entryPointType>
@@ -114,7 +108,8 @@
         <include name="*.qm"/>
     </asset>
     <asset path="app_icon.png">app_icon.png</asset>
-    <asset path="app_splash.png">app_splash.png</asset>
+    <asset path="1280_app_splash.jpg">1280_app_splash.jpg</asset>
+    <asset path="720_app_splash.jpg">720_app_splash.jpg</asset>
     
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>
