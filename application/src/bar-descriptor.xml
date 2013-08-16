@@ -75,8 +75,8 @@
     <!--  The category where the application appears. Either core.games or core.media. -->
     <category>core.media</category>
     <splashScreens>
-       <image>1280_app_splash.jpg</image>
-       <image>720_app_splash.jpg</image>
+       <image>app_splash_1280_768.jpg</image>
+       <image>app_splash_720_720.jpg</image>
     </splashScreens>
     <icon>
        <image>app_icon.png</image>
@@ -108,8 +108,8 @@
         <include name="*.qm"/>
     </asset>
     <asset path="app_icon.png">app_icon.png</asset>
-    <asset path="1280_app_splash.jpg">1280_app_splash.jpg</asset>
-    <asset path="720_app_splash.jpg">720_app_splash.jpg</asset>
+    <asset path="app_splash_1280_768.jpg">app_splash_1280_768.jpg</asset>
+    <asset path="app_splash_720_720.jpg">app_splash_720_720.jpg</asset>
     
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>
