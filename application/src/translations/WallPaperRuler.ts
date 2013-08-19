@@ -2,13 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="en">
 <context>
-    <name>About</name>
-    <message>
-        <source>Creators</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>CustomCamera</name>
     <message>
         <source>Home Screen</source>
@@ -77,13 +70,6 @@
     </message>
     <message>
         <source>Rate it!</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Tutorials</name>
-    <message>
-        <source>Tutorials</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

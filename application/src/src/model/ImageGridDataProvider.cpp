@@ -13,12 +13,12 @@ ImageGridDataProvider::ImageGridDataProvider(QObject *parent)
 	, m_loadedItems(0)
 {
 	m_dataModel->setParent(this);
-
 	this->getAllImagePaths();
 }
 
 ImageGridDataProvider::~ImageGridDataProvider()
 {
+	m_dataModel->disconnect();
 	m_dataModel->clear();
 	m_dataModel->deleteLater();
 

@@ -1,5 +1,5 @@
 1
-41
+42
 720x720/fr_active.png
 720x720/fr_home.png
 720x720/fr_locked.png
@@ -7,6 +7,7 @@
 720x720/images/creators_1.jpg
 720x720/images/logchange_back.jpg
 About.qml
+ChangeLog.qml
 CustomCamera.qml
 data/creators.xml
 frames/fr_active.png
@@ -14,6 +15,7 @@ frames/fr_home.png
 frames/fr_locked.png
 frames/fr_long_press.png
 Home.qml
+html/changelog.html
 icons/ic_active_screen.png
 icons/ic_active_screen_a.png
 icons/ic_bbm.png
@@ -40,4 +42,3 @@ js/togglebuttonmanager.js
 main.qml
 MultipleFramesEditor.qml
 Teaser.qml
-Tutorials.qml

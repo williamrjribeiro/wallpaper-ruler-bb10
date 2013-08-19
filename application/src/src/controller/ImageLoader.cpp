@@ -33,7 +33,7 @@ ImageLoader::ImageLoader(const QString &imageUrl, QObject* parent)
 	, m_imageProcessor(NULL)
 	, m_loading(false)
 	, m_imageUrl(imageUrl)
-	, m_watcher(NULL)
+	, m_watcher(this)
 {
 	//qDebug() << "[ImageLoader::ImageLoader] m_imageUrl: " << m_imageUrl;
 }
@@ -42,6 +42,7 @@ ImageLoader::ImageLoader(const QString &imageUrl, QObject* parent)
  * Destructor
  */
 ImageLoader::~ImageLoader() {
+	m_watcher.disconnect();
 	m_watcher.deleteLater();
 	if(m_imageProcessor != NULL){
 		delete m_imageProcessor;

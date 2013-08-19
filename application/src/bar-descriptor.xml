@@ -62,15 +62,14 @@
        <text xml:lang="pt-BR">O aplicatiovo feliz de pap&#xe9;is-de-parede!</text>
     </description>
     
-    <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
-    <!-- <authorId>ABC1234YjsnUk235h</authorId> -->
-   
     <initialWindow>
         <aspectRatio>portrait</aspectRatio>
         <autoOrients>false</autoOrients>
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
     </initialWindow>
+    
+	
     
     <!--  The category where the application appears. Either core.games or core.media. -->
     <category>core.media</category>

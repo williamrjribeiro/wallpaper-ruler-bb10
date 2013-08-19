@@ -2,14 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="pt_BR">
 <context>
-    <name>About</name>
-    <message>
-        <location filename="../assets/About.qml" line="19"/>
-        <source>Creators</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>CustomCamera</name>
     <message>
         <location filename="../assets/CustomCamera.qml" line="181"/>
@@ -38,47 +30,47 @@
 <context>
     <name>MultipleFramesEditor</name>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="138"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="213"/>
         <source>Frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="139"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="214"/>
         <source>The frames help you fit your images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="143"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="218"/>
         <source>Home Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="155"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="230"/>
         <source>Locked Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="167"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="242"/>
         <source>Active Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="178"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="253"/>
         <source>Set as Wallpaper!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="190"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="265"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="202"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="277"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="236"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="311"/>
         <source>You&apos;re about to lose all your changes. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -97,14 +89,6 @@
     </message>
 </context>
 <context>
-    <name>Tutorials</name>
-    <message>
-        <location filename="../assets/Tutorials.qml" line="19"/>
-        <source>Tutorials</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>main</name>
     <message>
         <location filename="../assets/main.qml" line="9"/>
@@ -117,12 +101,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="46"/>
+        <location filename="../assets/main.qml" line="36"/>
         <source>Creators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="54"/>
+        <location filename="../assets/main.qml" line="44"/>
         <source>Change Log</source>
         <translation type="unfinished"></translation>
     </message>

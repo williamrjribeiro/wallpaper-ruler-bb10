@@ -30,16 +30,6 @@ TabbedPane {
         }
     }
     */
-    // Disabling Tutorials page for now
-    /*
-    Tab {
-        id: tutorialsTab
-        title: "Tutorials"
-        imageSource: "asset:///icons/ic_info.png"
-        content: Tutorials {
-        }
-    }
-    */
     
     Tab {
         id: creatorsTab
@@ -53,19 +43,25 @@ TabbedPane {
         id: changeLogTab
         title: qsTr("Change Log")
         imageSource: "asset:///icons/ic_change_log.png"
-        content: Tutorials {
+        content: ChangeLog {
         }
     }
     
     // Disabling Custom Camera for now
-    /*onActiveTabChanged: {
-        if(activeTab != customCamera){
+    onActiveTabChanged: {
+        /*if(activeTab != customCamera){
             customCamera.content.shutDownCamera();
             
             // TODO: we always show the tutorial image but it should only show when needed.
             customCamera.content.tutorial.visible = true;
             customCamera.content.tutorial.opacity = 1.0;
+        }*/
+        if(activeTab === changeLogTab){
+            changeLogTab.content.changeLog.delegateActive = true;
         }
-    }*/
+        else if(activeTab === creatorsTab){
+            creatorsTab.content.creators.delegateActive = true;
+        }
+    }
 
 } // end of rootTabbedPane

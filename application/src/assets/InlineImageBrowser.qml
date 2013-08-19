@@ -2,9 +2,15 @@ import bb.cascades 1.0
 
 Container {
     id: imagesGridContainer
-    // Main List
+    layout: DockLayout {}
+    verticalAlignment: VerticalAlignment.Fill
+    horizontalAlignment: HorizontalAlignment.Fill
+    
+    property string selectedPath;
+    property bool imageCaptured: false
+    
     ListView {
-        id: imagesList
+        id: imageGrid
 
         layout: GridListLayout {
             columnCount: 3
@@ -19,7 +25,7 @@ Container {
             Container {
                 layout: DockLayout {}
                 
-                // The loading image that is only active and visible while the image is loading
+                // The loading image that is only rotating and visible while the image is loading
                 ImageView {
                     imageSource: "images/loading.png"
                     horizontalAlignment: HorizontalAlignment.Center
@@ -49,13 +55,10 @@ Container {
         }
 
         onTriggered: {
-            console.log("[InlineImageBrowser.imagesList.onTriggered] indexPath: " + indexPath);
+            console.log("[InlineImageBrowser.imageGrid.onTriggered] indexPath: " + indexPath);
             selectedPath = _imageGridDataProvider.getImageURL( indexPath );
             // step 1: set the image path on the ImageView of the ImageEditor so that it's loaded
             mfeContent.imageEditor.image.imageSource = selectedPath;
-            
-            // step 2: Open the page once the imageReady signal is emmited. This means the image has finished load and it's scaled.
-            mfeContent.imageEditor.imageReady.connect(mfeSheet.open);
         }
         
         attachedObjects: [
@@ -68,8 +71,7 @@ Container {
                 }
             }
         ]
-    }
-    property string selectedPath;
+    } // end ListView
     
     attachedObjects: [
         Sheet {
@@ -77,24 +79,24 @@ Container {
             peekEnabled: false 
             content: MultipleFramesEditor {
                 id: mfeContent
+                onCreationCompleted: {
+                    console.log("[InlineImageBrowser.mfeSheet.mfeContent.onCreationCompleted]");
+                    // Open the page once the imageReady signal is emmited. This means the image has finished loading and it's scaled.
+                    imageEditor.imageReady.connect(mfeSheet.open);
+                }
             }
             onClosed: {
                 console.log("[InlineImageBrowser.mfeSheet.onClosed]");
                 mfeContent.imageEditor.resetEdits();
-                
                 _imageGridDataProvider.loadMoreImages();
             }
         }    
     ]
-    layout: DockLayout {
-    }
-    verticalAlignment: VerticalAlignment.Fill
-    horizontalAlignment: HorizontalAlignment.Fill
+    
     onCreationCompleted: {
-        
         console.log("[InlineImageBrowser.onCreationCompleted]");
         
-        // this signal is dispatched when the user taps on Finished/Cancel.
+        // this signal is dispatched when the user taps on Finished/Cancel from MFE.
         // It must go back to this screen
         mfeContent.finishedEditting.connect( handleMFEFinished );
         
@@ -102,13 +104,14 @@ Container {
         _cameraManager.imageCaptured.connect( onImageCaptured );
     }
     
-    property bool imageCaptured: false
     function onImageCaptured(imagePath) {
         console.log("[InlineImageBrowser.onImageCaptured] imagePath: " + imagePath);
         selectedPath = "file://" + imagePath;
-        imageCaptured = true;
-        mfeSheet.open();
+        imageCaptured = true;    
         
+        // step 1: set the image path on the ImageView of the ImageEditor so that it's loaded
+        mfeContent.imageEditor.image.imageSource = selectedPath;
+
         _imageGridDataProvider.addImage(imagePath);
     }
     
