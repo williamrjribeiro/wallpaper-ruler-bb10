@@ -61,6 +61,18 @@
         <source>Set as Wallpaper!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Oops! Something went wrong. Please try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wappy image saved! Saving it for later?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wappy wallpaper set! Great choice!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Teaser</name>

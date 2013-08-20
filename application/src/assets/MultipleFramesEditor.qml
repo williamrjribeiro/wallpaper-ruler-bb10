@@ -8,9 +8,16 @@ import "js/togglebuttonmanager.js" as ToggleButtonManager;
 Page {
     id: mfeRootPage
     resizeBehavior: PageResizeBehavior.None
+    
     signal finishedEditting()
+    
     property alias imageEditor: imageEditor
     property alias tutorial: cdl_tutorialFrame.sourceComponent
+    
+    property string failureMessage: qsTr("Oops! Something went wrong. Please try again.")
+    property string savedMessage: qsTr("Wappy image saved! Saving it for later?")
+    property string wallpaperSetMessage: qsTr("Wappy wallpaper set! Great choice!")
+    
     onCreationCompleted: {
         console.log("[MultipleFramesEditor.mfeRootPage.onCreationCompleted]");
         
@@ -43,6 +50,13 @@ Page {
         
         ToggleButtonManager.initToggleButtons(buttons);
     }
+    
+    /**
+     * Toggles the display of the frame images. Max of one frame can be visible at any given time.
+     * It activate the ControlDelegates when needed. <br />
+     * @param show - opacity of frame is set to 1.0 if true, 0.0 otherwise <br />
+     * @filePath - the path to the image file of the frame. It's used to determine which frames show or hide. <br />
+     */
     function showFrame(show,filePath){
         console.log("[CustomCamera.showFrame] show: "+show+", filePath: "+filePath);
         switch(filePath){
@@ -87,16 +101,30 @@ Page {
                 break;
         }
     }
+    
+    /**
+     * Tries to set the given file image path as the device wallpaper. 
+     * Show result message.
+     * @param savedImage - path to an image file without protocol
+     * @return result of HomeScreen.setWalllpaper() operation
+     */
     function setAsDeviceWallpaper(savedImage){
-        var result = myHomeScreen.setWallpaper("file://" + savedImage); 
+        var result = hsc_deviceSreen.setWallpaper("file://" + savedImage); 
         if(  result == false ){
             console.log("[MultipleFramesEditor.setAsDeviceWallpaper] ERROR SETTING IMAGE AS DEVICE WALLPAPER!");
+            showResultMessage(mfeRootPage.failureMessage);
         }
         else {
-            _imageGridDataProvider.addImage(savedImage);
+            showResultMessage(mfeRootPage.wallpaperSetMessage);
         }
         return result;
     }
+    
+    /**
+     * Uses the ImageProcessor to apply the user edits to the original image and save the result.
+     * Show result message and if it's a successful operation, add the image to the app DataModel
+     * @return path to the saved image file without protocol.
+     */
     function saveImage(){
         var savedImage = _imageEditor.processImage( imageEditor.myImageElement.imageSource
             										,imageEditor.myImageElement.scaleX
@@ -105,10 +133,19 @@ Page {
             										,imageEditor.myImageElement.rotationZ
             										,_screenSize.width
                                                     ,_screenSize.height);
-        if (savedImage == ""){
+        if( savedImage == "" ){
             console.log("[MultipleFramesEditor.saveImage] ERROR SAVING IMAGE!");
+            showResultMessage(mfeRootPage.failureMessage);
+        }
+        else{
+            _imageGridDataProvider.addImage(savedImage);
+            showResultMessage(mfeRootPage.savedMessage);
         }
         return savedImage;
+    }
+    function showResultMessage(msg){
+        syt_resultMessage.body = msg;
+        syt_resultMessage.show();
     }
     Container {
         id: mainContainer
@@ -117,6 +154,7 @@ Page {
         implicitLayoutAnimationsEnabled: false
         background: Color.Yellow
         focusPolicy: FocusPolicy.KeyAndTouch
+        layout: DockLayout { }
         
         ImageEditor {
             id: imageEditor
@@ -242,11 +280,7 @@ Page {
                     title: qsTr("Active Frame")
                     imageSource: "icons/ic_active_screen.png"
                     onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"frames/fr_active.png")
-                    shortcuts: [
-                        Shortcut {
-                            key: "a"
-                        }
-                    ]
+                    shortcuts: [ Shortcut { key: "a" } ]
                 }
                 ActionItem {
                     id: ai_setAsWallpaper
@@ -254,11 +288,7 @@ Page {
                     ActionBar.placement: ActionBarPlacement.InOverflow
                     imageSource: "icons/ic_save_as.png"
                     onTriggered: setAsDeviceWallpaper( saveImage() )
-                    shortcuts: [
-                        Shortcut {
-                            key: "w"
-                        }
-                    ]
+                    shortcuts: [ Shortcut { key: "w" } ]
                 }
 				ActionItem {
 				    id: ai_saveImage
@@ -266,11 +296,7 @@ Page {
 				    ActionBar.placement: ActionBarPlacement.InOverflow
 				    imageSource: "icons/ic_save.png"
 				    onTriggered: saveImage()
-                    shortcuts: [
-                        Shortcut {
-                            key: "s"
-                        }
-                    ]
+                    shortcuts: [ Shortcut { key: "s" } ]
 				}
                 ActionItem {
                     id: ai_cancel
@@ -278,12 +304,8 @@ Page {
                     ActionBar.placement: ActionBarPlacement.InOverflow
                     imageSource: "icons/ic_cancel.png"
                     // When this action is selected, close the sheet
-                    onTriggered: cancelDialog.show()
-                    shortcuts: [
-                        Shortcut {
-                            key: "c"
-                        }
-                    ]
+                    onTriggered: syd_cancelWarning.show()
+                    shortcuts: [ Shortcut { key: "c" } ]
                     
                 }
             } // end of ActionSet
@@ -306,24 +328,25 @@ Page {
         
         attachedObjects: [
             SystemDialog {
-                id: cancelDialog
+                id: syd_cancelWarning
                 title: "Friendly Warning"
                 body: qsTr("You're about to lose all your changes. Continue?")
-                onFinished: if (cancelDialog.result == SystemUiResult.ConfirmButtonSelection) finishedEditting(); else cancelDialog;
+                onFinished: if (syd_cancelWarning.result == SystemUiResult.ConfirmButtonSelection) finishedEditting(); else syd_cancelWarning;
             },
             HomeScreen {
-                id: myHomeScreen
+                id: hsc_deviceSreen
+            },
+            SystemToast {
+                id: syt_resultMessage
             }
         ]
-        layout: DockLayout { }
 
-    }
+    } // mainContainer end
     shortcuts: [
         Shortcut {
             key: "c"
             onTriggered: {
-                console.log("[Shortcut] c");
-                cancelDialog.show();
+                syd_cancelWarning.show();
             }
         },
         Shortcut {
