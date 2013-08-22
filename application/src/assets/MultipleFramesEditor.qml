@@ -163,13 +163,13 @@ Page {
         ControlDelegate {
             id: cdl_homeFrame
             delegateActive: false;
+            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive        
             sourceComponent: ComponentDefinition {
                 id: cdf_homeImage
                 ImageView {
                     id: iv_homeFrame
                     opacity: 0.0
                     scalingMethod: ScalingMethod.None
-                    touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
                     loadEffect: ImageViewLoadEffect.None
                     imageSource: "frames/fr_home.png"
                 }
@@ -178,13 +178,13 @@ Page {
         ControlDelegate {
             id: cdl_activeFrame
             delegateActive: false;
+            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
             sourceComponent: ComponentDefinition {
                 id: cdf_activeImage
                 ImageView {
                     id: iv_activeFrame
                     opacity: 0.0
                     scalingMethod: ScalingMethod.None
-                    touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
                     loadEffect: ImageViewLoadEffect.None
                     imageSource: "frames/fr_active.png"
                 }
@@ -193,13 +193,13 @@ Page {
         ControlDelegate {
             id: cdl_lockedFrame
             delegateActive: false;
+            touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
             sourceComponent: ComponentDefinition {
                 id: cdf_lockedImage
                 ImageView {
                     id: iv_lockedFrame
                     opacity: 0.0
                     scalingMethod: ScalingMethod.None
-                    touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
                     loadEffect: ImageViewLoadEffect.None
                     imageSource: "frames/fr_locked.png"
                 }

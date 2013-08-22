@@ -60,8 +60,9 @@ QString ImageEditor::processImage(const QString &qurl, const double scale, const
 		qDebug() << "[ImageEditor::processImage] oar: " << QString::number( oar, 'd', 3 )<< ", ratio: " << QString::number( ratio, 'd', 3 );
 	}
 
-	// Create Painter so we can draw the original image on the created one
+	// Create Painter so we can draw the original image on the created one in high quality.
 	QPainter painter(&created);
+	painter.setRenderHint(QPainter::SmoothPixmapTransform,true);
 
 	QTransform ptrans;
 	ptrans.translate(-sx,translationY);
@@ -71,8 +72,8 @@ QString ImageEditor::processImage(const QString &qurl, const double scale, const
 	ptrans.translate(-hiw,-hih);
 
 	painter.setTransform(ptrans);
-	//painter.drawImage(rect,original);
 	painter.drawImage(original.rect(),original);
+	painter.end();
 
 	// save the modified/painted image to the device
 	created.save(workingDir + "/shared/photos/wappy/wappy-" + imageName+".jpg","JPG");

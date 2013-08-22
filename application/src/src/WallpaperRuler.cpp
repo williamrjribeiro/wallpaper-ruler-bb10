@@ -49,11 +49,14 @@ void WallpaperRuler::onActiveFrame() {
 	// Application::instance()->setCover(cover);
 }
 
-// triggered when the Application is closed
+// triggered when the user closes the Application
 void WallpaperRuler::onAboutToQuit() {
 	QString quitDate = QDateTime::currentDateTime().toString(AppSettings::APP_DATE_FORMAT);
 	qDebug() << "[WallpaperRuler::onAboutToQuit] Exiting application. quitDate" << quitDate;
 	this->appSettings->saveValueFor( AppSettings::APP_LAST_CLOSED, quitDate);
+
+	imageGridDataProvider->disconnect();
+	imageGridDataProvider->deleteLater();
 }
 
 AppSettings* WallpaperRuler::getAppSettings() {

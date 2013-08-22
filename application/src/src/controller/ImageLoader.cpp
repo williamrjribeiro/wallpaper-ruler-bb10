@@ -16,20 +16,21 @@
 #include "ImageLoader.h"
 
 #include <QUrl>
+#include <QDir>
+#include <QFile>
 #include <QDebug>
 
 /**
- *  This class implements a image loader which will initialize a network request in asynchronous manner.
- *  After receiving response from the network, it creates a QImage object in its own thread.
+ *  This class implements a image loader which will initialize a ImageProcessor in asynchronous manner which generates
+ *  the image thumb. After receiving the image data, it creates a QImage object in its own thread.
  *  Then it signals the interested parties about the result.
  */
+using namespace bb::cascades;
 
-/**
- *  Constructor
- */
 ImageLoader::ImageLoader(const QString &imageUrl, QObject* parent)
 	: QObject(parent)
 	, m_image(NULL)
+	, m_imageTracker(NULL)
 	, m_imageProcessor(NULL)
 	, m_loading(false)
 	, m_imageUrl(imageUrl)
@@ -38,23 +39,31 @@ ImageLoader::ImageLoader(const QString &imageUrl, QObject* parent)
 	//qDebug() << "[ImageLoader::ImageLoader] m_imageUrl: " << m_imageUrl;
 }
 
-/**
- * Destructor
- */
 ImageLoader::~ImageLoader() {
-	m_watcher.disconnect();
+	//qDebug() << "[ImageLoader::~ImageLoader] m_watcher.isRunning: "<<m_watcher.isRunning();
+
+	if(m_watcher.isRunning()){
+		m_watcher.cancel();
+		m_watcher.waitForFinished();
+	}
+
 	m_watcher.deleteLater();
-	if(m_imageProcessor != NULL){
+
+	if(this->m_imageProcessor != NULL){
+		this->m_imageProcessor->disconnect();
 		delete m_imageProcessor;
+	}
+
+	if(this->m_imageTracker != NULL){
+		this->m_imageTracker->disconnect();
+		delete m_imageTracker;
 	}
 }
 
 /**
  * ImageLoader::load()
  *
- * Instruct the QNetworkAccessManager to initialize a network request in asynchronous manner.
- *
- * Also, setup the signal handler to receive the event indicating the network response.
+ * Instruct the ImageProcessor to initialize a image load and thumbnail creation in asynchronous manner.
  */
 void ImageLoader::load()
 {
@@ -63,28 +72,53 @@ void ImageLoader::load()
 	m_loading = true;
 	emit loadingChanged();
 
-	// Setup the image processing thread
-	this->m_imageProcessor = new ImageProcessor(m_imageUrl,this);
+	// Create the path to the pre-generated thumbnail image
+	QString thumbPath = QDir::homePath() + "/" + m_imageUrl.section("/",-2,-1,QString::SectionSkipEmpty);
 
-	QFuture<bb::ImageData> future = QtConcurrent::run(m_imageProcessor, &ImageProcessor::start);
+	//qDebug() << "[ImageLoader::load] thumbPath: " << thumbPath;
 
-	// If any Q_ASSERT statement(s) indicate that the slot failed to connect to
-	// the signal, make sure you know exactly why this has happened. This is not
-	// normal, and will cause your app to stop working!
-	bool connectResult;
+	// Check if the pre-generated a thumbnail already exists
+	if( QFile(thumbPath).exists() ){
 
-	// Since the variable is not used in the app, this is added to avoid a compiler warning.
-	Q_UNUSED(connectResult);
+		// Load the thumbnail image directly to bb:cascades:Image
+		m_imageTracker = new ImageTracker(QUrl("file://" + thumbPath));
+		m_imageTracker->setParent(this);
 
-	// Invoke our onProcessingFinished slot after the processing has finished.
-	// http://qt-project.org/doc/qt-4.8/qt.html#ConnectionType-enum
-	connectResult = connect(&m_watcher, SIGNAL(finished()), this, SLOT(onImageProcessingFinished()), Qt::QueuedConnection);
+		bool result = connect(m_imageTracker,
+				SIGNAL(stateChanged(bb::cascades::ResourceState::Type)),
+				this,
+				SLOT(onImageTrackerStateChanged(bb::cascades::ResourceState::Type)));
 
-	// This affects only Debug builds.
-	Q_ASSERT(connectResult);
+		Q_ASSERT(result);
+		Q_UNUSED(result);
+	}
+	else{
 
-	// starts watching the given future
-	m_watcher.setFuture(future);
+		//qDebug() << "[ImageLoader::load] image thumb doesn't exist yet.";
+
+		// Setup the image processing thread
+		this->m_imageProcessor = new ImageProcessor(m_imageUrl,this);
+
+		QFuture<bb::ImageData> future = QtConcurrent::run(m_imageProcessor, &ImageProcessor::start);
+
+		// If any Q_ASSERT statement(s) indicate that the slot failed to connect to
+		// the signal, make sure you know exactly why this has happened. This is not
+		// normal, and will cause your app to stop working!
+		bool connectResult;
+
+		// Since the variable is not used in the app, this is added to avoid a compiler warning.
+		Q_UNUSED(connectResult);
+
+		// Invoke our onProcessingFinished slot after the processing has finished.
+		// http://qt-project.org/doc/qt-4.8/qt.html#ConnectionType-enum
+		connectResult = connect(&m_watcher, SIGNAL(finished()), this, SLOT(onImageProcessingFinished()), Qt::QueuedConnection);
+
+		// This affects only Debug builds.
+		Q_ASSERT(connectResult);
+
+		// starts watching the given future
+		m_watcher.setFuture(future);
+	}
 }
 
 /**
@@ -96,12 +130,34 @@ void ImageLoader::onImageProcessingFinished()
 {
 	//qDebug() << "[ImageLoader::onImageProcessingFinished] m_imageUrl: " << m_imageUrl;
 
-	m_image = bb::cascades::Image(m_watcher.future().result());
+	// Create the Cascades Image from the Cascades ImageData from the other thread only if it was started and finished
+	if( m_image.source().isEmpty()){
+		m_image = Image(m_watcher.future().result());
+
+		// Free the memory as soon as possible
+		this->m_imageProcessor->deleteLater();
+		this->m_imageProcessor = NULL;
+	}
 
 	emit imageChanged();
 
 	m_loading = false;
 	emit loadingChanged();
+}
+
+void ImageLoader::onImageTrackerStateChanged(ResourceState::Type state)
+{
+	//qDebug() << "[ImageLoader::onImageTrackerStateChanged] state: " << state;
+
+    if(state == ResourceState::Loaded) {
+        m_image = m_imageTracker->image();
+
+        // Free the memory as soon as possible
+        this->m_imageTracker->deleteLater();
+        this->m_imageTracker = NULL;
+
+        this->onImageProcessingFinished();
+    }
 }
 
 QVariant ImageLoader::image() const

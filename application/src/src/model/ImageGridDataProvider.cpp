@@ -18,6 +18,8 @@ ImageGridDataProvider::ImageGridDataProvider(QObject *parent)
 
 ImageGridDataProvider::~ImageGridDataProvider()
 {
+	qDebug() << "[ImageGridDataProvider::~ImageGridDataProvider]";
+
 	m_dataModel->disconnect();
 	m_dataModel->clear();
 	m_dataModel->deleteLater();
@@ -85,9 +87,10 @@ void ImageGridDataProvider::loadMoreImages()
 
 			while( count < ImageGridDataProvider::MAX_ITENS && s > (count + m_loadedItems) ){
 
+				// don't forget to set the Parent Object or else is memory leak!
 				ImageLoader *loader = new ImageLoader( m_imageFiles.at(m_loadedItems + count), this );
-				loader->load();
 				m_dataModel->append( loader );
+				loader->load();
 				++count;
 			}
 

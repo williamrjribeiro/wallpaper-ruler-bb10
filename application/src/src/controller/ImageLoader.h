@@ -17,7 +17,9 @@
 #define IMAGELOADER_HPP
 
 #include <QByteArray>
+#include <bb/cascades/ResourceState>
 #include <bb/cascades/Image>
+#include <bb/cascades/ImageTracker>
 #include <bb/ImageData>
 
 #include "ImageProcessor.h"
@@ -64,6 +66,8 @@ private Q_SLOTS:
      */
     void onImageProcessingFinished();
 
+    void onImageTrackerStateChanged(bb::cascades::ResourceState::Type);
+
 private:
     // The accessor methods of the properties
     QVariant image() const;
@@ -71,6 +75,7 @@ private:
 
     // The property values
     bb::cascades::Image m_image;
+    bb::cascades::ImageTracker *m_imageTracker;
     ImageProcessor *m_imageProcessor;
     bool m_loading;
 
