@@ -70,7 +70,7 @@
     </initialWindow>
     
     <invoke-target id="com.willthrill.bb10.Wappy">
-		<invoke-target-name>Wallpaper with Wappy</invoke-target-name>
+		<invoke-target-name>Wallpaper using Wappy</invoke-target-name>
 	 	<invoke-target-type>card.previewer</invoke-target-type>
 	  	<filter>
 	    	<action>bb.action.SET</action>

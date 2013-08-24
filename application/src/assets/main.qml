@@ -20,17 +20,6 @@ TabbedPane {
         }
     }
     
-    // Disabling Custom Camera for now
-    /*
-    Tab {
-        id: customCamera
-        title: "Custom Camera"
-        imageSource: "asset:///icons/ic_edit_profile.png"
-        content: CustomCamera {
-        }
-    }
-    */
-    
     Tab {
         id: creatorsTab
         title: qsTr("Creators")
@@ -49,13 +38,6 @@ TabbedPane {
     
     // Disabling Custom Camera for now
     onActiveTabChanged: {
-        /*if(activeTab != customCamera){
-            customCamera.content.shutDownCamera();
-            
-            // TODO: we always show the tutorial image but it should only show when needed.
-            customCamera.content.tutorial.visible = true;
-            customCamera.content.tutorial.opacity = 1.0;
-        }*/
         if(activeTab === changeLogTab){
             changeLogTab.content.changeLog.delegateActive = true;
         }

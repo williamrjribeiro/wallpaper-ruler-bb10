@@ -1,5 +1,5 @@
 1
-44
+41
 720x720/images/creators_1.jpg
 720x720/images/fr_active.png
 720x720/images/fr_home.png
@@ -13,16 +13,13 @@ Home.qml
 html/changelog.html
 icons/ic_active_screen.png
 icons/ic_active_screen_a.png
-icons/ic_bbm.png
 icons/ic_camera.png
 icons/ic_cancel.png
 icons/ic_change_log.png
 icons/ic_creators.png
-icons/ic_edit_profile.png
 icons/ic_home.png
 icons/ic_home_screen.png
 icons/ic_home_screen_a.png
-icons/ic_info.png
 icons/ic_locked.png
 icons/ic_save.png
 icons/ic_save_as.png

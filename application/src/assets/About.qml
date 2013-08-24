@@ -33,6 +33,8 @@ Originally from Brasília, Brazil.
 
 Original creator of the BlackBerry® PlayBook™ application Wallpaper Ruler and leader of the project. Responsible for managing the project and the team, writing software specification, UX guidelines, programming, release management"
                             editable: false
+                            focusHighlightEnabled: false
+                            enabled: false
                             preferredWidth: 768
                             horizontalAlignment: HorizontalAlignment.Center
                             verticalAlignment: VerticalAlignment.Center
@@ -81,6 +83,8 @@ Originally from Coimbra, Portugal.
                             
 Responsible for making sure the application is bug free, matches the specs and is usable. Later in the project also managing the project and the team. She was the inspiration for the version 1.0 of the application."
                             editable: false
+                            focusHighlightEnabled: false
+                            enabled: false
                             preferredWidth: 768
                             horizontalAlignment: HorizontalAlignment.Center
                             verticalAlignment: VerticalAlignment.Center
@@ -128,6 +132,8 @@ Responsible for making sure the application is bug free, matches the specs and i
                             
 Responsible for the usability, experience, typography, and other visual elements."
                             editable: false
+                            focusHighlightEnabled: false
+                            enabled: false
                             preferredWidth: 768
                             horizontalAlignment: HorizontalAlignment.Center
                             verticalAlignment: VerticalAlignment.Center
@@ -148,16 +154,16 @@ Responsible for the usability, experience, typography, and other visual elements
                                 orientation: LayoutOrientation.LeftToRight
                             }
                             Button {
-                                opacity: 0.1
+                                opacity: 0.02
                                 // will auto-invoke after re-arming
                                 onClicked: linkInvocation.query.uri = "http://www.facebook.com/billbsb";                       
                             }
                             Button {
-                                opacity: 0.1
+                                opacity: 0.02
                                 onClicked: linkInvocation.query.uri = "http://www.twitter.com/bill_bsb";                       
                             }
                             Button {
-                                opacity: 0.1
+                                opacity: 0.02
                                 onClicked: linkInvocation.query.uri = "http://instagram.com/billbsb";
                             }
                         }
@@ -174,6 +180,8 @@ Responsible for the usability, experience, typography, and other visual elements
                             
 Responsible for software architecture, testing and programming."
                             editable: false
+                            focusHighlightEnabled: false
+                            enabled: false
                             preferredWidth: 768
                             horizontalAlignment: HorizontalAlignment.Center
                             verticalAlignment: VerticalAlignment.Center
@@ -194,16 +202,16 @@ Responsible for software architecture, testing and programming."
                                 orientation: LayoutOrientation.LeftToRight
                             }
                             Button {
-                                opacity: 0.1
+                                opacity: 0.02
                                 // will auto-invoke after re-arming
                                 onClicked: linkInvocation.query.uri = "http://www.facebook.com/billbsb";                       
                             }
                             Button {
-                                opacity: 0.1
+                                opacity: 0.02
                                 onClicked: linkInvocation.query.uri = "http://www.twitter.com/bill_bsb";                       
                             }
                             Button {
-                                opacity: 0.1
+                                opacity: 0.02
                                 onClicked: linkInvocation.query.uri = "http://instagram.com/billbsb";
                             }
                         }
@@ -215,9 +223,7 @@ Responsible for software architecture, testing and programming."
                         property bool auto_trigger: false
                         query {
                             uri: "http://www.google.com"
-                            onUriChanged: {
-                                linkInvocation.query.updateQuery();
-                            }
+                            onUriChanged: linkInvocation.query.updateQuery();
                         }
                         onArmed: {
                             // don't auto-trigger on initial setup
