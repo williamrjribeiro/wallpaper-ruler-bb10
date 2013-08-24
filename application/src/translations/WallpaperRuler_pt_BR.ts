@@ -45,47 +45,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="251"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="254"/>
         <source>Frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="252"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="255"/>
         <source>The frames help you fit your images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="256"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="259"/>
         <source>Home Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="268"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="267"/>
         <source>Locked Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="280"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="275"/>
         <source>Active Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="287"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="282"/>
         <source>Set as Wallpaper!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="295"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="290"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="303"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="298"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="333"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="328"/>
         <source>You&apos;re about to lose all your changes. Continue?</source>
         <translation type="unfinished"></translation>
     </message>

@@ -138,7 +138,10 @@ Page {
             showResultMessage(mfeRootPage.failureMessage);
         }
         else{
-            _imageGridDataProvider.addImage(savedImage);
+            // If the application is invoked as a Card, there's no data provider!
+            if(_imageGridDataProvider)
+            	_imageGridDataProvider.addImage(savedImage);
+            	
             showResultMessage(mfeRootPage.savedMessage);
         }
         return savedImage;
@@ -256,11 +259,7 @@ Page {
                     title: qsTr("Home Screen")
                     imageSource: "icons/ic_home_screen.png"
                     onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"frames/fr_home.png");
-                    shortcuts: [
-                        Shortcut {
-                            key: "h"
-                        }
-                    ]
+                    shortcuts: [ Shortcut { key: "h" } ]
                 }
                 ActionItem {
                     id: ai_lockedFrame
@@ -268,11 +267,7 @@ Page {
                     title: qsTr("Locked Screen")
                     imageSource: "icons/ic_locked.png"
                     onTriggered:  showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"frames/fr_locked.png");
-                    shortcuts: [
-                        Shortcut {
-                            key: "l"
-                        }
-                    ]
+                    shortcuts: [ Shortcut { key: "l" } ]
                 }
                 ActionItem {
                     id: ai_activeFrame
@@ -342,6 +337,7 @@ Page {
         ]
 
     } // mainContainer end
+    
     shortcuts: [
         Shortcut {
             key: "c"

@@ -5,6 +5,12 @@
 #include <QObject>
 #include <QTranslator>
 
+#include <bb/cascades/Application>
+
+#include <bb/system/InvokeManager>
+#include <bb/system/InvokeRequest>
+#include <bb/system/CardResizeMessage>
+
 #include "controller/AppSettings.hpp"
 #include "controller/AppLocalization.h"
 #include "controller/CameraManager.hpp"
@@ -22,7 +28,7 @@ class WallpaperRuler : public QObject
     Q_OBJECT
 
 public:
-    WallpaperRuler(QTranslator *translator, QObject *parent = 0);
+    WallpaperRuler(bb::cascades::Application *app);
     virtual ~WallpaperRuler() {}
 
     AppSettings* getAppSettings();
@@ -33,15 +39,22 @@ public:
     ScreenSize* getScreenSize();
 
 private Q_SLOTS:
-	void onActiveFrame();
-	void onAboutToQuit();
+	void handleActiveFrame();
+	void handleAboutToQuit();
+	void handleInvoke(const bb::system::InvokeRequest&);
+	void handleCardResize(const bb::system::CardResizeMessage&);
+	void handleCardPooled(const bb::system::CardDoneMessage&);
 
 private:
+	void initFullApplication(bb::cascades::Application *app);
+	void initCardApplication(bb::cascades::Application *app);
+
     AppSettings* appSettings;
     AppLocalization* appLocalization;
     ImageEditor* imageEditor;
     ImageGridDataProvider* imageGridDataProvider;
     CameraManager* cameraManager;
     ScreenSize* screenSize;
+    bb::system::InvokeManager* m_invokeManager;
 };
 #endif /* WallpaperRuler_HPP_ */

@@ -40,7 +40,7 @@ void ImageGridDataProvider::getAllImagePaths()
 
 	// Only look for this type of images
 	QStringList filters;
-	filters << "*.jpeg" << "*.png" << "*.jpg";
+	filters << "*.jpeg" << "*.png" << "*.jpg" << "*.bmp";
 
 	QString workingDir = QDir::currentPath();
 
