@@ -16,7 +16,7 @@ Q_DECL_EXPORT int main(int argc, char **argv)
 	bb::cascades::Application app(argc, argv);
 
     // localization support
-    QTranslator translator;
+    /*QTranslator translator;
     QString locale_string = QLocale().name();
     qDebug() << "[main] locale_string: " << locale_string;\
 
@@ -26,7 +26,7 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     }
     else{
     	qDebug() << "Unable to install QTranslator! filename: " << filename;
-    }
+    }*/
 
     new WallpaperRuler(&app);
 

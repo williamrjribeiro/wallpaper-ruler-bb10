@@ -24,17 +24,17 @@ Page {
     function showFrame(show,filePath){
         console.log("[CustomCamera.showFrame] show: "+show+", filePath: "+filePath);
         switch(filePath){
-            case "asset:///frames/fr_home.png":
+            case "asset:///images/fr_home.png":
                 iv_homeFrame.opacity = show ? 1.0 : 0.0;
                 iv_activeFrame.opacity = 0.0;
                 iv_lockedFrame.opacity = 0.0;
                 break;
-            case "asset:///frames/fr_active.png":
+            case "asset:///images/fr_active.png":
                 iv_homeFrame.opacity = 0.0;
                 iv_activeFrame.opacity = show ? 1.0 : 0.0;
                 iv_lockedFrame.opacity = 0.0;
                 break;
-            case "asset:///frames/fr_locked.png":
+            case "asset:///images/fr_locked.png":
                 iv_homeFrame.opacity = 0.0;
                 iv_activeFrame.opacity = 0.0;
                 iv_lockedFrame.opacity = show ? 1.0 : 0.0;
@@ -181,7 +181,7 @@ Page {
                     title: qsTr("Home Screen")
                     imageSource: "asset:///icons/ic_home_screen.png"
                     onTriggered: {
-                        showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///frames/fr_home.png");
+                        showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"asset:///images/fr_home.png");
                     }
                 }
                 ActionItem {
@@ -190,7 +190,7 @@ Page {
                     title: qsTr("Locked Screen")
                     imageSource: "asset:///icons/ic_unlocked.png"
                     onTriggered: {
-                        showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///frames/fr_active.png");
+                        showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///images/fr_active.png");
                     }
                 }
                 ActionItem {
@@ -199,7 +199,7 @@ Page {
                     title: qsTr("Active Frame")
                     imageSource: "asset:///icons/ic_active_screen.png"
                     onTriggered: {
-                        showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///frames/fr_locked.png");
+                        showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"asset:///images/fr_locked.png");
                     }
                 }
             } // end of ActionSet
@@ -223,7 +223,7 @@ Page {
             scalingMethod: ScalingMethod.None
             touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
             loadEffect: ImageViewLoadEffect.None
-            imageSource: "asset:///frames/fr_home.png"
+            imageSource: "asset:///images/fr_home.png"
         }
         
         ImageView {
@@ -232,7 +232,7 @@ Page {
             scalingMethod: ScalingMethod.None
             touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
             loadEffect: ImageViewLoadEffect.None
-            imageSource: "asset:///frames/fr_active.png"
+            imageSource: "asset:///images/fr_active.png"
         }
         
         ImageView {
@@ -241,7 +241,7 @@ Page {
             scalingMethod: ScalingMethod.None
             touchPropagationMode: TouchPropagationMode.None // ignore all touch events so the ImageEditor can be interactive
             loadEffect: ImageViewLoadEffect.None
-            imageSource: "asset:///frames/fr_locked.png"
+            imageSource: "asset:///images/fr_locked.png"
         }
         
         ImageView {
@@ -249,7 +249,7 @@ Page {
             opacity: 1.0
             scalingMethod: ScalingMethod.None
             loadEffect: ImageViewLoadEffect.None
-            imageSource: "asset:///frames/fr_long_press.png"
+            imageSource: "asset:///images/long_press.png"
             animations: [
                 FadeTransition {
                     id: trans_fadeOut

@@ -60,7 +60,7 @@ Page {
     function showFrame(show,filePath){
         console.log("[CustomCamera.showFrame] show: "+show+", filePath: "+filePath);
         switch(filePath){
-            case "frames/fr_home.png":
+            case "images/fr_home.png":
                 if(cdl_homeFrame.delegateActive == false)
                     cdl_homeFrame.delegateActive = true;
                 
@@ -72,7 +72,7 @@ Page {
                 if(cdl_lockedFrame.delegateActive)
                     cdl_lockedFrame.control.opacity = 0.0;
                 break;
-            case "frames/fr_active.png":
+            case "images/fr_active.png":
                 
                 if(cdl_activeFrame.delegateActive == false)
                     cdl_activeFrame.delegateActive = true;
@@ -86,7 +86,7 @@ Page {
                     cdl_lockedFrame.control.opacity = 0.0;
                 
                 break;
-            case "frames/fr_locked.png":
+            case "images/fr_locked.png":
                 if(cdl_lockedFrame.delegateActive == false)
                     cdl_lockedFrame.delegateActive = true;
                 
@@ -174,7 +174,7 @@ Page {
                     opacity: 0.0
                     scalingMethod: ScalingMethod.None
                     loadEffect: ImageViewLoadEffect.None
-                    imageSource: "frames/fr_home.png"
+                    imageSource: "images/fr_home.png"
                 }
             }
         }
@@ -189,7 +189,7 @@ Page {
                     opacity: 0.0
                     scalingMethod: ScalingMethod.None
                     loadEffect: ImageViewLoadEffect.None
-                    imageSource: "frames/fr_active.png"
+                    imageSource: "images/fr_active.png"
                 }
             }
         }
@@ -204,7 +204,7 @@ Page {
                     opacity: 0.0
                     scalingMethod: ScalingMethod.None
                     loadEffect: ImageViewLoadEffect.None
-                    imageSource: "frames/fr_locked.png"
+                    imageSource: "images/fr_locked.png"
                 }
             }
         }
@@ -219,7 +219,7 @@ Page {
                     loadEffect: ImageViewLoadEffect.None
                     visible: true
                     opacity: 1.0
-                    imageSource: "frames/fr_long_press.png"
+                    imageSource: "images/long_press.png"
                     gestureHandlers: [
                         TapHandler {
                             onTapped: {
@@ -258,7 +258,7 @@ Page {
                     objectName: "homeFrameToggle"
                     title: qsTr("Home Screen")
                     imageSource: "icons/ic_home_screen.png"
-                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"frames/fr_home.png");
+                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"images/fr_home.png");
                     shortcuts: [ Shortcut { key: "h" } ]
                 }
                 ActionItem {
@@ -266,7 +266,7 @@ Page {
                     objectName: "lockedFrameToggle"
                     title: qsTr("Locked Screen")
                     imageSource: "icons/ic_locked.png"
-                    onTriggered:  showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"frames/fr_locked.png");
+                    onTriggered:  showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"images/fr_locked.png");
                     shortcuts: [ Shortcut { key: "l" } ]
                 }
                 ActionItem {
@@ -274,7 +274,7 @@ Page {
                     objectName: "activeFrameToggle"
                     title: qsTr("Active Frame")
                     imageSource: "icons/ic_active_screen.png"
-                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"frames/fr_active.png")
+                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"images/fr_active.png")
                     shortcuts: [ Shortcut { key: "a" } ]
                 }
                 ActionItem {
@@ -348,19 +348,19 @@ Page {
         Shortcut {
             key: "a"
             onTriggered: {
-                showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"frames/fr_active.png");
+                showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"images/fr_active.png");
             }
         },
         Shortcut {
             key: "l"
             onTriggered: {
-                showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"frames/fr_locked.png");
+                showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"images/fr_locked.png");
             }
         },
         Shortcut {
             key: "h"
             onTriggered: {
-                showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"frames/fr_home.png");
+                showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"images/fr_home.png");
             }
         },
         Shortcut {
