@@ -38,6 +38,13 @@ public:
     CameraManager* getCameraManager();
     ScreenSize* getScreenSize();
 
+public Q_SLOTS:
+// Invoaction
+	// This method is invoked to notify the invocation system that the action has been done successfully
+	void cardDone();
+	// This method is invoked to notify the invocation system that the action has been done without success
+	void cardCanceled(QString reason);
+
 private Q_SLOTS:
 	void handleActiveFrame();
 	void handleAboutToQuit();

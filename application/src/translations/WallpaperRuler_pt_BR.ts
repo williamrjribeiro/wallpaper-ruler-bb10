@@ -104,6 +104,14 @@
     </message>
 </context>
 <context>
+    <name>WallpaperRuler</name>
+    <message>
+        <location filename="../src/WallpaperRuler.cpp" line="109"/>
+        <source>:)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>main</name>
     <message>
         <location filename="../assets/main.qml" line="9"/>

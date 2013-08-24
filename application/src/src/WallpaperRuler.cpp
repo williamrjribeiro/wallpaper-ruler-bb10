@@ -64,8 +64,8 @@ WallpaperRuler::WallpaperRuler( Application *app )
 		case ApplicationStartupMode::InvokeCard:
 			this->initCardApplication(app);
 			break;
+
 		default:
-			// What app is it and how did it get here?
 			break;
 	}
 
@@ -85,6 +85,38 @@ void WallpaperRuler::handleInvoke(const InvokeRequest& request){
 	qDebug() << "[WallpaperRuler::handleInvoke] Action: "<<request.action()<<", Mime: "<<request.mimeType()<<", URI:" << request.uri()
 			<<"Data:" << request.data() << ", m_invokeManager.startupMode: " << m_invokeManager->startupMode();
 
+	AbstractPane *p = Application::instance()->scene();
+
+	bool ok = false;
+	if (!request.uri().isEmpty()) {
+		ok = p->setProperty("imageEditor.image.imageSource", request.uri());
+		if (!ok) {
+			qDebug() << "[WallpaperRuler::handleInvoke] Cannot set imageEditor.image.imageSource";
+		}
+	}
+	else{
+		qDebug() << "[WallpaperRuler::handleInvoke] Nothing to set!";
+	}
+}
+
+/**
+ * the Card was processed with success
+ */
+void WallpaperRuler::cardDone() {
+	qDebug() << "[WallpaperRuler::cardDone]";
+	// Assemble message
+	CardDoneMessage message;
+	message.setData(tr(":)"));
+	message.setDataType("text/plain");
+	message.setReason("save");
+	// Send message
+	qDebug() << "cardDone: sending message via IvokeManager data: "
+			<< message.data() << " reason: " << message.reason();
+	m_invokeManager->sendCardDone(message);
+}
+
+void WallpaperRuler::cardCanceled(QString reason) {
+	qDebug() << "[WallpaperRuler::cardCanceled] reason: "<<reason;
 }
 
 void WallpaperRuler::initFullApplication(Application *app) {

@@ -86,6 +86,13 @@
     </message>
 </context>
 <context>
+    <name>WallpaperRuler</name>
+    <message>
+        <source>:)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>main</name>
     <message>
         <source>Wappy Camera</source>
