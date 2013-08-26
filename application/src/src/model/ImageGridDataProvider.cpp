@@ -1,7 +1,8 @@
 #include "ImageGridDataProvider.h"
 #include "ImageLoader.h"
-#include <QDebug>
 #include <QStringListIterator>
+#include <QDir>
+#include <QDebug>
 
 using namespace bb::cascades;
 
@@ -13,7 +14,8 @@ ImageGridDataProvider::ImageGridDataProvider(QObject *parent)
 	, m_loadedItems(0)
 {
 	m_dataModel->setParent(this);
-	this->getAllImagePaths();
+	m_dataModel->clear();
+	this->m_imageFiles.append( this->getAllImagePaths(QDir::currentPath()+"/shared") );
 }
 
 ImageGridDataProvider::~ImageGridDataProvider()
@@ -27,24 +29,28 @@ ImageGridDataProvider::~ImageGridDataProvider()
 	m_imageFiles.clear();
 }
 
-void ImageGridDataProvider::getAllImagePaths()
+QStringList ImageGridDataProvider::getAllImagePaths(QString workingDir, bool allChildFolders)
 {
-	//qDebug() << "[ImageGridDataProvider::getAllImagePaths]";
+	qDebug() << "[ImageGridDataProvider::getAllImagePaths] workingDir: " << workingDir<<", allChildFolders: "<<allChildFolders;
+
+	QStringList found;
 
 	// All the folders that we look for images
 	QStringList listDirectories;
-	listDirectories << "/shared/downloads/"
-					<< "/shared/camera/"
-					<< "/shared/documents/"
-					<< "/shared/photos/";
+	if(!allChildFolders){
+		listDirectories << "/downloads/"
+						<< "/camera/"
+						<< "/documents/"
+						<< "/documents/"
+						<< "/photos/";
+	}
+	else {
+		listDirectories << "/";
+	}
 
 	// Only look for this type of images
 	QStringList filters;
 	filters << "*.jpeg" << "*.png" << "*.jpg" << "*.bmp";
-
-	QString workingDir = QDir::currentPath();
-
-	m_imageFiles.clear();
 
 	for (int i = 0; i < listDirectories.size(); ++i) {
 		QDir dir(workingDir + listDirectories.at(i));
@@ -54,11 +60,12 @@ void ImageGridDataProvider::getAllImagePaths()
 		QDirIterator it(dir, QDirIterator::Subdirectories);
 
 		while(it.hasNext()) {
-			m_imageFiles.append(it.next());
+			found.append(it.next());
 		}
 	}
 
-	qDebug() << "[ImageGridDataProvider::getAllImagePaths] m_imageFiles.size: " << m_imageFiles.size();
+	qDebug() << "[ImageGridDataProvider::getAllImagePaths] found.size: " << found.size();
+	return found;
 }
 
 QUrl ImageGridDataProvider::getImageURL(int indexPath)
@@ -71,6 +78,39 @@ void ImageGridDataProvider::addImage(QString filePath)
 {
 	qDebug() << "[ImageGridDataProvider::addImage] filePath: " << filePath;
 	this->m_imageFiles.append(filePath);
+}
+
+int ImageGridDataProvider::clearOldThumbs() {
+	int count = 0;
+	QStringList thumbs = this->getAllImagePaths(QDir::homePath(), true);
+	QString picPath, thumbPath;
+
+	for (int i = 0; i < thumbs.size(); ++i) {
+		thumbPath = thumbs.at(i);
+		picPath = QDir::currentPath() + "/shared/" + thumbPath.section("/",5,-1,QString::SectionSkipEmpty);
+
+		//qDebug() << "[ImageGridDataProvider::clearOldThumbs] i:"<< i <<", thumbPath: " << thumbPath <<", picPath: " << picPath;
+
+		// The thumnails are always saved .jpg but the original file can still be png, jpeg or bmp so we must check all!
+		if( !QFile(picPath).exists()
+			&& !QFile(picPath.replace(".jpg",".png")).exists()
+			&& !QFile(picPath.replace(".jpg",".bmp")).exists()
+			&& !QFile(picPath.replace(".jpg",".jpeg")).exists() ){
+				if( QFile(thumbPath).remove() ){
+					count++;
+					//qDebug() << "[ImageGridDataProvider::clearOldThumbs] deleted i:"<< i <<", thumbPath: " << thumbPath;
+
+					// try to remove directory. it succeeds if it's empty
+					if(QDir(thumbPath).rmdir( QFileInfo(thumbPath).path() ) ){
+						qDebug() << "[ImageGridDataProvider::clearOldThumbs] empty folder removed: " << thumbPath;
+					}
+				}
+				//else qDebug() << "[ImageGridDataProvider::clearOldThumbs] could not delete thumbs["<< i <<"]: " << thumbPath;
+		}
+	}
+
+	qDebug() << "[ImageGridDataProvider::clearOldThumbs] count: " << count;
+	return count;
 }
 
 bb::cascades::DataModel* ImageGridDataProvider::dataModel() const

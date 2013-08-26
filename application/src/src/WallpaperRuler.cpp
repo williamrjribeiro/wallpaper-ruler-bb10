@@ -192,6 +192,7 @@ void WallpaperRuler::handleAboutToQuit() {
 
 	// Explicity delete the DataProvider so that bb::cascades::ImageData is released
 	if(imageGridDataProvider != NULL){
+		imageGridDataProvider->clearOldThumbs();
 		imageGridDataProvider->disconnect();
 		imageGridDataProvider->deleteLater();
 	}

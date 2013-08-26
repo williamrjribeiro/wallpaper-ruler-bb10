@@ -56,12 +56,16 @@ bb::ImageData ImageProcessor::start()
 		image = image.copy(QRect(0,0,256,256));
 
 		// get the parent folder of the current image
-		QString parentFolderName = "/" + reader.fileName().section("/", -2, -2, QString::SectionSkipEmpty)+"/";
-		QString fileName = reader.fileName().section("/", -1, -1, QString::SectionSkipEmpty);
+		//      0        1    2       3                                                     4      5      6     7
+		// E.g: /accounts/1000/appdata/com.willthrill.bb10.Wappy.testDev__bb10_Wappy92abc424/shared/photos/wappy/image.jpg
+		QString filePath = reader.fileName();
+		int count = filePath.count("/");
+		QString parentFolderName = "/" + filePath.section("/", 5, count - 2, QString::SectionSkipEmpty); // discard file name + 1
+		QString fileName = "/" + filePath.section("/", -1);
 
-		//qDebug() << "[ImageProcessor::start] parentFolderName: "<<parentFolderName<<", fileName: "<<fileName;
+		//qDebug() << "[ImageProcessor::start] parentFolderName: "<<parentFolderName<<", filePath: "<<filePath << ", count: " << count;
 
-		// create the parent folder on the tmp directory if it doesn't exist
+		// create the parent folder on the data directory if it doesn't exist.
 		QDir parentFolder( QDir::homePath() + parentFolderName);
 		if( !parentFolder.exists()){
 			parentFolder.mkpath(".");
@@ -70,12 +74,12 @@ bb::ImageData ImageProcessor::start()
 		// save the thumbnail
 		QString p = QDir::homePath() + parentFolderName + fileName;
 
-		//qDebug() << "Saving thumbnail image. File path: " << p;
+		//qDebug() << "[ImageProcessor::start] Saving thumbnail image. File path: " << p;
 
 		bool ok = image.save(p,"jpg",50);
 
 		if(!ok){
-			qWarning() << "[ImageProcessor::start] Could not save image!";
+			qWarning() << "[ImageProcessor::start] Could not save thumbnail image!";
 		}
 
 		// Swap the image colors due to RGB bit representation
