@@ -11,8 +11,9 @@ Page {
     
     signal finishedEditting()
     
-    property alias imageEditor: imageEditor
-    property alias tutorial: cdl_tutorialFrame.sourceComponent
+    property alias imageEditor: ime_editor;
+    property alias imageSource: ime_editor.imageTrackerSource;
+    property alias tutorial: cdl_tutorialFrame.sourceComponent;
     
     property string failureMessage: qsTr("Oops! Something went wrong. Please try again.")
     property string savedMessage: qsTr("Wappy image saved! Saving it for later?")
@@ -109,13 +110,17 @@ Page {
      * @return result of HomeScreen.setWalllpaper() operation
      */
     function setAsDeviceWallpaper(savedImage){
+        console.log("[MultipleFramesEditor.setAsDeviceWallpaper] savedImage: "+ savedImage +", locskState: "+hsc_deviceSreen.lockState);
+        
         var result = hsc_deviceSreen.setWallpaper("file://" + savedImage); 
         if(  result == false ){
             console.log("[MultipleFramesEditor.setAsDeviceWallpaper] ERROR SETTING IMAGE AS DEVICE WALLPAPER!");
             showResultMessage(mfeRootPage.failureMessage);
+            dismissCard("error", mfeRootPage.failureMessage);
         }
         else {
             showResultMessage(mfeRootPage.wallpaperSetMessage);
+            dismissCard("set", mfeRootPage.wallpaperSetMessage);
         }
         return result;
     }
@@ -125,31 +130,48 @@ Page {
      * Show result message and if it's a successful operation, add the image to the app DataModel
      * @return path to the saved image file without protocol.
      */
-    function saveImage(){
-        var savedImage = _imageEditor.processImage( imageEditor.myImageElement.imageSource
-            										,imageEditor.myImageElement.scaleX
-            										,imageEditor.myImageElement.translationX
-            										,imageEditor.myImageElement.translationY
-            										,imageEditor.myImageElement.rotationZ
+    function saveImage(showNotification){
+        var savedImage = _imageEditor.processImage( ime_editor.imageView.imageSource
+            										,ime_editor.imageView.scaleX
+            										,ime_editor.imageView.translationX
+            										,ime_editor.imageView.translationY
+            										,ime_editor.imageView.rotationZ
             										,_screenSize.width
                                                     ,_screenSize.height);
         if( savedImage == "" ){
             console.log("[MultipleFramesEditor.saveImage] ERROR SAVING IMAGE!");
-            showResultMessage(mfeRootPage.failureMessage);
+            if(showNotification){
+            	showResultMessage(mfeRootPage.failureMessage);
+                dismissCard("error", mfeRootPage.failureMessage);
+            }
         }
         else{
-            // If the application is invoked as a Card, there's no data provider!
-            if(_imageGridDataProvider)
+            
+            if(showNotification){
+            	showResultMessage(mfeRootPage.savedMessage);
+                // Informe the Invocation Framework that the card is done ONLY if the user just saved the image
+                dismissCard("saved", mfeRootPage.savedMessage);
+            }
+            
+            // If the application is invoked as a Card, there's no data provider.
+            if(typeof _imageGridDataProvider !== "undefined"){
             	_imageGridDataProvider.addImage(savedImage);
-            	
-            showResultMessage(mfeRootPage.savedMessage);
+	        }
         }
+        
         return savedImage;
     }
+    
     function showResultMessage(msg){
         syt_resultMessage.body = msg;
         syt_resultMessage.show();
     }
+    
+    function dismissCard(reason, message){
+        if(typeof _wpr !== "undefined")
+            _wpr.cardDone(reason, message);
+    }
+    
     Container {
         id: mainContainer
         verticalAlignment: VerticalAlignment.Fill
@@ -160,7 +182,7 @@ Page {
         layout: DockLayout { }
         
         ImageEditor {
-            id: imageEditor
+            id: ime_editor
             implicitLayoutAnimationsEnabled: false
         }
         ControlDelegate {
@@ -282,7 +304,7 @@ Page {
                     title: qsTr("Set as Wallpaper!")
                     ActionBar.placement: ActionBarPlacement.InOverflow
                     imageSource: "icons/ic_save_as.png"
-                    onTriggered: setAsDeviceWallpaper( saveImage() )
+                    onTriggered: setAsDeviceWallpaper( saveImage(false) )
                     shortcuts: [ Shortcut { key: "w" } ]
                 }
 				ActionItem {
@@ -309,14 +331,14 @@ Page {
         contextMenuHandler: ContextMenuHandler {
             id: cmh_handler
             // Abort the showing of the context menu if the user is interacting with the Image
-            onPopulating: if (imageEditor.myImageElement.pinchHappening) event.abort(); else event;
+            onPopulating: if (ime_editor.imageView.pinchHappening) event.abort(); else event;
             onVisualStateChanged: {
                 // Don't allow dragging or pinching if Context Menu is shown
                 if (ContextMenuVisualState.VisibleCompact == cmh_handler.visualState) {
-                    imageEditor.myImageElement.pinchHappening = true;
+                    ime_editor.imageView.pinchHappening = true;
                 }
                 else if (ContextMenuVisualState.Hidden == cmh_handler.visualState) {
-                    imageEditor.myImageElement.pinchHappening = false;
+                    ime_editor.imageView.pinchHappening = false;
                 }
             }
         }
@@ -326,10 +348,18 @@ Page {
                 id: syd_cancelWarning
                 title: "Friendly Warning"
                 body: qsTr("You're about to lose all your changes. Continue?")
-                onFinished: if (syd_cancelWarning.result == SystemUiResult.ConfirmButtonSelection) finishedEditting(); else syd_cancelWarning;
+                onFinished: {
+                    if (syd_cancelWarning.result == SystemUiResult.ConfirmButtonSelection) {
+                        finishedEditting();
+                        dismissCard("cancel","");
+                    }
+                }
             },
             HomeScreen {
                 id: hsc_deviceSreen
+                onWallpaperFinished: {
+                    console.log("[MultipleFramesEditor.hsc_deviceSreen.onWallpaperFinished] result: "+result+", path: "+path);
+                }
             },
             SystemToast {
                 id: syt_resultMessage
@@ -341,39 +371,27 @@ Page {
     shortcuts: [
         Shortcut {
             key: "c"
-            onTriggered: {
-                syd_cancelWarning.show();
-            }
+            onTriggered: syd_cancelWarning.show();
         },
         Shortcut {
             key: "a"
-            onTriggered: {
-                showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"images/fr_active.png");
-            }
+            onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"images/fr_active.png");
         },
         Shortcut {
             key: "l"
-            onTriggered: {
-                showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"images/fr_locked.png");
-            }
+            onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"images/fr_locked.png");
         },
         Shortcut {
             key: "h"
-            onTriggered: {
-                showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"images/fr_home.png");
-            }
+            onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"images/fr_home.png");
         },
         Shortcut {
             key: "s"
-            onTriggered: {
-                saveImage();
-            }
+            onTriggered: saveImage()
         },
         Shortcut {
             key: "w"
-            onTriggered: {
-                setAsDeviceWallpaper( saveImage() )
-            }
+            onTriggered: setAsDeviceWallpaper( saveImage(false) )
         }
     ]
     

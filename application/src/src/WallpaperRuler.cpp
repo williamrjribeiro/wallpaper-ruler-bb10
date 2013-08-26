@@ -89,9 +89,9 @@ void WallpaperRuler::handleInvoke(const InvokeRequest& request){
 
 	bool ok = false;
 	if (!request.uri().isEmpty()) {
-		ok = p->setProperty("imageEditor.image.imageSource", request.uri());
+		ok = p->setProperty("imageSource", request.uri());
 		if (!ok) {
-			qDebug() << "[WallpaperRuler::handleInvoke] Cannot set imageEditor.image.imageSource";
+			qDebug() << "[WallpaperRuler::handleInvoke] Cannot set imageSource!";
 		}
 	}
 	else{
@@ -100,19 +100,17 @@ void WallpaperRuler::handleInvoke(const InvokeRequest& request){
 }
 
 /**
- * the Card was processed with success
+ * Inform the Invocation Framework that the Card is done.
+ * @param bool success: true if the image provided was set as wallpaper, false otherwise.
  */
-void WallpaperRuler::cardDone() {
-	qDebug() << "[WallpaperRuler::cardDone]";
-	// Assemble message
-	CardDoneMessage message;
-	message.setData(tr(":)"));
-	message.setDataType("text/plain");
-	message.setReason("save");
-	// Send message
-	qDebug() << "cardDone: sending message via IvokeManager data: "
-			<< message.data() << " reason: " << message.reason();
-	m_invokeManager->sendCardDone(message);
+void WallpaperRuler::cardDone(QString reason, QString message) {
+	qDebug() << "[WallpaperRuler::cardDone] reason: " << reason << ", message: " << message;
+	// Assemble and send message
+	CardDoneMessage cdm;
+	cdm.setData(message);
+	cdm.setDataType("text/plain");
+	cdm.setReason(reason);
+	m_invokeManager->sendCardDone(cdm);
 }
 
 void WallpaperRuler::cardCanceled(QString reason) {
@@ -162,7 +160,10 @@ void WallpaperRuler::initCardApplication(Application *app) {
 	// set parent to created document to ensure it exists for the whole application lifetime
 	QmlDocument *qml = QmlDocument::create("asset:///MultipleFramesEditor.qml").parent(this);
 
-	// Create the ScreenSize utility
+	// Make the ScreenSize utility instance available to QML as _screenSize
+	qml->setContextProperty("_wpr", this);
+
+	// Make the ScreenSize utility instance available to QML as _screenSize
 	qml->setContextProperty("_screenSize", this->screenSize);
 
 	// Make the AppSettings instance available to QML as _appSettings

@@ -30,62 +30,62 @@
 <context>
     <name>MultipleFramesEditor</name>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="17"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="18"/>
         <source>Oops! Something went wrong. Please try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="18"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="19"/>
         <source>Wappy image saved! Saving it for later?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="19"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="20"/>
         <source>Wappy wallpaper set! Great choice!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="254"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="276"/>
         <source>Frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="255"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="277"/>
         <source>The frames help you fit your images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="259"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="281"/>
         <source>Home Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="267"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="289"/>
         <source>Locked Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="275"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="297"/>
         <source>Active Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="282"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="304"/>
         <source>Set as Wallpaper!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="290"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="312"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="298"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="320"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="328"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="350"/>
         <source>You&apos;re about to lose all your changes. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -100,14 +100,6 @@
     <message>
         <location filename="../assets/Teaser.qml" line="27"/>
         <source>Rate it!</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>WallpaperRuler</name>
-    <message>
-        <location filename="../src/WallpaperRuler.cpp" line="109"/>
-        <source>:)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

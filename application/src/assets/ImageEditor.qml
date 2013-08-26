@@ -1,16 +1,17 @@
 import bb.cascades 1.0
 
 Container {
-    // The top-level container uses a dock layout so that the image can
-    // always remain centered on the screen as it changes size
-    layout: DockLayout {
-    }
-    property alias image: imageTracker
-    property alias myImageElement: iv_image
+    property alias imageTrackerSource: imt_tracker.imageSource
+    property alias imageView: iv_image
+    
     background: Color.Yellow
     verticalAlignment: VerticalAlignment.Fill
     horizontalAlignment: HorizontalAlignment.Fill
     implicitLayoutAnimationsEnabled: false
+    // The top-level container uses a dock layout so that the image can
+    // always remain centered on the screen as it changes size
+    layout: DockLayout {
+    }
     signal imageReady()
     function resetEdits(){
         console.log("[ImageEditor.resetEdits]");
@@ -22,7 +23,7 @@ Container {
         // Must reset the ImageView and the ImageTracker or else if the user selecs the same file again
         // it won't be loaded
         iv_image.resetImage();
-        imageTracker.imageSource = "";
+        imt_tracker.imageSource = "";
     
     }
     // Optimized mathematical functions.JSPerf shows that native implementation is faster (Math.abs)
@@ -36,15 +37,15 @@ Container {
         var ratio = 1.0;
         
         // Calculate the correct scale based on the loaded image!
-        if(imageTracker.width > imageTracker.height)
-            ratio = (imageTracker.width / imageTracker.height).toFixed(3);
+        if(imt_tracker.width > imt_tracker.height)
+            ratio = (imt_tracker.width / imt_tracker.height).toFixed(3);
         
         iv_image.scaleX = ratio;
         iv_image.scaleY = ratio;
         iv_image.initialScale = ratio;
         
-        console.log("[ImageEditor.wallpapperFit] imageTracker.width: " + imageTracker.width
-        +", imageTracker.height: " + imageTracker.height
+        console.log("[ImageEditor.wallpapperFit] imt_tracker.width: " + imt_tracker.width
+        +", imt_tracker.height: " + imt_tracker.height
         + ", ratio: " + ratio);
         
         imageReady();
@@ -101,12 +102,12 @@ Container {
         
         attachedObjects: [
             ImageTracker {
-                id: imageTracker
+                id: imt_tracker
                 onStateChanged: {
-                    //console.log("[ImageEditor.iv_image.imageTracker] state: " + state);
+                    //console.log("[ImageEditor.iv_image.imt_tracker] state: " + state);
                     if (state == ResourceState.Loaded){
                         // BB10 supposelly has some problems of images that are bigger than 2048x2048 px...
-                        iv_image.image = imageTracker.image;
+                        iv_image.image = imt_tracker.image;
                         wallpapperFit();
                     }
                 }

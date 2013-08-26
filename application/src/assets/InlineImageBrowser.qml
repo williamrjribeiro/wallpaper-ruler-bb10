@@ -58,7 +58,7 @@ Container {
             console.log("[InlineImageBrowser.imageGrid.onTriggered] indexPath: " + indexPath);
             selectedPath = _imageGridDataProvider.getImageURL( indexPath );
             // step 1: set the image path on the ImageView of the ImageEditor so that it's loaded
-            mfeContent.imageEditor.image.imageSource = selectedPath;
+            mfeContent.imageSource = selectedPath;
         }
         
         attachedObjects: [
@@ -110,7 +110,7 @@ Container {
         imageCaptured = true;    
         
         // step 1: set the image path on the ImageView of the ImageEditor so that it's loaded
-        mfeContent.imageEditor.image.imageSource = selectedPath;
+        mfeContent.imageSource = selectedPath;
 
         _imageGridDataProvider.addImage(imagePath);
     }

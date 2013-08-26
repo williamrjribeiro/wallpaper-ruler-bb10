@@ -41,7 +41,7 @@ public:
 public Q_SLOTS:
 // Invoaction
 	// This method is invoked to notify the invocation system that the action has been done successfully
-	void cardDone();
+	void cardDone(QString, QString);
 	// This method is invoked to notify the invocation system that the action has been done without success
 	void cardCanceled(QString reason);
 
