@@ -1,4 +1,4 @@
-APP_NAME = WallpaperRuler
+APP_NAME = MyApplication
 
 CONFIG += qt warn_on cascades10
 

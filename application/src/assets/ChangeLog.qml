@@ -12,15 +12,21 @@ Page {
         attachedObjects: [
             ComponentDefinition {
                 id: cdf_changeLog
-                WebView {
-                    id: webView
-                    topPadding: 150
-                    url: "local:///assets/html/changelog.html"
-                    settings.javaScriptEnabled: false
-                    settings.minimumFontSize: 5
-                    settings.cookiesEnabled: false
-                    settings.binaryFontDownloadingEnabled: false
-                } // end WebView
+                ScrollView {
+                    content: WebView {
+                        id: webView
+                        topPadding: 150
+                        url: "local:///assets/html/changelog.html"
+                        settings.javaScriptEnabled: false
+                        settings.minimumFontSize: 5
+                        settings.cookiesEnabled: false
+                        settings.binaryFontDownloadingEnabled: false
+                    }
+                    scrollViewProperties.scrollMode: ScrollMode.Vertical
+                    scrollViewProperties.pinchToZoomEnabled: false
+                    scrollViewProperties.overScrollEffectMode: OverScrollEffectMode.OnScroll // end WebView 
+                }
+                
             } // end ComponentDefinition
         ] // end attachedObjects
     }

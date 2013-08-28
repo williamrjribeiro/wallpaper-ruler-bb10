@@ -39,7 +39,8 @@ ImageLoader::ImageLoader(const QString &imageUrl, QObject* parent)
 	//qDebug() << "[ImageLoader::ImageLoader] m_imageUrl: " << m_imageUrl;
 }
 
-ImageLoader::~ImageLoader() {
+ImageLoader::~ImageLoader()
+{
 	//qDebug() << "[ImageLoader::~ImageLoader] m_watcher.isRunning: "<<m_watcher.isRunning();
 
 	if(m_watcher.isRunning()){
@@ -84,13 +85,12 @@ void ImageLoader::load()
 		m_imageTracker = new ImageTracker(QUrl("file://" + thumbPath));
 		m_imageTracker->setParent(this);
 
-		bool result = connect(m_imageTracker,
+		bool ok = connect(m_imageTracker,
 				SIGNAL(stateChanged(bb::cascades::ResourceState::Type)),
 				this,
 				SLOT(onImageTrackerStateChanged(bb::cascades::ResourceState::Type)));
 
-		Q_ASSERT(result);
-		Q_UNUSED(result);
+		Q_ASSERT_X(ok,"[ImageLoader::load]","connect stateChanged failed");
 	}
 	else{
 
@@ -104,17 +104,17 @@ void ImageLoader::load()
 		// If any Q_ASSERT statement(s) indicate that the slot failed to connect to
 		// the signal, make sure you know exactly why this has happened. This is not
 		// normal, and will cause your app to stop working!
-		bool connectResult;
+		bool ok;
 
 		// Since the variable is not used in the app, this is added to avoid a compiler warning.
-		Q_UNUSED(connectResult);
+		Q_UNUSED(ok);
 
 		// Invoke our onProcessingFinished slot after the processing has finished.
 		// http://qt-project.org/doc/qt-4.8/qt.html#ConnectionType-enum
-		connectResult = connect(&m_watcher, SIGNAL(finished()), this, SLOT(onImageProcessingFinished()), Qt::QueuedConnection);
+		ok = connect(&m_watcher, SIGNAL(finished()), this, SLOT(onImageProcessingFinished()), Qt::QueuedConnection);
 
 		// This affects only Debug builds.
-		Q_ASSERT(connectResult);
+		Q_ASSERT_X(ok,"[ImageLoader::load]","connect finished failed");
 
 		// starts watching the given future
 		m_watcher.setFuture(future);

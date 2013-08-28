@@ -1,6 +1,6 @@
 // Default empty project template
-#ifndef WallpaperRuler_HPP_
-#define WallpaperRuler_HPP_
+#ifndef MyApplication_HPP_
+#define MyApplication_HPP_
 
 #include <QObject>
 #include <QTranslator>
@@ -11,25 +11,25 @@
 #include <bb/system/InvokeRequest>
 #include <bb/system/CardResizeMessage>
 
+#include "model/ImageGridDataProvider.h"
 #include "controller/AppSettings.hpp"
 #include "controller/AppLocalization.h"
 #include "controller/CameraManager.hpp"
-#include "ImageEditor.h"
-#include "model/ImageGridDataProvider.h"
-#include "ScreenSize.hpp"
+#include "controller/ImageEditor.h"
+#include "controller/ScreenSize.hpp"
 
 /*!
  * @brief Application pane object
  *
  *Use this object to create and init app UI, to create context objects, to register the new meta types etc.
  */
-class WallpaperRuler : public QObject
+class MyApplication : public QObject
 {
     Q_OBJECT
 
 public:
-    WallpaperRuler(bb::cascades::Application *app);
-    virtual ~WallpaperRuler() {}
+    MyApplication(bb::cascades::Application *app);
+    virtual ~MyApplication() {}
 
     AppSettings* getAppSettings();
     AppLocalization* getAppLocalization();
@@ -64,4 +64,4 @@ private:
     ScreenSize* screenSize;
     bb::system::InvokeManager* m_invokeManager;
 };
-#endif /* WallpaperRuler_HPP_ */
+#endif /* MyApplication_HPP_ */

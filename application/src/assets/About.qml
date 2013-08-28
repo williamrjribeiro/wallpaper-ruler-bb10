@@ -2,10 +2,10 @@ import bb.cascades 1.0
 
 Page {
     property alias creators: cdl_creators
-    actionBarVisibility: ChromeVisibility.Visible
+    actionBarVisibility: _screenSize.height == _screenSize.width ? ChromeVisibility.Hidden : ChromeVisibility.Visible
     ControlDelegate {
         id: cdl_creators
-        delegateActive: true;
+        delegateActive: false;
         sourceComponent: cdf_creatorsList
     }
     attachedObjects: [
@@ -24,8 +24,8 @@ Page {
                         ImageView {
                             // Will
                             imageSource: "images/creators_1.jpg"
-                            minWidth: 768
-                            minHeight: 1280
+                            minWidth: _screenSize.width
+                            minHeight: _screenSize.height
                         }
                         TextArea {
                             text: "
@@ -35,7 +35,7 @@ Original creator of the BlackBerry® PlayBook™ application Wallpaper Ruler and
                             editable: false
                             focusHighlightEnabled: false
                             enabled: false
-                            preferredWidth: 768
+                            preferredWidth: _screenSize.width
                             horizontalAlignment: HorizontalAlignment.Center
                             verticalAlignment: VerticalAlignment.Center
                             inputMode: TextAreaInputMode.Default
@@ -50,7 +50,7 @@ Original creator of the BlackBerry® PlayBook™ application Wallpaper Ruler and
                             verticalAlignment: VerticalAlignment.Bottom
                             maxWidth: 468
                             horizontalAlignment: HorizontalAlignment.Center
-                            bottomPadding: 140.0
+                            bottomPadding: _screenSize.height == _screenSize.width ? 0 : 140.0
                             layout: StackLayout {
                                 orientation: LayoutOrientation.LeftToRight
                             }
@@ -74,8 +74,8 @@ Original creator of the BlackBerry® PlayBook™ application Wallpaper Ruler and
                         ImageView {
                             // Di
                             imageSource: "images/creators_2.jpg"
-                            minWidth: 768
-                            minHeight: 1280
+                            minWidth: _screenSize.width
+                            minHeight: _screenSize.height
                         }
                         TextArea {
                             text: "
@@ -85,7 +85,7 @@ Responsible for making sure the application is bug free, matches the specs and i
                             editable: false
                             focusHighlightEnabled: false
                             enabled: false
-                            preferredWidth: 768
+                            preferredWidth: _screenSize.width
                             horizontalAlignment: HorizontalAlignment.Center
                             verticalAlignment: VerticalAlignment.Center
                             inputMode: TextAreaInputMode.Default
@@ -100,7 +100,7 @@ Responsible for making sure the application is bug free, matches the specs and i
                             verticalAlignment: VerticalAlignment.Bottom
                             maxWidth: 468
                             horizontalAlignment: HorizontalAlignment.Center
-                            bottomPadding: 140.0
+                            bottomPadding: _screenSize.height == _screenSize.width ? 0 : 140.0
                             layout: StackLayout {
                                 orientation: LayoutOrientation.LeftToRight
                             }
@@ -124,8 +124,8 @@ Responsible for making sure the application is bug free, matches the specs and i
                         ImageView {
                             // Ponyo
                             imageSource: "images/creators_3.jpg"
-                            minWidth: 768
-                            minHeight: 1280
+                            minWidth: _screenSize.width
+                            minHeight: _screenSize.height
                         }
                         TextArea {
                             text: "Originally from Ouarzazate, Morocco.
@@ -134,7 +134,7 @@ Responsible for the usability, experience, typography, and other visual elements
                             editable: false
                             focusHighlightEnabled: false
                             enabled: false
-                            preferredWidth: 768
+                            preferredWidth: _screenSize.width
                             horizontalAlignment: HorizontalAlignment.Center
                             verticalAlignment: VerticalAlignment.Center
                             inputMode: TextAreaInputMode.Default
@@ -149,7 +149,7 @@ Responsible for the usability, experience, typography, and other visual elements
                             verticalAlignment: VerticalAlignment.Bottom
                             maxWidth: 468
                             horizontalAlignment: HorizontalAlignment.Center
-                            bottomPadding: 140.0
+                            bottomPadding: _screenSize.height == _screenSize.width ? 0 : 140.0
                             layout: StackLayout {
                                 orientation: LayoutOrientation.LeftToRight
                             }
@@ -173,8 +173,8 @@ Responsible for the usability, experience, typography, and other visual elements
                         ImageView {
                             // Marco
                             imageSource: "images/creators_4.jpg"
-                            minWidth: 768
-                            minHeight: 1280
+                            minWidth: _screenSize.width
+                            minHeight: _screenSize.height
                         }TextArea {
                             text: "Originally from Sicily, Italy. 
                             
@@ -182,7 +182,7 @@ Responsible for software architecture, testing and programming."
                             editable: false
                             focusHighlightEnabled: false
                             enabled: false
-                            preferredWidth: 768
+                            preferredWidth: _screenSize.width
                             horizontalAlignment: HorizontalAlignment.Center
                             verticalAlignment: VerticalAlignment.Center
                             inputMode: TextAreaInputMode.Default
@@ -197,7 +197,7 @@ Responsible for software architecture, testing and programming."
                             verticalAlignment: VerticalAlignment.Bottom
                             maxWidth: 468
                             horizontalAlignment: HorizontalAlignment.Center
-                            bottomPadding: 140.0
+                            bottomPadding: _screenSize.height == _screenSize.width ? 0 : 140.0
                             layout: StackLayout {
                                 orientation: LayoutOrientation.LeftToRight
                             }

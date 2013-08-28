@@ -11,19 +11,30 @@
 #include <QObject>
 #include <QTranslator>
 
+#include <bb/cascades/LocaleHandler>
+
 class AppLocalization: public QObject {
 
 	Q_OBJECT
 
 public:
-	AppLocalization(QTranslator *translator, QObject *parent = 0);
+	AppLocalization(QObject *parent = 0);
 	virtual ~AppLocalization(){};
 
+	/*
+	 * Allows the current locale to be retrieved from QML
+	 *
+	 * @return the current locale
+	 */
 	Q_INVOKABLE
-	bool loadTranslator(const QString);
+	QString getCurrentLocale();
 
+private slots:
+	void onSystemLanguageChanged();
 private:
-	QTranslator *mTranslator;
+	QTranslator *m_translator;
+	bb::cascades::LocaleHandler* m_localeHandler;
+	QString m_currentLocale;
 };
 
 #endif /* APPLOCALIZATION_H_ */

@@ -3,7 +3,7 @@ BASEDIR =  $$quote($$_PRO_FILE_PWD_)
 
 device {
     CONFIG(release, debug|release) {
-        SOURCES +=  $$quote($$BASEDIR/src/WallpaperRuler.cpp) \
+        SOURCES +=  $$quote($$BASEDIR/src/MyApplication.cpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.cpp) \
                  $$quote($$BASEDIR/src/controller/AppSettings.cpp) \
                  $$quote($$BASEDIR/src/controller/CameraManager.cpp) \
@@ -14,7 +14,7 @@ device {
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/model/ImageGridDataProvider.cpp)
 
-        HEADERS +=  $$quote($$BASEDIR/src/WallpaperRuler.hpp) \
+        HEADERS +=  $$quote($$BASEDIR/src/MyApplication.hpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.h) \
                  $$quote($$BASEDIR/src/controller/AppSettings.hpp) \
                  $$quote($$BASEDIR/src/controller/CameraManager.hpp) \
@@ -26,7 +26,7 @@ device {
     }
 
     CONFIG(debug, debug|release) {
-        SOURCES +=  $$quote($$BASEDIR/src/WallpaperRuler.cpp) \
+        SOURCES +=  $$quote($$BASEDIR/src/MyApplication.cpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.cpp) \
                  $$quote($$BASEDIR/src/controller/AppSettings.cpp) \
                  $$quote($$BASEDIR/src/controller/CameraManager.cpp) \
@@ -37,7 +37,7 @@ device {
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/model/ImageGridDataProvider.cpp)
 
-        HEADERS +=  $$quote($$BASEDIR/src/WallpaperRuler.hpp) \
+        HEADERS +=  $$quote($$BASEDIR/src/MyApplication.hpp) \
                  $$quote($$BASEDIR/src/controller/AppLocalization.h) \
                  $$quote($$BASEDIR/src/controller/AppSettings.hpp) \
                  $$quote($$BASEDIR/src/controller/CameraManager.hpp) \

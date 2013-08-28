@@ -1,4 +1,4 @@
-#include "WallpaperRuler.hpp"
+#include "MyApplication.hpp"
 #include "ImageLoader.h"
 
 #include <QDebug>
@@ -10,10 +10,10 @@
 using namespace bb::cascades;
 using namespace bb::system;
 
-WallpaperRuler::WallpaperRuler( Application *app )
+MyApplication::MyApplication( Application *app )
 	: QObject(app)
 	, appSettings(new AppSettings(this))
-	, appLocalization(NULL)
+	, appLocalization(new AppLocalization(this))
 	, imageEditor(new ImageEditor(this))
 	, imageGridDataProvider(NULL)
 	, cameraManager(NULL)
@@ -25,34 +25,31 @@ WallpaperRuler::WallpaperRuler( Application *app )
 	bool ok = connect(m_invokeManager,
 				SIGNAL(invoked(const bb::system::InvokeRequest&)), this,
 				SLOT(handleInvoke(const bb::system::InvokeRequest&)));
-	if (!ok) {
-		qDebug() << "[WallpaperRuler::WallpaperRuler] connect handleInvoke failed";
-	}
+
+	Q_ASSERT_X(ok,"[MyApplication::MyApplication]", "connect handleInvoke failed");
+
 	ok = connect(m_invokeManager,
 			SIGNAL(cardResizeRequested(const bb::system::CardResizeMessage&)),
 			this, SLOT(handleCardResize(const bb::system::CardResizeMessage&)));
-	if (!ok) {
-		qDebug() << "[WallpaperRuler::WallpaperRuler] connect handleCardResize failed";
-	}
+
+	Q_ASSERT_X(ok,"[MyApplication::MyApplication]", "connect handleCardResize failed");
+
 	ok = connect(m_invokeManager,
 			SIGNAL(cardPooled(const bb::system::CardDoneMessage&)), this,
 			SLOT(handleCardPooled(const bb::system::CardDoneMessage&)));
-	if (!ok) {
-		qDebug() << "[WallpaperRuler::WallpaperRuler] connect handleCardPooled failed";
-	}
+
+	Q_ASSERT_X(ok,"[MyApplication::MyApplication]", "connect handleCardPooled failed");
 
 	// This signal is fired when the application is minimized (active frame)
 	ok = connect( Application::instance(), SIGNAL(thumbnail()), this, SLOT(handleActiveFrame()));
-	if (!ok) {
-		qDebug() << "[WallpaperRuler::WallpaperRuler] connect thumbnail failed";
-	}
+
+	Q_ASSERT_X(ok,"[MyApplication::MyApplication]", "connect thumbnail failed");
 
 	ok = connect( Application::instance(), SIGNAL(aboutToQuit()), this, SLOT(handleAboutToQuit()));
-	if (!ok) {
-		qDebug() << "[WallpaperRuler::WallpaperRuler] connect aboutToQuit failed";
-	}
 
-	qDebug() << "[WallpaperRuler::WallpaperRuler] m_lastClosed: " << this->appSettings->lastClosed();
+	Q_ASSERT_X(ok,"[MyApplication::MyApplication]", "connect aboutToQuit failed");
+
+	qDebug() << "[MyApplication::MyApplication] m_lastClosed: " << this->appSettings->lastClosed();
 
 	switch( m_invokeManager->startupMode() ) {
 		// Launched as full application from home screen
@@ -71,18 +68,11 @@ WallpaperRuler::WallpaperRuler( Application *app )
 
 	// Register custom type to QML
 	qmlRegisterType<ImageLoader>();
-
-	// read the App Language Property
-	//QString appLang = this->appSettings->getValueFor( AppSettings::APP_LANG, QString("en") );
-
-	// create the AppLocalization instance
-	//this->appLocalization = new AppLocalization(translator, this);
-	//this->appLocalization->loadTranslator(appLang);
-
 }
 
-void WallpaperRuler::handleInvoke(const InvokeRequest& request){
-	qDebug() << "[WallpaperRuler::handleInvoke] Action: "<<request.action()<<", Mime: "<<request.mimeType()<<", URI:" << request.uri()
+void MyApplication::handleInvoke(const InvokeRequest& request)
+{
+	qDebug() << "[MyApplication::handleInvoke] Action: "<<request.action()<<", Mime: "<<request.mimeType()<<", URI:" << request.uri()
 			<<"Data:" << request.data() << ", m_invokeManager.startupMode: " << m_invokeManager->startupMode();
 
 	AbstractPane *p = Application::instance()->scene();
@@ -91,11 +81,11 @@ void WallpaperRuler::handleInvoke(const InvokeRequest& request){
 	if (!request.uri().isEmpty()) {
 		ok = p->setProperty("imageSource", request.uri());
 		if (!ok) {
-			qDebug() << "[WallpaperRuler::handleInvoke] Cannot set imageSource!";
+			qDebug() << "[MyApplication::handleInvoke] Cannot set imageSource!";
 		}
 	}
 	else{
-		qDebug() << "[WallpaperRuler::handleInvoke] Nothing to set!";
+		qDebug() << "[MyApplication::handleInvoke] Nothing to set!";
 	}
 }
 
@@ -103,8 +93,9 @@ void WallpaperRuler::handleInvoke(const InvokeRequest& request){
  * Inform the Invocation Framework that the Card is done.
  * @param bool success: true if the image provided was set as wallpaper, false otherwise.
  */
-void WallpaperRuler::cardDone(QString reason, QString message) {
-	qDebug() << "[WallpaperRuler::cardDone] reason: " << reason << ", message: " << message;
+void MyApplication::cardDone(QString reason, QString message)
+{
+	qDebug() << "[MyApplication::cardDone] reason: " << reason << ", message: " << message;
 	// Assemble and send message
 	CardDoneMessage cdm;
 	cdm.setData(message);
@@ -113,12 +104,14 @@ void WallpaperRuler::cardDone(QString reason, QString message) {
 	m_invokeManager->sendCardDone(cdm);
 }
 
-void WallpaperRuler::cardCanceled(QString reason) {
-	qDebug() << "[WallpaperRuler::cardCanceled] reason: "<<reason;
+void MyApplication::cardCanceled(QString reason)
+{
+	qDebug() << "[MyApplication::cardCanceled] reason: "<<reason;
 }
 
-void WallpaperRuler::initFullApplication(Application *app) {
-	qDebug() << "[WallpaperRuler::initFullApplication]";
+void MyApplication::initFullApplication(Application *app)
+{
+	qDebug() << "[MyApplication::initFullApplication]";
 
 	this->imageGridDataProvider = new ImageGridDataProvider(this);
 	this->cameraManager = new CameraManager(this->imageGridDataProvider,this);
@@ -153,8 +146,9 @@ void WallpaperRuler::initFullApplication(Application *app) {
 
 }
 
-void WallpaperRuler::initCardApplication(Application *app) {
-	qDebug() << "[WallpaperRuler::initCardApplication]";
+void MyApplication::initCardApplication(Application *app)
+{
+	qDebug() << "[MyApplication::initCardApplication]";
 
 	// create scene document from main.qml asset
 	// set parent to created document to ensure it exists for the whole application lifetime
@@ -183,11 +177,12 @@ void WallpaperRuler::initCardApplication(Application *app) {
 }
 
 // triggered when the user closes the Application
-void WallpaperRuler::handleAboutToQuit() {
+void MyApplication::handleAboutToQuit()
+{
 
 	// Save the date and time before closing so that we can figure out when to show the Long Press Tutoria image
 	QString quitDate = QDateTime::currentDateTime().toString(AppSettings::APP_DATE_FORMAT);
-	qDebug() << "[WallpaperRuler::handleAboutToQuit] Exiting application. quitDate" << quitDate;
+	qDebug() << "[MyApplication::handleAboutToQuit] Exiting application. quitDate" << quitDate;
 	this->appSettings->saveValueFor( AppSettings::APP_LAST_CLOSED, quitDate);
 
 	// Explicity delete the DataProvider so that bb::cascades::ImageData is released
@@ -198,45 +193,54 @@ void WallpaperRuler::handleAboutToQuit() {
 	}
 }
 
-void WallpaperRuler::handleCardResize(const CardResizeMessage& message){
-	qDebug() << "[WallpaperRuler::handleCardResize] message.width: " << message.width();
+void MyApplication::handleCardResize(const CardResizeMessage& message)
+{
+	qDebug() << "[MyApplication::handleCardResize] message.width: " << message.width();
 }
 
-void WallpaperRuler::handleCardPooled(const CardDoneMessage& message){
-	qDebug() << "[WallpaperRuler::handleCardPooled] message.reason: " << message.reason();
+void MyApplication::handleCardPooled(const CardDoneMessage& message)
+{
+	qDebug() << "[MyApplication::handleCardPooled] message.reason: " << message.reason();
 }
 
 // triggered if Application is minimized (Active Frame)
-void WallpaperRuler::handleActiveFrame() {
-	qDebug() << "[WallpaperRuler::handleActiveFrame] Application is now an Active Frame (minimized)";
+void MyApplication::handleActiveFrame()
+{
+	qDebug() << "[MyApplication::handleActiveFrame] Application is now an Active Frame (minimized)";
 }
 
-AppSettings* WallpaperRuler::getAppSettings() {
-	qDebug() << "[WallpaperRuler::getAppSettings]";
+AppSettings* MyApplication::getAppSettings()
+{
+	qDebug() << "[MyApplication::getAppSettings]";
 	return this->appSettings;
 }
 
-AppLocalization* WallpaperRuler::getAppLocalization() {
-	qDebug() << "[WallpaperRuler::getAppLocalization]";
+AppLocalization* MyApplication::getAppLocalization()
+{
+	qDebug() << "[MyApplication::getAppLocalization]";
 	return this->appLocalization;
 }
 
-ImageEditor* WallpaperRuler::getImageEditor(){
-	qDebug() << "[WallpaperRuler::getImageEditor]";
+ImageEditor* MyApplication::getImageEditor()
+{
+	qDebug() << "[MyApplication::getImageEditor]";
 	return this->imageEditor;
 }
 
-ImageGridDataProvider* WallpaperRuler::getImageGridDataProvider(){
-	qDebug() << "[WallpaperRuler::getImageGridDataProvider]";
+ImageGridDataProvider* MyApplication::getImageGridDataProvider()
+{
+	qDebug() << "[MyApplication::getImageGridDataProvider]";
 	return this->imageGridDataProvider;
 }
 
-CameraManager* WallpaperRuler::getCameraManager(){
-	qDebug() << "[WallpaperRuler::getCameraManager]";
+CameraManager* MyApplication::getCameraManager()
+{
+	qDebug() << "[MyApplication::getCameraManager]";
 	return this->cameraManager;
 }
 
-ScreenSize* WallpaperRuler::getScreenSize(){
-	qDebug() << "[WallpaperRuler::getScreenSize]";
+ScreenSize* MyApplication::getScreenSize()
+{
+	qDebug() << "[MyApplication::getScreenSize]";
 	return this->screenSize;
 }
