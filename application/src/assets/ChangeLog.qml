@@ -1,7 +1,7 @@
 import bb.cascades 1.0
 
 Page {
-    property alias changeLog: cdl_changeLog
+    property alias delegate: cdl_changeLog
     Container {
         layout: DockLayout {}
         ControlDelegate {

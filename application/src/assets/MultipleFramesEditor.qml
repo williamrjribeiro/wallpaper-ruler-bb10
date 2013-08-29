@@ -1,3 +1,4 @@
+import bb 1.0
 import bb.cascades 1.0
 import bb.system 1.0
 import bb.platform 1.0
@@ -15,9 +16,11 @@ Page {
     property alias imageSource: ime_editor.imageTrackerSource;
     property alias tutorial: cdl_tutorialFrame.sourceComponent;
     
-    property string failureMessage: qsTr("Oops! Something went wrong. Please try again.")
-    property string savedMessage: qsTr("Wappy image saved! Saving it for later?")
-    property string wallpaperSetMessage: qsTr("Wappy wallpaper set! Great choice!")
+    property string failureMessage: qsTr("Oops! Something went wrong. Please try again.");
+    property string savedMessage: qsTr("Wappy image saved! Saving it for later?");
+    property string wallpaperSetMessage: qsTr("Wappy wallpaper set! Great choice!");
+    
+    property ActionItem toggledActionItem: null; // keep track of which frame is currently shown (ActionItem.objectName)
     
     onCreationCompleted: {
         console.log("[MultipleFramesEditor.mfeRootPage.onCreationCompleted]");
@@ -56,12 +59,12 @@ Page {
      * Toggles the display of the frame images. Max of one frame can be visible at any given time.
      * It activate the ControlDelegates when needed. <br />
      * @param show - opacity of frame is set to 1.0 if true, 0.0 otherwise <br />
-     * @filePath - the path to the image file of the frame. It's used to determine which frames show or hide. <br />
+     * @actionItem - The toggled action item that called this function. It's used to determine which frames show or hide. <br />
      */
-    function showFrame(show,filePath){
-        console.log("[CustomCamera.showFrame] show: "+show+", filePath: "+filePath);
-        switch(filePath){
-            case "images/fr_home.png":
+    function showFrame(show, actionItem){
+        console.log("[CustomCamera.showFrame] show:",show,", actionItem.objectName:",actionItem.objectName);
+        switch(actionItem.objectName){
+            case ai_homeFrame.objectName:
                 if(cdl_homeFrame.delegateActive == false)
                     cdl_homeFrame.delegateActive = true;
                 
@@ -73,7 +76,7 @@ Page {
                 if(cdl_lockedFrame.delegateActive)
                     cdl_lockedFrame.control.opacity = 0.0;
                 break;
-            case "images/fr_active.png":
+            case ai_activeFrame.objectName:
                 
                 if(cdl_activeFrame.delegateActive == false)
                     cdl_activeFrame.delegateActive = true;
@@ -87,7 +90,7 @@ Page {
                     cdl_lockedFrame.control.opacity = 0.0;
                 
                 break;
-            case "images/fr_locked.png":
+            case ai_lockedFrame.objectName:
                 if(cdl_lockedFrame.delegateActive == false)
                     cdl_lockedFrame.delegateActive = true;
                 
@@ -101,6 +104,9 @@ Page {
                 
                 break;
         }
+        
+        
+        toggledActionItem = show ? actionItem : null;
     }
     
     /**
@@ -170,6 +176,19 @@ Page {
     function dismissCard(reason, message){
         if(typeof _wpr !== "undefined")
             _wpr.cardDone(reason, message);
+    }
+    
+    function releaseLowPriorityMemory(){
+        // Untoggle the current toggled ActionItem (if a frame is currently shown)
+        if(toggledActionItem != null){
+            showFrame(ToggleButtonManager.handleToggle(toggledActionItem), toggledActionItem);
+        }
+        
+        // unload every frame
+        cdl_activeFrame.delegateActive = false;
+        cdl_homeFrame.delegateActive = false;
+        cdl_lockedFrame.delegateActive = false;
+        cdl_tutorialFrame.delegateActive = false;
     }
     
     Container {
@@ -280,7 +299,7 @@ Page {
                     objectName: "homeFrameToggle"
                     title: qsTr("Home Screen")
                     imageSource: "icons/ic_home_screen.png"
-                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"images/fr_home.png");
+                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_homeFrame), ai_homeFrame);
                     shortcuts: [ Shortcut { key: "h" } ]
                 }
                 ActionItem {
@@ -288,7 +307,7 @@ Page {
                     objectName: "lockedFrameToggle"
                     title: qsTr("Locked Screen")
                     imageSource: "icons/ic_locked.png"
-                    onTriggered:  showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"images/fr_locked.png");
+                    onTriggered:  showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame), ai_lockedFrame);
                     shortcuts: [ Shortcut { key: "l" } ]
                 }
                 ActionItem {
@@ -296,7 +315,7 @@ Page {
                     objectName: "activeFrameToggle"
                     title: qsTr("Active Frame")
                     imageSource: "icons/ic_active_screen.png"
-                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"images/fr_active.png")
+                    onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame), ai_activeFrame)
                     shortcuts: [ Shortcut { key: "a" } ]
                 }
                 ActionItem {
@@ -363,6 +382,15 @@ Page {
             },
             SystemToast {
                 id: syt_resultMessage
+            },
+            MemoryInfo {
+                id: memoryInfo
+                onLowMemory: {
+                    console.log("[MultipleFramesEditor.memoryInfo.onLowMemory] level:",level);
+                    if (level == LowMemoryWarningLevel.LowPriority) {
+                        releaseLowPriorityMemory();
+                    }
+                }
             }
         ]
 
@@ -375,15 +403,15 @@ Page {
         },
         Shortcut {
             key: "a"
-            onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),"images/fr_active.png");
+            onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame),ai_activeFrame);
         },
         Shortcut {
             key: "l"
-            onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"images/fr_locked.png");
+            onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),ai_lockedFrame);
         },
         Shortcut {
             key: "h"
-            onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),"images/fr_home.png");
+            onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_homeFrame),ai_homeFrame);
         },
         Shortcut {
             key: "s"

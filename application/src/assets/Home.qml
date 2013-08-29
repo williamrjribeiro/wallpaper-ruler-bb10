@@ -2,11 +2,18 @@ import bb.cascades 1.0
 
 Page {
     id: homeRootPage
-    content: Container {
-        background: Color.Black
-        layout: StackLayout {
-        }
-        InlineImageBrowser {
+    property alias delegate: cdl_home
+    ControlDelegate {
+        id: cdl_home
+        delegateActive: true
+        sourceComponent: ComponentDefinition {
+            Container {
+                background: Color.Black
+                layout: StackLayout {
+                }
+                InlineImageBrowser {
+                }
+            }
         }
     }
     actions: [

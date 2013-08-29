@@ -1,15 +1,12 @@
 import bb.cascades 1.0
 
 Page {
-    property alias creators: cdl_creators
+    property alias delegate: cdl_creators
     actionBarVisibility: _screenSize.height == _screenSize.width ? ChromeVisibility.Hidden : ChromeVisibility.Visible
     ControlDelegate {
         id: cdl_creators
         delegateActive: false;
-        sourceComponent: cdf_creatorsList
-    }
-    attachedObjects: [
-        ComponentDefinition {
+        sourceComponent:  ComponentDefinition {
             id: cdf_creatorsList
             ScrollView {
                 scrollViewProperties.scrollMode: ScrollMode.Horizontal
@@ -29,22 +26,22 @@ Page {
                         }
                         TextArea {
                             text: "
-Originally from Brasília, Brazil. 
-
-Original creator of the BlackBerry® PlayBook™ application Wallpaper Ruler and leader of the project. Responsible for managing the project and the team, writing software specification, UX guidelines, programming, release management"
-                            editable: false
-                            focusHighlightEnabled: false
-                            enabled: false
-                            preferredWidth: _screenSize.width
-                            horizontalAlignment: HorizontalAlignment.Center
-                            verticalAlignment: VerticalAlignment.Center
-                            inputMode: TextAreaInputMode.Default
-                            textFormat: TextFormat.Plain
-                            backgroundVisible: false
-                            scrollMode: TextAreaScrollMode.Elastic
-                            textStyle.textAlign: TextAlign.Left
-                            textStyle.fontWeight: FontWeight.Normal
-                            textStyle.fontSize: FontSize.Small
+                            Originally from Brasília, Brazil. 
+                            
+                            Original creator of the BlackBerry® PlayBook™ application Wallpaper Ruler and leader of the project. Responsible for managing the project and the team, writing software specification, UX guidelines, programming, release management"
+                                                        editable: false
+                                                        focusHighlightEnabled: false
+                                                        enabled: false
+                                                        preferredWidth: _screenSize.width
+                                                        horizontalAlignment: HorizontalAlignment.Center
+                                                        verticalAlignment: VerticalAlignment.Center
+                                                        inputMode: TextAreaInputMode.Default
+                                                        textFormat: TextFormat.Plain
+                                                        backgroundVisible: false
+                                                        scrollMode: TextAreaScrollMode.Elastic
+                                                        textStyle.textAlign: TextAlign.Left
+                                                        textStyle.fontWeight: FontWeight.Normal
+                                                        textStyle.fontSize: FontSize.Small
                         }
                         Container {
                             verticalAlignment: VerticalAlignment.Bottom
@@ -79,22 +76,22 @@ Original creator of the BlackBerry® PlayBook™ application Wallpaper Ruler and
                         }
                         TextArea {
                             text: "
-Originally from Coimbra, Portugal.
+                            Originally from Coimbra, Portugal.
                             
-Responsible for making sure the application is bug free, matches the specs and is usable. Later in the project also managing the project and the team. She was the inspiration for the version 1.0 of the application."
-                            editable: false
-                            focusHighlightEnabled: false
-                            enabled: false
-                            preferredWidth: _screenSize.width
-                            horizontalAlignment: HorizontalAlignment.Center
-                            verticalAlignment: VerticalAlignment.Center
-                            inputMode: TextAreaInputMode.Default
-                            textFormat: TextFormat.Plain
-                            backgroundVisible: false
-                            scrollMode: TextAreaScrollMode.Elastic
-                            textStyle.textAlign: TextAlign.Left
-                            textStyle.fontWeight: FontWeight.Normal
-                            textStyle.fontSize: FontSize.Small
+                            Responsible for making sure the application is bug free, matches the specs and is usable. Later in the project also managing the project and the team. She was the inspiration for the version 1.0 of the application."
+                                                        editable: false
+                                                        focusHighlightEnabled: false
+                                                        enabled: false
+                                                        preferredWidth: _screenSize.width
+                                                        horizontalAlignment: HorizontalAlignment.Center
+                                                        verticalAlignment: VerticalAlignment.Center
+                                                        inputMode: TextAreaInputMode.Default
+                                                        textFormat: TextFormat.Plain
+                                                        backgroundVisible: false
+                                                        scrollMode: TextAreaScrollMode.Elastic
+                                                        textStyle.textAlign: TextAlign.Left
+                                                        textStyle.fontWeight: FontWeight.Normal
+                                                        textStyle.fontSize: FontSize.Small
                         }
                         Container {
                             verticalAlignment: VerticalAlignment.Bottom
@@ -130,20 +127,20 @@ Responsible for making sure the application is bug free, matches the specs and i
                         TextArea {
                             text: "Originally from Ouarzazate, Morocco.
                             
-Responsible for the usability, experience, typography, and other visual elements."
-                            editable: false
-                            focusHighlightEnabled: false
-                            enabled: false
-                            preferredWidth: _screenSize.width
-                            horizontalAlignment: HorizontalAlignment.Center
-                            verticalAlignment: VerticalAlignment.Center
-                            inputMode: TextAreaInputMode.Default
-                            textFormat: TextFormat.Plain
-                            backgroundVisible: false
-                            scrollMode: TextAreaScrollMode.Elastic
-                            textStyle.textAlign: TextAlign.Left
-                            textStyle.fontWeight: FontWeight.Normal
-                            textStyle.fontSize: FontSize.Small
+                            Responsible for the usability, experience, typography, and other visual elements."
+                                                        editable: false
+                                                        focusHighlightEnabled: false
+                                                        enabled: false
+                                                        preferredWidth: _screenSize.width
+                                                        horizontalAlignment: HorizontalAlignment.Center
+                                                        verticalAlignment: VerticalAlignment.Center
+                                                        inputMode: TextAreaInputMode.Default
+                                                        textFormat: TextFormat.Plain
+                                                        backgroundVisible: false
+                                                        scrollMode: TextAreaScrollMode.Elastic
+                                                        textStyle.textAlign: TextAlign.Left
+                                                        textStyle.fontWeight: FontWeight.Normal
+                                                        textStyle.fontSize: FontSize.Small
                         }
                         Container {
                             verticalAlignment: VerticalAlignment.Bottom
@@ -178,20 +175,20 @@ Responsible for the usability, experience, typography, and other visual elements
                         }TextArea {
                             text: "Originally from Sicily, Italy. 
                             
-Responsible for software architecture, testing and programming."
-                            editable: false
-                            focusHighlightEnabled: false
-                            enabled: false
-                            preferredWidth: _screenSize.width
-                            horizontalAlignment: HorizontalAlignment.Center
-                            verticalAlignment: VerticalAlignment.Center
-                            inputMode: TextAreaInputMode.Default
-                            textFormat: TextFormat.Plain
-                            backgroundVisible: false
-                            scrollMode: TextAreaScrollMode.Elastic
-                            textStyle.textAlign: TextAlign.Left
-                            textStyle.fontWeight: FontWeight.Normal
-                            textStyle.fontSize: FontSize.Small
+                            Responsible for software architecture, testing and programming."
+                                                        editable: false
+                                                        focusHighlightEnabled: false
+                                                        enabled: false
+                                                        preferredWidth: _screenSize.width
+                                                        horizontalAlignment: HorizontalAlignment.Center
+                                                        verticalAlignment: VerticalAlignment.Center
+                                                        inputMode: TextAreaInputMode.Default
+                                                        textFormat: TextFormat.Plain
+                                                        backgroundVisible: false
+                                                        scrollMode: TextAreaScrollMode.Elastic
+                                                        textStyle.textAlign: TextAlign.Left
+                                                        textStyle.fontWeight: FontWeight.Normal
+                                                        textStyle.fontSize: FontSize.Small
                         }
                         Container {
                             verticalAlignment: VerticalAlignment.Bottom
@@ -235,5 +232,5 @@ Responsible for software architecture, testing and programming."
                 ]
             } // End of ScrollView
         } // End of ComponentDefinition
-    ]
+    }
 }

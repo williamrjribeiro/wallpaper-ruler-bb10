@@ -1,25 +1,30 @@
 import bb.cascades 1.0
 
 Page {
-    Container {
-        leftPadding: 50;
-        rightPadding: 50;
-        layout: DockLayout {
-
-        }
-        Label {
-            text: qsTr("Wappy Camera is an awesome feature that we want to implement but we need some love. Please give us a 5 star rating on BlackBerry World and ask for the Wappy Camera. Thanks!")
-            multiline: true
-            autoSize.maxLineCount: 10
-            textFormat: TextFormat.Plain
-            enabled: false
-            textStyle.fontStyle: FontStyle.Default
-            textStyle.fontWeight: FontWeight.Default
-            textStyle.fontSize: FontSize.XLarge
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
-            textStyle.textAlign: TextAlign.Justify
-
+    property alias delegate: cdl_teaser
+    ControlDelegate {
+        id: cdl_teaser
+        delegateActive: false;
+        sourceComponent: ComponentDefinition {
+            Container {
+                leftPadding: 50;
+                rightPadding: 50;
+                layout: DockLayout {}
+                Label {
+                    text: qsTr("Wappy Camera is an awesome feature that we want to implement but we need some love. Please give us a 5 star rating on BlackBerry World and ask for the Wappy Camera. Thanks!")
+                    multiline: true
+                    autoSize.maxLineCount: 10
+                    textFormat: TextFormat.Plain
+                    enabled: false
+                    textStyle.fontStyle: FontStyle.Default
+                    textStyle.fontWeight: FontWeight.Default
+                    textStyle.fontSize: FontSize.XLarge
+                    verticalAlignment: VerticalAlignment.Center
+                    horizontalAlignment: HorizontalAlignment.Center
+                    textStyle.textAlign: TextAlign.Justify
+                
+                }
+            }
         }
     }
     actions: [
