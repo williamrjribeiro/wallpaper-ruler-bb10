@@ -338,7 +338,7 @@ Page {
                     id: ai_cancel
                     title: qsTr("Back to gallery")
                     ActionBar.placement: ActionBarPlacement.InOverflow
-                    imageSource: "icons/ic_copy_link_image.png"
+                    imageSource: "icons/ic_gallery.png"
                     // When this action is selected, close the sheet
                     onTriggered: syd_cancelWarning.show()
                     shortcuts: [ Shortcut { key: "b" } ]

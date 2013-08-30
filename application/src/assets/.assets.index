@@ -1,5 +1,5 @@
 1
-44
+47
 720x720/images/creators_1.jpg
 720x720/images/creators_2.jpg
 720x720/images/creators_3.jpg
@@ -19,7 +19,9 @@ icons/ic_active_screen_a.png
 icons/ic_camera.png
 icons/ic_cancel.png
 icons/ic_change_log.png
+icons/ic_copy_link_image.png
 icons/ic_creators.png
+icons/ic_gallery.png
 icons/ic_home.png
 icons/ic_home_screen.png
 icons/ic_home_screen_a.png
@@ -34,6 +36,7 @@ images/creators_1.jpg
 images/creators_2.jpg
 images/creators_3.jpg
 images/creators_4.jpg
+images/empty.png
 images/fr_active.png
 images/fr_home.png
 images/fr_locked.png
