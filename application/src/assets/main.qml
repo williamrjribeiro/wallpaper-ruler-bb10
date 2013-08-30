@@ -6,21 +6,21 @@ TabbedPane {
     showTabsOnActionBar: false
     Tab {
         id: homeTab
-        title: qsTr("Home")
-        imageSource: "asset:///icons/ic_home.png"
+        title: qsTr("Gallery")
+        imageSource: "asset:///icons/ic_copy_link_image.png"
         content: Home {
         }
         onTriggered: content.delegate.delegateActive = true
     }
     
-    Tab {
+    /*Tab {
         id: teaserTab
         title: qsTr("Wappy Camera")
         imageSource: "asset:///icons/ic_edit_profile.png"
         content: Teaser {
         }
         onTriggered: content.delegate.delegateActive = true
-    }
+    }*/
     
     Tab {
         id: creatorsTab
@@ -50,9 +50,9 @@ TabbedPane {
                     if(activeTab != homeTab){
                         homeTab.content.delegate.delegateActive = false;
                     }
-                    if(activeTab != teaserTab){
+                    /*if(activeTab != teaserTab){
                         teaserTab.content.delegate.delegateActive = false;
-                    }
+                    }*/
                     if(activeTab != creatorsTab){
                         creatorsTab.content.delegate.delegateActive = false;
                     }
