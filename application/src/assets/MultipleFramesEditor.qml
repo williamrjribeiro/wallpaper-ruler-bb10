@@ -41,8 +41,8 @@ Page {
           {
               'actionItem' : ai_lockedFrame,
               'toggled' : false,
-              'toggledAsset' : "icons/ic_locked.png",
-              'untoggledAsset' : "icons/ic_unlocked.png"
+              'toggledAsset' : "icons/ic_locked_a.png",
+              'untoggledAsset' : "icons/ic_locked.png"
           },
           {
               'actionItem' : ai_activeFrame,

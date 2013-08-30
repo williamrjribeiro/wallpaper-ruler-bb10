@@ -188,7 +188,7 @@ Page {
                     id: ai_lockedFrame
                     objectName: "lockedFrameToggle"
                     title: qsTr("Locked Screen")
-                    imageSource: "asset:///icons/ic_unlocked.png"
+                    imageSource: "asset:///icons/ic_locked_a.png"
                     onTriggered: {
                         showFrame(ToggleButtonManager.handleToggle(ai_lockedFrame),"asset:///images/fr_active.png");
                     }

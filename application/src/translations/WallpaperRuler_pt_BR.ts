@@ -22,22 +22,9 @@
 <context>
     <name>Home</name>
     <message>
-        <location filename="../assets/Home.qml" line="20"/>
-        <source>Share</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/Home.qml" line="28"/>
+        <location filename="../assets/Home.qml" line="30"/>
         <source>Camera</source>
         <translation>Câmera</translation>
-    </message>
-</context>
-<context>
-    <name>InlineImageBrowser</name>
-    <message>
-        <location filename="../assets/InlineImageBrowser.qml" line="55"/>
-        <source>No images found on your device. Try taking some pictures!</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -58,49 +45,59 @@
         <translation>Papel de parede Wappy aplicado! Ótima escolha.</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="296"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="316"/>
+        <source>Active Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/MultipleFramesEditor.qml" line="339"/>
+        <source>Back to gallery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/MultipleFramesEditor.qml" line="369"/>
+        <source>Any change made after last save will be lost. Continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Frames</source>
-        <translation>Estados do telefone</translation>
+        <translation type="obsolete">Estados do telefone</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="297"/>
         <source>The frames help you fit your images</source>
-        <translation>Os estados do aparelho são para ajudar a visualisar melhor o papel de parede</translation>
+        <translation type="obsolete">Os estados do aparelho são para ajudar a visualisar melhor o papel de parede</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="301"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="300"/>
         <source>Home Screen</source>
         <translation>Tela inicial</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="309"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="308"/>
         <source>Locked Screen</source>
         <translation>Telefone bloqueado</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="317"/>
         <source>Active Frame</source>
-        <translation>Applicativos ativos</translation>
+        <translation type="obsolete">Applicativos ativos</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="324"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="323"/>
         <source>Set as Wallpaper!</source>
         <translation>Aplicar papel de parede!</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="332"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="331"/>
         <source>Save</source>
         <translation>Salvar</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="340"/>
         <source>Cancel</source>
-        <translation>Cancelar</translation>
+        <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="370"/>
         <source>You&apos;re about to lose all your changes. Continue?</source>
-        <translation type="unfinished">Você está prestes a perder todas as modificações feitas. Prossegir?</translation>
+        <translation type="obsolete">Você está prestes a perder todas as modificações feitas. Prossegir?</translation>
     </message>
 </context>
 <context>
@@ -119,14 +116,17 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="9"/>
         <source>Home</source>
-        <translation>Início</translation>
+        <translation type="obsolete">Início</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="18"/>
         <source>Wappy Camera</source>
-        <translation>Wappy Câmera</translation>
+        <translation type="obsolete">Wappy Câmera</translation>
+    </message>
+    <message>
+        <location filename="../assets/main.qml" line="9"/>
+        <source>Gallery</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../assets/main.qml" line="27"/>

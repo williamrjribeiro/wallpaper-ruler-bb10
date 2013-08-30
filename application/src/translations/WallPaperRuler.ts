@@ -22,42 +22,15 @@
         <source>Camera</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Share</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>InlineImageBrowser</name>
-    <message>
-        <source>No images found on your device. Try taking some pictures!</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MultipleFramesEditor</name>
-    <message>
-        <source>Frames</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Home Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Locked Screen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Active Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The frames help you fit your images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -81,7 +54,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You&apos;re about to lose all your changes. Continue?</source>
+        <source>Active Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back to gallery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Any change made after last save will be lost. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -99,19 +80,15 @@
 <context>
     <name>main</name>
     <message>
-        <source>Wappy Camera</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Home</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Creators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gallery</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
