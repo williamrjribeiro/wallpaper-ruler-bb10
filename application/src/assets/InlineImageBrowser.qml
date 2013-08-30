@@ -9,6 +9,62 @@ Container {
     property string selectedPath;
     property bool imageCaptured: false
     
+    ControlDelegate {
+        id: cdl_emptyGrid
+        delegateActive: _imageGridDataProvider.loadCount == 0
+        sourceComponent: ComponentDefinition {
+            Container {
+                background: Color.Black;
+                preferredWidth: 768.0
+                preferredHeight: 1280.0
+                layout: DockLayout {}
+                topPadding: 40.0
+                rightPadding: 20.0
+                leftPadding: 20.0
+                ImageView {
+                    id: imv_empty
+                    imageSource: "images/empty.png"
+                    horizontalAlignment: HorizontalAlignment.Center
+                    verticalAlignment: VerticalAlignment.Top
+                    onCreationCompleted: fallAnimation.play()
+                    implicitLayoutAnimationsEnabled: false
+                    animations: [
+                        TranslateTransition {
+                            id: fallAnimation
+                            repeatCount: 1
+                            easingCurve: StockCurve.QuadraticIn
+                            duration: 500
+                            fromY: 0.0
+                            // 120 is the height of the Action Bar on Q10. 140 is for Z10
+                            toY: _screenSize.height - 480.0 - (_screenSize.height == _screenSize.width ? 120.0 : 140.0)
+                        }
+                    ]
+                    gestureHandlers: [
+                        TapHandler {
+                            onTapped: {
+                                if(!fallAnimation.isPlaying()){
+                                    fallAnimation.play();
+                                    imv_empty.scaleY = 1.0;
+                                    imv_empty.scaleX = 1.0;
+                                }
+                            }
+                        }
+                    ]
+                }
+                Label {
+                    text: qsTr("No images found on your device. Try taking some pictures!")
+                    horizontalAlignment: HorizontalAlignment.Center
+                    verticalAlignment: VerticalAlignment.Top
+                    textStyle.color: Color.White
+                    multiline: true
+                    textStyle.textAlign: TextAlign.Center
+                    textStyle.fontStyle: FontStyle.Italic
+                    textStyle.fontWeight: FontWeight.Bold
+                }
+            }
+        }
+    }
+    
     ListView {
         id: imageGrid
 
@@ -20,13 +76,14 @@ Container {
         }
         
         dataModel: _imageGridDataProvider.dataModel
-
+        visible: _imageGridDataProvider.loadCount > 0
+        
 		listItemComponents: ListItemComponent {
             Container {
                 layout: DockLayout {}
                 
                 // The loading image that is only rotating and visible while the image is loading
-                ImageView {
+                /*ImageView {
                     imageSource: "images/loading.png"
                     horizontalAlignment: HorizontalAlignment.Center
                     verticalAlignment: VerticalAlignment.Center
@@ -43,10 +100,10 @@ Container {
                     ]
                     onCreationCompleted: rotateAnimation.play()
                     onVisibleChanged: visible ? rotateAnimation.play() : rotateAnimation.stop()
-                }
+                }*/
 	            ImageView {
 	                image: ListItemData.image
-                    visible: !ListItemData.loading
+                    visible: true
                     scalingMethod: ScalingMethod.AspectFill
 	                verticalAlignment: VerticalAlignment.Center
 	                horizontalAlignment: HorizontalAlignment.Center

@@ -9,7 +9,8 @@
 class ImageGridDataProvider: public QObject {
 
 	Q_OBJECT
-	Q_PROPERTY(bb::cascades::DataModel* dataModel READ dataModel CONSTANT)
+	Q_PROPERTY(bb::cascades::DataModel* dataModel READ dataModel CONSTANT FINAL)
+	Q_PROPERTY(int loadCount READ getLoadCount NOTIFY loadCountChange FINAL)
 
 public:
 
@@ -45,12 +46,20 @@ public:
 	 */
 	Q_INVOKABLE int clearOldThumbs();
 
+Q_SIGNALS:
+	void loadCountChange(int);
+
 private:
+	int getLoadCount();
+
 	bb::cascades::QListDataModel<QObject*>* m_dataModel;
 
 	// A list of all image files found on the device
-	QStringList m_imageFiles;
+	QStringList m_imageLoaders;
 
 	int m_loadedItems;
+
+private Q_SLOTS:
+	void onImageChanged();
 };
 #endif /* IMAGEGRIDDATAPROVIDER_H */

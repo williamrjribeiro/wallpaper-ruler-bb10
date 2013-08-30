@@ -244,3 +244,8 @@ ScreenSize* MyApplication::getScreenSize()
 	qDebug() << "[MyApplication::getScreenSize]";
 	return this->screenSize;
 }
+
+InvokeManager* MyApplication::getInvokeManager()
+{
+	return this->m_invokeManager;
+}

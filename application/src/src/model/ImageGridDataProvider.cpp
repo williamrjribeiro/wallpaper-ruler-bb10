@@ -15,7 +15,7 @@ ImageGridDataProvider::ImageGridDataProvider(QObject *parent)
 {
 	m_dataModel->setParent(this);
 	m_dataModel->clear();
-	this->m_imageFiles.append( this->getAllImagePaths(QDir::currentPath()+"/shared") );
+	this->m_imageLoaders.append( this->getAllImagePaths(QDir::currentPath()+"/shared") );
 }
 
 ImageGridDataProvider::~ImageGridDataProvider()
@@ -26,7 +26,7 @@ ImageGridDataProvider::~ImageGridDataProvider()
 	m_dataModel->clear();
 	m_dataModel->deleteLater();
 
-	m_imageFiles.clear();
+	m_imageLoaders.clear();
 }
 
 QStringList ImageGridDataProvider::getAllImagePaths(QString workingDir, bool allChildFolders)
@@ -71,13 +71,13 @@ QStringList ImageGridDataProvider::getAllImagePaths(QString workingDir, bool all
 QUrl ImageGridDataProvider::getImageURL(int indexPath)
 {
 	qDebug() << "[ImageGridDataProvider::getImageURL] indexPath: " << indexPath;
-	return QUrl("file://" + this->m_imageFiles[indexPath]);
+	return QUrl("file://" + this->m_imageLoaders[indexPath]);
 }
 
 void ImageGridDataProvider::addImage(QString filePath)
 {
 	qDebug() << "[ImageGridDataProvider::addImage] filePath: " << filePath;
-	this->m_imageFiles.append(filePath);
+	this->m_imageLoaders.append(filePath);
 }
 
 int ImageGridDataProvider::clearOldThumbs() {
@@ -121,21 +121,42 @@ bb::cascades::DataModel* ImageGridDataProvider::dataModel() const
 void ImageGridDataProvider::loadMoreImages()
 {
 	int count = 0;
-	int s = this->m_imageFiles.size();
+	int s = this->m_imageLoaders.size();
 
-		if(m_loadedItems < s){
+	qDebug() << "[ImageGridDataProvider::loadMoreImages] m_loadedItems: " << m_loadedItems << ", s: " << s;
 
-			while( count < ImageGridDataProvider::MAX_ITENS && s > (count + m_loadedItems) ){
+	if(m_loadedItems < s){
 
-				// don't forget to set the Parent Object or else is memory leak!
-				ImageLoader *loader = new ImageLoader( m_imageFiles.at(m_loadedItems + count), this );
-				m_dataModel->append( loader );
-				loader->load();
-				++count;
-			}
+		while( count < ImageGridDataProvider::MAX_ITENS && s > (count + m_loadedItems) ){
 
-			m_loadedItems += count;
+			// don't forget to set the Parent Object or else is memory leak!
+			ImageLoader *loader = new ImageLoader( m_imageLoaders.at(m_loadedItems + count), this );
+
+			bool ok = connect(loader,
+							SIGNAL(imageChanged()), this,
+							SLOT(onImageChanged()));
+
+			Q_ASSERT_X(ok,"[ImageGridDataProvider::loadMoreImages]", "connect imageChanged failed");
+
+			m_dataModel->append( loader );
+			loader->load();
+			++count;
 		}
 
-	qDebug() << "[ImageGridDataProvider::loadMoreImages] m_loadedItems: " << m_loadedItems;
+		//m_loadedItems += count;
+	}
+}
+
+int ImageGridDataProvider::getLoadCount()
+{
+	return m_loadedItems;
+}
+
+void ImageGridDataProvider::onImageChanged()
+{
+	m_loadedItems++;
+
+	qDebug() << "[ImageGridDataProvider::onImageChanged] m_loadedItems: " << m_loadedItems;
+
+	emit loadCountChange(m_loadedItems);
 }

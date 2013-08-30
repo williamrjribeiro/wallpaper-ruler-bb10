@@ -16,7 +16,6 @@
 #ifndef IMAGELOADER_HPP
 #define IMAGELOADER_HPP
 
-#include <QByteArray>
 #include <bb/cascades/ResourceState>
 #include <bb/cascades/Image>
 #include <bb/cascades/ImageTracker>
@@ -25,10 +24,9 @@
 #include "ImageProcessor.h"
 
 /*
- * This class retrieves an image from the web, then converts the binary
+ * This class retrieves an image from the device, then converts the binary
  * data into a bb::cascades::Image and makes it available through a property.
  */
-//! [0]
 class ImageLoader : public QObject
 {
     Q_OBJECT
@@ -44,18 +42,11 @@ public:
      */
     ImageLoader(const QString &imageUrl, QObject* parent = 0);
 
-    /*
-     * Destroys the image loader.
-     */
     ~ImageLoader();
 
-    /*
-     * Loads the image.
-     */
     void load();
 
 Q_SIGNALS:
-    // The change notification signals of the properties
     void imageChanged();
     void labelChanged();
     void loadingChanged();
@@ -85,6 +76,5 @@ private:
     // The thread status watcher
     QFutureWatcher<bb::ImageData> m_watcher;
 };
-//! [0]
 
 #endif

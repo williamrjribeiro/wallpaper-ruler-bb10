@@ -9,8 +9,6 @@ Page {
         sourceComponent: ComponentDefinition {
             Container {
                 background: Color.Black
-                layout: StackLayout {
-                }
                 InlineImageBrowser {
                 }
             }
@@ -19,7 +17,7 @@ Page {
     actions: [
         InvokeActionItem {
             ActionBar.placement: ActionBarPlacement.OnBar
-            title: "Share"
+            title: qsTr("Share")
             imageSource: "asset:///icons/ic_share.png"
             query {
                 mimeType: "text/plain"
