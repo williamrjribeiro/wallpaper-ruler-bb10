@@ -15,8 +15,8 @@ Container {
         sourceComponent: ComponentDefinition {
             Container {
                 background: Color.Black;
-                preferredWidth: 768.0
-                preferredHeight: 1280.0
+                preferredWidth: _screenSize.width
+                preferredHeight: _screenSize.height
                 layout: DockLayout {}
                 topPadding: 40.0
                 rightPadding: 20.0
@@ -81,29 +81,9 @@ Container {
 		listItemComponents: ListItemComponent {
             Container {
                 layout: DockLayout {}
-                
-                // The loading image that is only rotating and visible while the image is loading
-                /*ImageView {
-                    imageSource: "images/loading.png"
-                    horizontalAlignment: HorizontalAlignment.Center
-                    verticalAlignment: VerticalAlignment.Center
-                    preferredHeight: 90
-                    preferredWidth: 90
-                    visible: ListItemData.loading
-                    animations: [
-                        RotateTransition {
-                            id: rotateAnimation
-                            toAngleZ: 360
-                            duration: 1000
-                            repeatCount: AnimationRepeatCount.Forever 
-                        }
-                    ]
-                    onCreationCompleted: rotateAnimation.play()
-                    onVisibleChanged: visible ? rotateAnimation.play() : rotateAnimation.stop()
-                }*/
 	            ImageView {
 	                image: ListItemData.image
-                    visible: true
+                    visible: !ListItemData.loading
                     scalingMethod: ScalingMethod.AspectFill
 	                verticalAlignment: VerticalAlignment.Center
 	                horizontalAlignment: HorizontalAlignment.Center

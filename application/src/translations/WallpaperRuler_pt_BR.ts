@@ -22,9 +22,22 @@
 <context>
     <name>Home</name>
     <message>
-        <location filename="../assets/Home.qml" line="30"/>
+        <location filename="../assets/Home.qml" line="21"/>
+        <source>Share</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/Home.qml" line="29"/>
         <source>Camera</source>
         <translation>Câmera</translation>
+    </message>
+</context>
+<context>
+    <name>InlineImageBrowser</name>
+    <message>
+        <location filename="../assets/InlineImageBrowser.qml" line="55"/>
+        <source>No images found on your device. Try taking some pictures!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -43,6 +56,11 @@
         <location filename="../assets/MultipleFramesEditor.qml" line="21"/>
         <source>Wappy wallpaper set! Great choice!</source>
         <translation>Papel de parede Wappy aplicado! Ótima escolha.</translation>
+    </message>
+    <message>
+        <location filename="../assets/MultipleFramesEditor.qml" line="296"/>
+        <source>Wappy Tricks</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="316"/>
@@ -103,12 +121,11 @@
 <context>
     <name>Teaser</name>
     <message>
-        <location filename="../assets/Teaser.qml" line="14"/>
         <source>Wappy Camera is an awesome feature that we want to implement but we need some love. Please give us a 5 star rating on BlackBerry World and ask for the Wappy Camera. Thanks!</source>
-        <translation>Wappy Camera é uma super funcionalidade mas que só vai ser desenvolvida por você ou se nos derem muitas estrelas no BlackBerry World! Que tal? Gostou da aplicação?</translation>
+        <translation type="obsolete">Wappy Camera é uma super funcionalidade mas que só vai ser desenvolvida por você ou se nos derem muitas estrelas no BlackBerry World! Que tal? Gostou da aplicação?</translation>
     </message>
     <message>
-        <location filename="../assets/Teaser.qml" line="32"/>
+        <location filename="../assets/Teaser.qml" line="21"/>
         <source>Rate it!</source>
         <translation>Dê uma nota!</translation>
     </message>
@@ -120,8 +137,9 @@
         <translation type="obsolete">Início</translation>
     </message>
     <message>
+        <location filename="../assets/main.qml" line="18"/>
         <source>Wappy Camera</source>
-        <translation type="obsolete">Wappy Câmera</translation>
+        <translation type="unfinished">Wappy Câmera</translation>
     </message>
     <message>
         <location filename="../assets/main.qml" line="9"/>
@@ -129,9 +147,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="27"/>
         <source>Creators</source>
-        <translation>Criadores</translation>
+        <translation type="obsolete">Criadores</translation>
     </message>
     <message>
         <location filename="../assets/main.qml" line="36"/>

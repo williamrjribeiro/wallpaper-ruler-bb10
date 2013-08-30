@@ -197,7 +197,7 @@ Page {
         verticalAlignment: VerticalAlignment.Fill
         horizontalAlignment: HorizontalAlignment.Fill
         implicitLayoutAnimationsEnabled: false
-        background: Color.Yellow
+        background: Color.create("#ffe845bc")
         focusPolicy: FocusPolicy.KeyAndTouch
         layout: DockLayout { }
         
@@ -293,8 +293,7 @@ Page {
         
         contextActions: [
             ActionSet {
-                /*title: qsTr("Frames")
-                subtitle: qsTr("The frames help you fit your images")*/
+                title: qsTr("Wappy Tricks")
                 ActionItem {
                     id: ai_homeFrame
                     objectName: "homeFrameToggle"
@@ -399,7 +398,7 @@ Page {
     
     shortcuts: [
         Shortcut {
-            key: "c"
+            key: "b"
             onTriggered: syd_cancelWarning.show();
         },
         Shortcut {

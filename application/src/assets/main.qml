@@ -12,25 +12,25 @@ TabbedPane {
         }
         onTriggered: content.delegate.delegateActive = true
     }
-
-    /*Tab {
-     * id: teaserTab
-     * title: qsTr("Wappy Camera")
-     * imageSource: "asset:///icons/ic_edit_profile.png"
-     * content: Teaser {
-     * }
-     * onTriggered: content.delegate.delegateActive = true
-     * }*/
-
+    
     Tab {
+        id: teaserTab
+        title: qsTr("Wappy Camera")
+        imageSource: "asset:///icons/ic_wappy_camera.png"
+        content: Teaser {
+        }
+        onTriggered: content.delegate.delegateActive = true
+    }
+    
+    /*Tab {
         id: creatorsTab
         title: qsTr("Creators")
         imageSource: "asset:///icons/ic_creators.png"
         content: About {
         }
         onTriggered: content.delegate.delegateActive = true
-    }
-
+    }*/
+    
     Tab {
         id: changeLogTab
         title: qsTr("Change Log")
@@ -39,7 +39,7 @@ TabbedPane {
         }
         onTriggered: content.delegate.delegateActive = true
     }
-
+    
     attachedObjects: [
         MemoryInfo {
             id: memoryInfo

@@ -4,7 +4,7 @@ Container {
     property alias imageTrackerSource: imt_tracker.imageSource
     property alias imageView: iv_image
     
-    background: Color.Yellow
+    background: Color.create("#ffe845bc")
     verticalAlignment: VerticalAlignment.Fill
     horizontalAlignment: HorizontalAlignment.Fill
     implicitLayoutAnimationsEnabled: false

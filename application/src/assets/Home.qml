@@ -3,6 +3,7 @@ import bb.cascades 1.0
 Page {
     id: homeRootPage
     property alias delegate: cdl_home
+    actionBarVisibility: _screenSize.height == _screenSize.width ? ChromeVisibility.Overlay : ChromeVisibility.Visible
     ControlDelegate {
         id: cdl_home
         delegateActive: true
@@ -28,11 +29,7 @@ Page {
             title: qsTr("Camera")
             ActionBar.placement: ActionBarPlacement.OnBar
             imageSource: "asset:///icons/ic_camera.png"
-            onTriggered: {
-                if( _cameraManager.invokeCamera() == false){
-                    console.log("[ERROR] Could not invoke the device Camera!");
-                }
-            }
+            onTriggered: _cameraManager.invokeCamera()
         }
     ]
 }

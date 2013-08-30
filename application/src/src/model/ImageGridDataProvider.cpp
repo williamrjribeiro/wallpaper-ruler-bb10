@@ -142,8 +142,6 @@ void ImageGridDataProvider::loadMoreImages()
 			loader->load();
 			++count;
 		}
-
-		//m_loadedItems += count;
 	}
 }
 
@@ -156,7 +154,7 @@ void ImageGridDataProvider::onImageChanged()
 {
 	m_loadedItems++;
 
-	qDebug() << "[ImageGridDataProvider::onImageChanged] m_loadedItems: " << m_loadedItems;
+	//qDebug() << "[ImageGridDataProvider::onImageChanged] m_loadedItems: " << m_loadedItems;
 
 	emit loadCountChange(m_loadedItems);
 }

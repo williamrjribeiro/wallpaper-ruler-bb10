@@ -22,6 +22,17 @@
         <source>Camera</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Share</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>InlineImageBrowser</name>
+    <message>
+        <source>No images found on your device. Try taking some pictures!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultipleFramesEditor</name>
@@ -65,13 +76,13 @@
         <source>Any change made after last save will be lost. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Wappy Tricks</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Teaser</name>
-    <message>
-        <source>Wappy Camera is an awesome feature that we want to implement but we need some love. Please give us a 5 star rating on BlackBerry World and ask for the Wappy Camera. Thanks!</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Rate it!</source>
         <translation type="unfinished"></translation>
@@ -80,15 +91,15 @@
 <context>
     <name>main</name>
     <message>
-        <source>Creators</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Change Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Gallery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wappy Camera</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
