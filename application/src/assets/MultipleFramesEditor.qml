@@ -322,7 +322,7 @@ Page {
                     id: ai_setAsWallpaper
                     title: qsTr("Set as Wallpaper!")
                     ActionBar.placement: ActionBarPlacement.InOverflow
-                    imageSource: "icons/ic_save_as.png"
+                    imageSource: "icons/ic_saveaswallpaper.png"
                     onTriggered: setAsDeviceWallpaper( saveImage(false) )
                     shortcuts: [ Shortcut { key: "w" } ]
                 }
