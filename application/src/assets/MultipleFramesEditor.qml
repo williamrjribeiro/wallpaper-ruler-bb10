@@ -293,8 +293,8 @@ Page {
         
         contextActions: [
             ActionSet {
-                title: qsTr("Frames")
-                subtitle: qsTr("The frames help you fit your images")
+                /*title: qsTr("Frames")
+                subtitle: qsTr("The frames help you fit your images")*/
                 ActionItem {
                     id: ai_homeFrame
                     objectName: "homeFrameToggle"
@@ -314,7 +314,7 @@ Page {
                 ActionItem {
                     id: ai_activeFrame
                     objectName: "activeFrameToggle"
-                    title: qsTr("Active Frame")
+                    title: qsTr("Active Frames")
                     imageSource: "icons/ic_active_screen.png"
                     onTriggered: showFrame(ToggleButtonManager.handleToggle(ai_activeFrame), ai_activeFrame)
                     shortcuts: [ Shortcut { key: "a" } ]
@@ -323,7 +323,7 @@ Page {
                     id: ai_setAsWallpaper
                     title: qsTr("Set as Wallpaper!")
                     ActionBar.placement: ActionBarPlacement.InOverflow
-                    imageSource: "icons/ic_save_as.png"
+                    imageSource: "icons/ic_saveaswallpaper.png"
                     onTriggered: setAsDeviceWallpaper( saveImage(false) )
                     shortcuts: [ Shortcut { key: "w" } ]
                 }
@@ -337,12 +337,12 @@ Page {
 				}
                 ActionItem {
                     id: ai_cancel
-                    title: qsTr("Cancel")
+                    title: qsTr("Back to gallery")
                     ActionBar.placement: ActionBarPlacement.InOverflow
-                    imageSource: "icons/ic_cancel.png"
+                    imageSource: "icons/ic_gallery.png"
                     // When this action is selected, close the sheet
                     onTriggered: syd_cancelWarning.show()
-                    shortcuts: [ Shortcut { key: "c" } ]
+                    shortcuts: [ Shortcut { key: "b" } ]
                     
                 }
             } // end of ActionSet
@@ -366,8 +366,8 @@ Page {
         attachedObjects: [
             SystemDialog {
                 id: syd_cancelWarning
-                title: "Friendly Warning"
-                body: qsTr("You're about to lose all your changes. Continue?")
+                title: "Back to gallery"
+                body: qsTr("Any change made after last save will be lost. Continue?")
                 onFinished: {
                     if (syd_cancelWarning.result == SystemUiResult.ConfirmButtonSelection) {
                         finishedEditting();
