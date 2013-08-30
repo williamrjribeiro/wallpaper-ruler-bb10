@@ -37,6 +37,7 @@ public:
     ImageGridDataProvider* getImageGridDataProvider();
     CameraManager* getCameraManager();
     ScreenSize* getScreenSize();
+    bb::system::InvokeManager* getInvokeManager();
 
 public Q_SLOTS:
 // Invoaction

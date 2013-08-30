@@ -105,7 +105,6 @@ Page {
                 break;
         }
         
-        
         toggledActionItem = show ? actionItem : null;
     }
     
@@ -137,6 +136,8 @@ Page {
      * @return path to the saved image file without protocol.
      */
     function saveImage(showNotification){
+        console.log("[MultipleFramesEditor.saveImage] showNotification:",showNotification);
+        
         var savedImage = _imageEditor.processImage( ime_editor.imageView.imageSource
             										,ime_editor.imageView.scaleX
             										,ime_editor.imageView.translationX
@@ -331,7 +332,7 @@ Page {
 				    title: qsTr("Save")
 				    ActionBar.placement: ActionBarPlacement.InOverflow
 				    imageSource: "icons/ic_save.png"
-				    onTriggered: saveImage()
+				    onTriggered: saveImage(true)
                     shortcuts: [ Shortcut { key: "s" } ]
 				}
                 ActionItem {
@@ -415,7 +416,7 @@ Page {
         },
         Shortcut {
             key: "s"
-            onTriggered: saveImage()
+            onTriggered: saveImage(true)
         },
         Shortcut {
             key: "w"

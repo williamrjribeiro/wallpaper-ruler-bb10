@@ -128,7 +128,7 @@ void ImageLoader::load()
  */
 void ImageLoader::onImageProcessingFinished()
 {
-	//qDebug() << "[ImageLoader::onImageProcessingFinished] m_imageUrl: " << m_imageUrl;
+	qDebug() << "[ImageLoader::onImageProcessingFinished] m_imageUrl: " << m_imageUrl;
 
 	// Create the Cascades Image from the Cascades ImageData from the other thread only if it was started and finished
 	if( m_image.source().isEmpty()){

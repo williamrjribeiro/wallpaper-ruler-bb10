@@ -41,20 +41,14 @@ bool CameraManager::invokeCamera()
 	request.setAction("bb.action.CAPTURE");
 	request.setMimeType("image/jpg");
 	request.setData("photo");
-	bool connectResult = false;
-	Q_UNUSED(connectResult);
-	connectResult = connect(invokeManager, SIGNAL(childCardDone(const bb::system::CardDoneMessage&)),
+
+	bool connectResult = connect(invokeManager, SIGNAL(childCardDone(const bb::system::CardDoneMessage&)),
 				this, SLOT(onCameraInvoke(const bb::system::CardDoneMessage&)));
 
-	Q_ASSERT(connectResult);
+	Q_ASSERT_X(connectResult,"[CameraManager::invokeCamera]","connect finished failed");
 
-	if(connectResult){
-		// we can safely ignore the Reply from this invoke call. Everything is handled on the SLOT onCameraInvoke
-		invokeManager->invoke(request);
-	}
-	else{
-		qDebug() << "[CameraManager::invokeCamera] ERROR! Failed to invoke the Camera Card.";
-	}
+	// we can safely ignore the Reply from this invoke call. Everything is handled on the SLOT onCameraInvoke
+	invokeManager->invoke(request);
 	return connectResult;
 }
 
@@ -62,10 +56,17 @@ void CameraManager::onCameraInvoke(const CardDoneMessage &message)
 {
 	qDebug() << "[CameraManager::onCameraInvoke] message.data.isEmpty: " << message.data().isEmpty()
 			<< ", message.reason: " << message.reason() << ", message.data: " << message.data();
-	if(!message.data().isEmpty()){
-		// add the path to the file of the captured image to the Application Model so it shows up on the IIC.
-		//this->m_model->loadMoreImages();
 
+	// disconnect the signal-slot and free the memory from the InvokeManager created
+	InvokeManager *invokeManager = (InvokeManager*) this->sender();
+
+	Q_ASSERT_X(invokeManager,"[CameraManager::onCameraInvoke]","could not get the reference of the signal sender invokeManager");
+
+	invokeManager->disconnect();
+	invokeManager->deleteLater();
+	invokeManager = NULL;
+
+	if(!message.data().isEmpty()){
 		// update the m_capturedImage property with the value from the Data.
 		this->setCapturedImage(message.data());
 	}

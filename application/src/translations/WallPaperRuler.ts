@@ -22,6 +22,17 @@
         <source>Camera</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Share</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>InlineImageBrowser</name>
+    <message>
+        <source>No images found on your device. Try taking some pictures!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultipleFramesEditor</name>
@@ -54,10 +65,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You&apos;re about to lose all your changes. Continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Set as Wallpaper!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -71,6 +78,10 @@
     </message>
     <message>
         <source>Wappy wallpaper set! Great choice!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You&apos;re about to lose all your changes. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
