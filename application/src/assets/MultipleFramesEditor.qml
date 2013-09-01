@@ -254,18 +254,38 @@ Page {
             id: cdl_tutorialFrame
             delegateActive: false;
             sourceComponent: ComponentDefinition {
-                id: cdf_tutorialImage
-                ImageView {
-                    id: iv_tutorialFrame
-                    scalingMethod: ScalingMethod.None
-                    loadEffect: ImageViewLoadEffect.None
-                    visible: true
-                    opacity: 1.0
-                    imageSource: "images/long_press.png"
+                Container {
+                    id: ctn_tutorial
+                    preferredWidth: _screenSize.width
+                    preferredHeight: _screenSize.height
+                    background: Color.create("#aa000000")
+                    layout: DockLayout {}
+                    ImageView {
+                        id: iv_tutorialFrame
+                        imageSource: "images/long_press.png"
+                        visible: true
+                        opacity: 1.0
+                        scalingMethod: ScalingMethod.None
+                        loadEffect: ImageViewLoadEffect.None
+                        verticalAlignment: VerticalAlignment.Center
+                        horizontalAlignment: HorizontalAlignment.Center
+                    }
+                    Container {
+                        rightPadding: 20.0
+                        bottomPadding: 20.0
+                        verticalAlignment: VerticalAlignment.Bottom
+                        horizontalAlignment: HorizontalAlignment.Right
+                        ImageView {
+                            id: iv_tutorialClose
+                            imageSource: "images/long_press_close.png"
+                            scalingMethod: ScalingMethod.None
+                            loadEffect: ImageViewLoadEffect.None
+                        }
+                    }
                     gestureHandlers: [
                         TapHandler {
                             onTapped: {
-                                console.log("[MultipleFramesEditor.iv_tutorialFrame.onTapped]");
+                                //console.log("[MultipleFramesEditor.ctn_tutorial.onTapped]");
                                 trans_fadeOut.play();
                             }
                         }
@@ -276,8 +296,9 @@ Page {
                             fromOpacity: 1.0
                             toOpacity: 0.0
                             onEnded: {
-                                // the tutorial image will remain invisible even after the user leaves the MFE.
-                                iv_tutorialFrame.visible = false;
+                                console.log("[MultipleFramesEditor.ctn_tutorial.trans_fadeOut.onEnded]");
+                                // the tutorial frame will remain invisible even after the user leaves the MFE.
+                                visible = false;
                                 
                                 // Don't show the tutorial image anymore
                                 _appSettings.showTutorial = false;
@@ -338,7 +359,7 @@ Page {
                     id: ai_cancel
                     title: qsTr("Back to gallery")
                     ActionBar.placement: ActionBarPlacement.InOverflow
-                    imageSource: "icons/ic_gallery.png"
+                    imageSource: "icons/ic_gallery_back.png"
                     // When this action is selected, close the sheet
                     onTriggered: syd_cancelWarning.show()
                     shortcuts: [ Shortcut { key: "b" } ]

@@ -58,22 +58,22 @@
         <translation>Papel de parede Wappy aplicado! Ótima escolha.</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="296"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="317"/>
         <source>Wappy Tricks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="316"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="337"/>
         <source>Active Frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="339"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="360"/>
         <source>Back to gallery</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="369"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="390"/>
         <source>Any change made after last save will be lost. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -86,12 +86,12 @@
         <translation type="obsolete">Os estados do aparelho são para ajudar a visualisar melhor o papel de parede</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="300"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="321"/>
         <source>Home Screen</source>
         <translation>Tela inicial</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="308"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="329"/>
         <source>Locked Screen</source>
         <translation>Telefone bloqueado</translation>
     </message>
@@ -100,12 +100,12 @@
         <translation type="obsolete">Applicativos ativos</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="323"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="344"/>
         <source>Set as Wallpaper!</source>
         <translation>Aplicar papel de parede!</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="331"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="352"/>
         <source>Save</source>
         <translation>Salvar</translation>
     </message>
