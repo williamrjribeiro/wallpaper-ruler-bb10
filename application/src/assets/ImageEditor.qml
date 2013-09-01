@@ -20,19 +20,16 @@ Container {
         iv_image.translationX = 0.0;
         iv_image.translationY = 0.0;
         iv_image.rotationZ = 0.0;
+        iv_image.initialRotationZ = 0.0;
+        iv_image.initialWindowX = 0.0;
+        iv_image.initialWindowY = 0.0;
+        iv_image.initialScale = 1.0;
         // Must reset the ImageView and the ImageTracker or else if the user selecs the same file again
         // it won't be loaded
         iv_image.resetImage();
         imt_tracker.imageSource = "";
     
     }
-    // Optimized mathematical functions.JSPerf shows that native implementation is faster (Math.abs)
-    // http://graphics.stanford.edu/~seander/bithacks.html#IntegerMinOrMax
-    // http://jsperf.com/math-abs-vs-bitwise/8
-    // http://jsperf.com/bitwise-math-abs
-    /*function mabs(val){
-        return (val ^ (val >> 31)) - (val >> 31);
-    }*/
     function wallpapperFit(){
         var ratio = 1.0;
         
@@ -65,9 +62,6 @@ Container {
         // The scale of the image when a pinch gesture begins
         property double initialScale: 1.0
         
-        // The scale of the image when used as the device wallpaper - set on wallpaperFit()
-        property double wallpaperRatio: 0.0
-        
         // How fast the image grows/shrinks in response to the pinch gesture
         property double scaleFactor: 1.25
         
@@ -88,8 +82,8 @@ Container {
         property bool dragHappening: false
         
         // The position of the image when a drag gesture begins
-        property double initialWindowX
-        property double initialWindowY
+        property double initialWindowX: 0.0
+        property double initialWindowY: 0.0
         
         // How fast the image moves in response to the drag gesture
         property double dragFactor: 1.25
@@ -193,7 +187,9 @@ Container {
                 iv_image.scaleY = s;
                 
                 // Calculate and apply the new rotation
-                iv_image.rotationZ = iv_image.initialRotationZ + ((event.rotation) * iv_image.rotationFactor);
+                iv_image.rotationZ = iv_image.initialRotationZ + (event.rotation * iv_image.rotationFactor);
+                //iv_image.rotationZ += event.rotation * iv_image.rotationFactor;
+                console.log("[ImageEditor.iv_image.PinchHandler.onPinchUpdated] iv_image.rotationZ:",iv_image.rotationZ,"e.rotation:",event.rotation);
             }
             onPinchEnded: {
                 // Allow a drag gesture to begin

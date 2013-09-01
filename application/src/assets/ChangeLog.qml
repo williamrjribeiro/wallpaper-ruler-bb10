@@ -21,10 +21,38 @@ Page {
                         settings.minimumFontSize: 5
                         settings.cookiesEnabled: false
                         settings.binaryFontDownloadingEnabled: false
-                    }
+                        settings.defaultTextCodecName: "utf-8"
+                        onNavigationRequested: {
+                            console.log("[ChangeLog.webView.onNavigationRequested] request.navigationType:",request.navigationType,", request.url: ",request.url);
+                            if(request.navigationType == WebNavigationType.LinkClicked){
+	                            // don't let the Webview navigate to the requested page
+	                            request.action = WebNavigationRequestAction.Ignore
+	                            // will auto-invoke after re-arming
+	                            linkInvocation.query.uri = request.url
+	                        }   
+                        }
+                        attachedObjects: [
+                            Invocation {
+                                id: linkInvocation
+                                property bool auto_trigger: false
+                                query {
+                                    uri: "http://www.williamrjribeiro.com"
+                                    onUriChanged: {
+                                        linkInvocation.query.updateQuery();
+                                    }
+                                }
+                                onArmed: {
+                                    // don't auto-trigger on initial setup
+                                    if (auto_trigger)
+                                        trigger("bb.action.OPEN");
+                                    auto_trigger = true;    // allow re-arming to auto-trigger
+                                }
+                            }
+                        ]
+                    } // End of webView
                     scrollViewProperties.scrollMode: ScrollMode.Vertical
                     scrollViewProperties.pinchToZoomEnabled: false
-                    scrollViewProperties.overScrollEffectMode: OverScrollEffectMode.OnScroll // end WebView 
+                    scrollViewProperties.overScrollEffectMode: OverScrollEffectMode.OnScroll 
                 }
                 
             } // end ComponentDefinition

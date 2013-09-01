@@ -22,15 +22,6 @@ TabbedPane {
         onTriggered: content.delegate.delegateActive = true
     }
     
-    /*Tab {
-        id: creatorsTab
-        title: qsTr("Creators")
-        imageSource: "asset:///icons/ic_creators.png"
-        content: About {
-        }
-        onTriggered: content.delegate.delegateActive = true
-    }*/
-    
     Tab {
         id: changeLogTab
         title: qsTr("Change Log")
@@ -50,12 +41,12 @@ TabbedPane {
                     if (activeTab != homeTab) {
                         homeTab.content.delegate.delegateActive = false;
                     }
-                    /*if(activeTab != teaserTab){
-                     * teaserTab.content.delegate.delegateActive = false;
-                     * }*/
-                    if (activeTab != creatorsTab) {
-                        creatorsTab.content.delegate.delegateActive = false;
+                    if(activeTab != teaserTab){
+                    	teaserTab.content.delegate.delegateActive = false;
                     }
+                    /*if (activeTab != creatorsTab) {
+                        creatorsTab.content.delegate.delegateActive = false;
+                    }*/
                     if (activeTab != changeLogTab) {
                         changeLogTab.content.delegate.delegateActive = false;
                     }

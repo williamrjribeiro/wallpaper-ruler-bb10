@@ -215,7 +215,7 @@ Page {
                     id: iv_homeFrame
                     opacity: 0.0
                     scalingMethod: ScalingMethod.None
-                    loadEffect: ImageViewLoadEffect.None
+                    loadEffect: ImageViewLoadEffect.Subtle
                     imageSource: "images/fr_home.png"
                 }
             }
@@ -230,7 +230,7 @@ Page {
                     id: iv_activeFrame
                     opacity: 0.0
                     scalingMethod: ScalingMethod.None
-                    loadEffect: ImageViewLoadEffect.None
+                    loadEffect: ImageViewLoadEffect.Subtle
                     imageSource: "images/fr_active.png"
                 }
             }
@@ -245,7 +245,7 @@ Page {
                     id: iv_lockedFrame
                     opacity: 0.0
                     scalingMethod: ScalingMethod.None
-                    loadEffect: ImageViewLoadEffect.None
+                    loadEffect: ImageViewLoadEffect.Subtle
                     imageSource: "images/fr_locked.png"
                 }
             }
@@ -266,7 +266,7 @@ Page {
                         visible: true
                         opacity: 1.0
                         scalingMethod: ScalingMethod.None
-                        loadEffect: ImageViewLoadEffect.None
+                        loadEffect: ImageViewLoadEffect.DefaultDeferred
                         verticalAlignment: VerticalAlignment.Center
                         horizontalAlignment: HorizontalAlignment.Center
                     }
@@ -279,7 +279,7 @@ Page {
                             id: iv_tutorialClose
                             imageSource: "images/long_press_close.png"
                             scalingMethod: ScalingMethod.None
-                            loadEffect: ImageViewLoadEffect.None
+                            loadEffect: ImageViewLoadEffect.DefaultDeferred
                         }
                     }
                     gestureHandlers: [
@@ -314,7 +314,7 @@ Page {
         
         contextActions: [
             ActionSet {
-                title: qsTr("Wappy Tricks")
+                title: qsTr("Wappy Menu")
                 ActionItem {
                     id: ai_homeFrame
                     objectName: "homeFrameToggle"
@@ -386,8 +386,8 @@ Page {
         attachedObjects: [
             SystemDialog {
                 id: syd_cancelWarning
-                title: "Back to gallery"
-                body: qsTr("Any change made after last save will be lost. Continue?")
+                title: qsTr("Back to gallery")
+                body: qsTr("Any changes made after last save will be lost. Continue?")
                 onFinished: {
                     if (syd_cancelWarning.result == SystemUiResult.ConfirmButtonSelection) {
                         finishedEditting();

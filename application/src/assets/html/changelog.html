@@ -1,41 +1,118 @@
 <html>
 	<head>
+		<meta charset="UTF-8">
 		<title>Change Log</title>
 		<style>
 			* {
 				-webkit-user-select: none;
 			}
 			body {
-				padding-top: 20%;
-				background-image: url("../images/changelog.jpg");
+				background-image: url("../images/changelog.png");
 				background-repeat:no-repeat;
 				background-position: top center;
 				font-family: arial;
 				font-size: 2em;
 			}
+			h1{
+				text-align: center
+			}
+			h4{
+				margin-bottom: 0.2em
+			}
 			.content{
 				overflow-y: scroll;
   				-webkit-overflow-scrolling: touch;
 			}
+			.subtitle{
+				font-size: 0.75em;
+				font-style: italic;
+			}
+			.creator{
+			}
+			.creator div {
+				width: 100%
+				display: table-cell;
+    			vertical-align: middle;
+    			text-align: center;
+			}
+			.creator .contact-list{
+				list-style: none
+			}
+			.creator .contact-list li{
+				display: inline;
+				margin-left: 0.5em;
+			}
 		</style>
 	</head>
 <body><div class="content">
+	<h1>Change Log </h1>
 	<article>
 		<header>
 			<h3 align=center>Version 1.0</h3>
 			<p>Released on: <time pubdate="pubdate">01 September 2013</time></p>
 		</header>
-		<p>Initial release. Features:</p>
+		<p>Features:</p>
 		<ul>
-			<li>Choose images from folders: Document, Camera, Photos & Downloads</li>
-			<li>Scale, rotate and move your images with your touch</li>
+			<li>Scans for images on folders: Document, Camera, Photos & Downloads</li>
+			<li>Scale, rotate and move your images with touch gestures any way you want</li>
 			<li>Overlays: home screen, locked phone & active frames</li>
 			<li>Set edited image as device wallpaper or save it in folder Photos/Wappy</li>
-			<li>Use long press for the context menu</li>
-			<li>Use the device's cameras to take pictures from Wappy</li>
+			<li>Once you select an image, use long press for the context menu</li>
+			<li>Use the device's cameras to take pictures from Wappy. Click the Camera button on the Gallery.</li>
 			<li>Share our application and spread Wappy to the world</li>
 			<li>Keep track of changes made to Wappy on the Changelog screen</li>
 		</ul>
 	</article>	
+	<article>
+		<header>
+			<h3 align=center>Creators</h3>
+		</header>
+		<section class="creator">
+			<h4>Diana Louren&#231;o</h2>
+			<span  class="subtitle">Quality Assurance, Project Manager, Inspiration</span>
+			<p>Originally from Coimbra, Portugal. 
+Responsible for making sure the application is bug free, matches the specs and is usable. Later in the project also managing the project and the team. She was the inspiration for the original idea of this app.</p>
+			<div>
+			<ul class="contact-list">
+				<li><a href="http://www.linkedin.com/in/dianalourenco">LinkedIn</a></li>
+				<li><a href="https://twitter.com/dilourenco_">@dilourenco_</a></li>
+			</ul>
+			</div>
+		</section>
+		<section class="creator">
+			<h4>Hana Belaidi</h2>
+			<span  class="subtitle">UI and Interaction Designer</span>
+			<p>Originally from Ouarzazate, Morocco. 
+Responsible for the usability, experience, typography, and other visual elements.</p>
+			<div>
+			<ul class="contact-list">
+				<li><a href="http://www.linkedin.com/pub/hana-belaidi/17/5bb/834">LinkedIn</a></li>
+			</ul>
+			</div>
+		</section>
+		<section class="creator">
+			<h4>Marco Grimaudo</h2>
+			<span  class="subtitle">Software Engineer</span>
+			<p>Originally from Palermo, Sicily. 
+Responsible for software architecture, testing and programming.</p>
+			<div>
+			<ul class="contact-list">
+				<li><a href="http://www.linkedin.com/in/marcogrimaudo">LinkedIn</a></li>
+			</ul>
+			</div>
+		</section>
+		<section class="creator">
+			<h4>William R. J. Ribeiro</h2>
+			<span  class="subtitle">Software Engineer, Project Manager</span>
+			<p>Originally from Bras&#237;lia, Brazil.
+Original creator of the BlackBerry&#174; PlayBook&#153; app "Wallpaper Ruler" and leader of the project. Responsible for managing the project, together with Diana, and the team, writing software specification, UX guidelines, programming and release management.</p>
+			<div>
+			<ul class="contact-list">
+				<li><a href="http://www.linkedin.com/in/williamrjribeiro">LinkedIn</a></li>
+				<li><a href="https://twitter.com/bill_bsb">@bill_bsb</a></li>
+			</ul>
+			</div>
+		</section>
+	</article>
 </div></body>
 </html>

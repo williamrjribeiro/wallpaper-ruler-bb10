@@ -76,6 +76,13 @@ void ImageLoader::load()
 	// Create the path to the pre-generated thumbnail image
 	QString thumbPath = QDir::homePath() + "/" + m_imageUrl.section("/",-2,-1,QString::SectionSkipEmpty);
 
+	// If any Q_ASSERT statement(s) indicate that the slot failed to connect to
+	// the signal, make sure you know exactly why this has happened. This is not
+	// normal, and will cause your app to stop working!
+	bool ok = false;
+	// Since the variable is not used in the app, this is added to avoid a compiler warning.
+	Q_UNUSED(ok);
+
 	//qDebug() << "[ImageLoader::load] thumbPath: " << thumbPath;
 
 	// Check if the pre-generated a thumbnail already exists
@@ -85,7 +92,7 @@ void ImageLoader::load()
 		m_imageTracker = new ImageTracker(QUrl("file://" + thumbPath));
 		m_imageTracker->setParent(this);
 
-		bool ok = connect(m_imageTracker,
+		ok = connect(m_imageTracker,
 				SIGNAL(stateChanged(bb::cascades::ResourceState::Type)),
 				this,
 				SLOT(onImageTrackerStateChanged(bb::cascades::ResourceState::Type)));
@@ -100,14 +107,6 @@ void ImageLoader::load()
 		this->m_imageProcessor = new ImageProcessor(m_imageUrl,this);
 
 		QFuture<bb::ImageData> future = QtConcurrent::run(m_imageProcessor, &ImageProcessor::start);
-
-		// If any Q_ASSERT statement(s) indicate that the slot failed to connect to
-		// the signal, make sure you know exactly why this has happened. This is not
-		// normal, and will cause your app to stop working!
-		bool ok;
-
-		// Since the variable is not used in the app, this is added to avoid a compiler warning.
-		Q_UNUSED(ok);
 
 		// Invoke our onProcessingFinished slot after the processing has finished.
 		// http://qt-project.org/doc/qt-4.8/qt.html#ConnectionType-enum

@@ -26,6 +26,10 @@
         <source>Share</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/93716/</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InlineImageBrowser</name>
@@ -73,11 +77,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Any change made after last save will be lost. Continue?</source>
+        <source>Wappy Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Wappy Tricks</source>
+        <source>Any changes made after last save will be lost. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -85,6 +89,11 @@
     <name>Teaser</name>
     <message>
         <source>Rate it!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wappy Camera is a new feature that works with the device&apos;s cameras. To implement it we need your support. Give us a 5 star rating and ask for it on the comments.
+Thanks!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

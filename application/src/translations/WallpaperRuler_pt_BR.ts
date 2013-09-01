@@ -27,7 +27,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/Home.qml" line="29"/>
+        <location filename="../assets/Home.qml" line="26"/>
+        <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/93716/</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/Home.qml" line="30"/>
         <source>Camera</source>
         <translation>Câmera</translation>
     </message>
@@ -35,7 +40,7 @@
 <context>
     <name>InlineImageBrowser</name>
     <message>
-        <location filename="../assets/InlineImageBrowser.qml" line="55"/>
+        <location filename="../assets/InlineImageBrowser.qml" line="28"/>
         <source>No images found on your device. Try taking some pictures!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -59,7 +64,12 @@
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="317"/>
-        <source>Wappy Tricks</source>
+        <source>Wappy Menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/MultipleFramesEditor.qml" line="390"/>
+        <source>Any changes made after last save will be lost. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,12 +79,8 @@
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="360"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
         <source>Back to gallery</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="390"/>
-        <source>Any change made after last save will be lost. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -125,7 +131,13 @@
         <translation type="obsolete">Wappy Camera é uma super funcionalidade mas que só vai ser desenvolvida por você ou se nos derem muitas estrelas no BlackBerry World! Que tal? Gostou da aplicação?</translation>
     </message>
     <message>
-        <location filename="../assets/Teaser.qml" line="21"/>
+        <location filename="../assets/Teaser.qml" line="151"/>
+        <source>Wappy Camera is a new feature that works with the device&apos;s cameras. To implement it we need your support. Give us a 5 star rating and ask for it on the comments.
+Thanks!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/Teaser.qml" line="193"/>
         <source>Rate it!</source>
         <translation>Dê uma nota!</translation>
     </message>
@@ -151,7 +163,7 @@
         <translation type="obsolete">Criadores</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="36"/>
+        <location filename="../assets/main.qml" line="27"/>
         <source>Change Log</source>
         <translation>Atualizações</translation>
     </message>

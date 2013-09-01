@@ -22,7 +22,7 @@ AppLocalization::AppLocalization(QObject *parent)
 
 	bool ok = QObject::connect(m_localeHandler, SIGNAL(systemLanguageChanged()), this,
 			SLOT(onSystemLanguageChanged()));
-
+	Q_UNUSED(ok);
 	Q_ASSERT_X(ok,"[AppLocalization::AppLocalization]", "connect systemLanguageChanged failed");
 
 	// initial load

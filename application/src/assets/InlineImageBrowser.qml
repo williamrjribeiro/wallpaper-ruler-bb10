@@ -11,46 +11,19 @@ Container {
     
     ControlDelegate {
         id: cdl_emptyGrid
-        delegateActive: _imageGridDataProvider.loadCount == 0
+        delegateActive: false
         sourceComponent: ComponentDefinition {
             Container {
+                id: ctn_empty
                 background: Color.Black;
-                preferredWidth: _screenSize.width
-                preferredHeight: _screenSize.height
                 layout: DockLayout {}
                 topPadding: 40.0
                 rightPadding: 20.0
                 leftPadding: 20.0
-                ImageView {
-                    id: imv_empty
-                    imageSource: "images/empty.png"
-                    horizontalAlignment: HorizontalAlignment.Center
-                    verticalAlignment: VerticalAlignment.Top
-                    onCreationCompleted: fallAnimation.play()
-                    implicitLayoutAnimationsEnabled: false
-                    animations: [
-                        TranslateTransition {
-                            id: fallAnimation
-                            repeatCount: 1
-                            easingCurve: StockCurve.QuadraticIn
-                            duration: 500
-                            fromY: 0.0
-                            // 120 is the height of the Action Bar on Q10. 140 is for Z10
-                            toY: _screenSize.height - 480.0 - (_screenSize.height == _screenSize.width ? 120.0 : 140.0)
-                        }
-                    ]
-                    gestureHandlers: [
-                        TapHandler {
-                            onTapped: {
-                                if(!fallAnimation.isPlaying()){
-                                    fallAnimation.play();
-                                    imv_empty.scaleY = 1.0;
-                                    imv_empty.scaleX = 1.0;
-                                }
-                            }
-                        }
-                    ]
-                }
+                bottomPadding: 140.0
+                preferredWidth: _screenSize.width
+                preferredHeight: _screenSize.height
+                onTouch: fallAnimation.play()
                 Label {
                     text: qsTr("No images found on your device. Try taking some pictures!")
                     horizontalAlignment: HorizontalAlignment.Center
@@ -60,14 +33,44 @@ Container {
                     textStyle.textAlign: TextAlign.Center
                     textStyle.fontStyle: FontStyle.Italic
                     textStyle.fontWeight: FontWeight.Bold
+                    textStyle.fontSize: FontSize.Large
+                    autoSize.maxLineCount: 4
                 }
-            }
+                ImageView {
+                    id: imv_empty
+                    imageSource: "images/empty.png"
+                    horizontalAlignment: HorizontalAlignment.Center
+                    verticalAlignment: VerticalAlignment.Bottom
+                    onCreationCompleted: fallAnimation.play()
+                    opacity: 0.0
+                    implicitLayoutAnimationsEnabled: false
+                    animations: [
+                        ParallelAnimation {
+                            id: fallAnimation
+                            FadeTransition {
+                                fromOpacity: 0.0
+                                toOpacity: 1.0
+                                duration: 1000.0
+                            }
+                            TranslateTransition {
+                                repeatCount: 1
+                                easingCurve: StockCurve.BounceOut
+                                duration: 1000.0
+                                fromY: - _screenSize.height
+                                toY: 0.0
+                                // 120 is the height of the Action Bar on Q10. 140 is for Z10
+                                //toY: _screenSize.height - 480.0 - (_screenSize.height == _screenSize.width ? 120.0 : 140.0)
+                            }
+                        }
+                    ]
+                }
+            } // End of ctn_empty
         }
     }
     
     ListView {
         id: imageGrid
-
+        visible: true;
         layout: GridListLayout {
             columnCount: 3
             headerMode: ListHeaderMode.None
@@ -76,14 +79,14 @@ Container {
         }
         
         dataModel: _imageGridDataProvider.dataModel
-        visible: _imageGridDataProvider.loadCount > 0
         
 		listItemComponents: ListItemComponent {
             Container {
                 layout: DockLayout {}
 	            ImageView {
 	                image: ListItemData.image
-                    visible: !ListItemData.loading
+                    //visible: !ListItemData.loading  // must only show the images after they are loaded
+                    opacity: ListItemData.loading ? 0.0 : 1.0
                     scalingMethod: ScalingMethod.AspectFill
 	                verticalAlignment: VerticalAlignment.Center
 	                horizontalAlignment: HorizontalAlignment.Center
@@ -133,6 +136,12 @@ Container {
     onCreationCompleted: {
         console.log("[InlineImageBrowser.onCreationCompleted]");
         
+        // Load the empty container only there's no images on the device
+        if(_imageGridDataProvider.imagesCount == 0){
+            cdl_emptyGrid.delegateActive = true;
+            imageGrid.visible = false;
+        }
+        
         // this signal is dispatched when the user taps on Finished/Cancel from MFE.
         // It must go back to this screen
         mfeContent.finishedEditting.connect( handleMFEFinished );
@@ -150,6 +159,11 @@ Container {
         mfeContent.imageSource = selectedPath;
 
         _imageGridDataProvider.addImage(imagePath);
+        
+        imageGrid.visible = true;
+        
+        // unload the empty container after taking a picture so that the ListView (grid) can appear
+        cdl_emptyGrid.delegateActive = false;
     }
     
     function handleMFEFinished() {

@@ -11,6 +11,7 @@ class ImageGridDataProvider: public QObject {
 	Q_OBJECT
 	Q_PROPERTY(bb::cascades::DataModel* dataModel READ dataModel CONSTANT FINAL)
 	Q_PROPERTY(int loadCount READ getLoadCount NOTIFY loadCountChange FINAL)
+	Q_PROPERTY(int imagesCount READ getImagesCount FINAL)
 
 public:
 
@@ -50,12 +51,16 @@ Q_SIGNALS:
 	void loadCountChange(int);
 
 private:
+	// The number of successfully loaded images
 	int getLoadCount();
+
+	// The number of images found on the device
+	int getImagesCount();
 
 	bb::cascades::QListDataModel<QObject*>* m_dataModel;
 
 	// A list of all image files found on the device
-	QStringList m_imageLoaders;
+	QStringList m_imageFilePaths;
 
 	int m_loadedItems;
 

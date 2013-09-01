@@ -44,3 +44,10 @@ Desktop.ini
 
 # Mac crap
 .DS_Store
+application/src/assets/.assets.index
+application/src/arm-p/o.le-v7-g/.obj/WallpaperRuler.gch/c++
+application/src/arm-p/Makefile
+application/src/arm-p/Makefile.Debug
+application/src/arm-p/Makefile.Release
+application/src/arm-p/o.le-v7-g/WallpaperRuler
+application/src/arm-p/o.le-v7-g/WallpaperRuler.bar
