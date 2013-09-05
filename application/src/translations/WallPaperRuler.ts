@@ -27,7 +27,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/93716/</source>
+        <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/35353891/</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -74,10 +74,6 @@
     </message>
     <message>
         <source>Back to gallery</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Wappy Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

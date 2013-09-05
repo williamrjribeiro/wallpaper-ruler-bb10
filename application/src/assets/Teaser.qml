@@ -196,7 +196,7 @@ Page {
             query{
                 invokeTargetId: "sys.appworld"
                 invokeActionId: "bb.action.OPEN"
-                uri: "appworld://content/26166877"                
+                uri: "appworld://content/35353891" // this is the ID of Wappy on AppWorld :)                
             }
         }
     ]

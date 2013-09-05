@@ -13,7 +13,7 @@ Page {
     signal finishedEditting()
     
     property alias imageEditor: ime_editor;
-    property alias imageSource: ime_editor.imageTrackerSource;
+    //property alias imageSource: ime_editor.imageTrackerSource;
     property alias tutorial: cdl_tutorialFrame.sourceComponent;
     
     property string failureMessage: qsTr("Oops! Something went wrong. Please try again.");
@@ -62,7 +62,7 @@ Page {
      * @actionItem - The toggled action item that called this function. It's used to determine which frames show or hide. <br />
      */
     function showFrame(show, actionItem){
-        console.log("[CustomCamera.showFrame] show:",show,", actionItem.objectName:",actionItem.objectName);
+        console.log("[MultipleFramesEditor.showFrame] show:",show,", actionItem.objectName:",actionItem.objectName);
         switch(actionItem.objectName){
             case ai_homeFrame.objectName:
                 if(cdl_homeFrame.delegateActive == false)
@@ -192,6 +192,26 @@ Page {
         cdl_tutorialFrame.delegateActive = false;
     }
     
+    function setImageSource(filePath){
+        var folders = filePath.substring(8).split('/'),
+        	fileName = folders[folders.length - 1],
+        	parentsName = "";
+        
+        for(var i = 5, l = folders.length - 1; i < l; i++){
+        	parentsName += (folders[i] + "/"); 
+        }
+            
+        console.log("[MultipleFramesEditor.setImageSource] parentsName:",parentsName,", fileName:",fileName);
+            
+        // Show the name of the selected file as the title of the context menu
+        as_actions.title = fileName;
+        
+        // Show the folder structure of the selected file as the sub-title of the context menu
+        as_actions.subtitle = parentsName;
+        
+        ime_editor.imageTrackerSource = filePath;
+    }
+    
     Container {
         id: mainContainer
         verticalAlignment: VerticalAlignment.Fill
@@ -314,7 +334,7 @@ Page {
         
         contextActions: [
             ActionSet {
-                title: qsTr("Wappy Menu")
+                id: as_actions
                 ActionItem {
                     id: ai_homeFrame
                     objectName: "homeFrameToggle"

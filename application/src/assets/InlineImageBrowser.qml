@@ -58,8 +58,6 @@ Container {
                                 duration: 1000.0
                                 fromY: - _screenSize.height
                                 toY: 0.0
-                                // 120 is the height of the Action Bar on Q10. 140 is for Z10
-                                //toY: _screenSize.height - 480.0 - (_screenSize.height == _screenSize.width ? 120.0 : 140.0)
                             }
                         }
                     ]
@@ -95,10 +93,10 @@ Container {
         }
 
         onTriggered: {
-            console.log("[InlineImageBrowser.imageGrid.onTriggered] indexPath: " + indexPath);
             selectedPath = _imageGridDataProvider.getImageURL( indexPath );
+            console.log("[InlineImageBrowser.imageGrid.onTriggered] indexPath:",indexPath,", selectedPath:",selectedPath);
             // step 1: set the image path on the ImageView of the ImageEditor so that it's loaded
-            mfeContent.imageSource = selectedPath;
+            mfeContent.setImageSource(selectedPath);
         }
         
         attachedObjects: [
@@ -128,7 +126,7 @@ Container {
             onClosed: {
                 console.log("[InlineImageBrowser.mfeSheet.onClosed]");
                 mfeContent.imageEditor.resetEdits();
-                _imageGridDataProvider.loadMoreImages();
+                //_imageGridDataProvider.loadMoreImages();
             }
         }    
     ]
@@ -156,7 +154,7 @@ Container {
         imageCaptured = true;    
         
         // step 1: set the image path on the ImageView of the ImageEditor so that it's loaded
-        mfeContent.imageSource = selectedPath;
+        mfeContent.setImageSource(selectedPath);
 
         _imageGridDataProvider.addImage(imagePath);
         

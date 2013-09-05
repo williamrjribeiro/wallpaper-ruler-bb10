@@ -23,7 +23,7 @@ Page {
             query {
                 mimeType: "text/plain"
                 invokeActionId: "bb.action.SHARE"
-                data: qsTr("Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/93716/")
+                data: qsTr("Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/35353891/")
             }
         },
         ActionItem {

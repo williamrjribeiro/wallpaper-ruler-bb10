@@ -74,7 +74,7 @@ private:
     QString m_imageUrl;
 
     // The thread status watcher
-    QFutureWatcher<bb::ImageData> m_watcher;
+    QFutureWatcher<bb::ImageData> *m_watcher;
 };
 
 #endif

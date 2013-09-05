@@ -28,7 +28,7 @@
     </message>
     <message>
         <location filename="../assets/Home.qml" line="26"/>
-        <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/93716/</source>
+        <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/35353891/</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -63,23 +63,18 @@
         <translation>Papel de parede Wappy aplicado! Ótima escolha.</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="317"/>
-        <source>Wappy Menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="390"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="410"/>
         <source>Any changes made after last save will be lost. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="337"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="357"/>
         <source>Active Frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="360"/>
-        <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="380"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="409"/>
         <source>Back to gallery</source>
         <translation type="unfinished"></translation>
     </message>
@@ -92,12 +87,12 @@
         <translation type="obsolete">Os estados do aparelho são para ajudar a visualisar melhor o papel de parede</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="321"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="341"/>
         <source>Home Screen</source>
         <translation>Tela inicial</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="329"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="349"/>
         <source>Locked Screen</source>
         <translation>Telefone bloqueado</translation>
     </message>
@@ -106,12 +101,12 @@
         <translation type="obsolete">Applicativos ativos</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="344"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="364"/>
         <source>Set as Wallpaper!</source>
         <translation>Aplicar papel de parede!</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="352"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="372"/>
         <source>Save</source>
         <translation>Salvar</translation>
     </message>

@@ -26,6 +26,7 @@ MyApplication::MyApplication( Application *app )
 				SIGNAL(invoked(const bb::system::InvokeRequest&)), this,
 				SLOT(handleInvoke(const bb::system::InvokeRequest&)));
 
+	Q_UNUSED(ok);
 	Q_ASSERT_X(ok,"[MyApplication::MyApplication]", "connect handleInvoke failed");
 
 	ok = connect(m_invokeManager,
