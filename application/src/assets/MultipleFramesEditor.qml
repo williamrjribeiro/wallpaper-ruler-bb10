@@ -53,6 +53,9 @@ Page {
         ];
         
         ToggleButtonManager.initToggleButtons(buttons);
+        
+        // The invokedWith signal is emmited when the app is invoked with a QUrl to a file to be shown
+        _wpr.invokedWith.connect(setImageSource);
     }
     
     /**
@@ -193,15 +196,17 @@ Page {
     }
     
     function setImageSource(filePath){
+        // ignore the file:/// protocol
         var folders = filePath.substring(8).split('/'),
         	fileName = folders[folders.length - 1],
         	parentsName = "";
         
-        for(var i = 5, l = folders.length - 1; i < l; i++){
+        // Start gathering the parent folders from the "shared" folder.
+        for(var i = folders.indexOf("shared") + 1, l = folders.length - 1; i < l; i++){
         	parentsName += (folders[i] + "/"); 
         }
             
-        console.log("[MultipleFramesEditor.setImageSource] parentsName:",parentsName,", fileName:",fileName);
+        console.log("[MultipleFramesEditor.setImageSource] parentsName:",parentsName,", fileName:",fileName,", filePath:",filePath);
             
         // Show the name of the selected file as the title of the context menu
         as_actions.title = fileName;
@@ -463,5 +468,4 @@ Page {
             onTriggered: setAsDeviceWallpaper( saveImage(false) )
         }
     ]
-    
 }

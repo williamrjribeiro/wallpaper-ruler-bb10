@@ -76,17 +76,8 @@ void MyApplication::handleInvoke(const InvokeRequest& request)
 	qDebug() << "[MyApplication::handleInvoke] Action: "<<request.action()<<", Mime: "<<request.mimeType()<<", URI:" << request.uri()
 			<<"Data:" << request.data() << ", m_invokeManager.startupMode: " << m_invokeManager->startupMode();
 
-	AbstractPane *p = Application::instance()->scene();
-
-	bool ok = false;
 	if (!request.uri().isEmpty()) {
-		ok = p->setProperty("imageSource", request.uri());
-		if (!ok) {
-			qDebug() << "[MyApplication::handleInvoke] Cannot set imageSource!";
-		}
-	}
-	else{
-		qDebug() << "[MyApplication::handleInvoke] Nothing to set!";
+		emit invokedWith(request.uri().toString());
 	}
 }
 
@@ -128,7 +119,7 @@ void MyApplication::initFullApplication(Application *app)
 	qml->setContextProperty("_appSettings", this->appSettings);
 
 	// Make the AppLocalization instance available to QML as _appLocalization
-	//qml->setContextProperty("_appLocalization", wpr->getAppLocalization());
+	qml->setContextProperty("_appLocalization", this->appLocalization);
 
 	// Make the CameraManager instance available to QML as _cameraManager
 	qml->setContextProperty("_cameraManager", this->cameraManager);
@@ -144,7 +135,6 @@ void MyApplication::initFullApplication(Application *app)
 
 	// set created root object as a scene
 	app->setScene(root);
-
 }
 
 void MyApplication::initCardApplication(Application *app)
@@ -165,7 +155,7 @@ void MyApplication::initCardApplication(Application *app)
 	qml->setContextProperty("_appSettings", this->appSettings);
 
 	// Make the AppLocalization instance available to QML as _appLocalization
-	//qml->setContextProperty("_appLocalization", wpr->getAppLocalization());
+	qml->setContextProperty("_appLocalization", this->appLocalization);
 
 	// Make the ImageEditor instance used for saving an edited image
 	qml->setContextProperty("_imageEditor", this->imageEditor);

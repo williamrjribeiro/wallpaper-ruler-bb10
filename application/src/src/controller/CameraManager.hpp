@@ -54,20 +54,20 @@ public:
 	// Getter for the Q_PROPERTY capturedImage
 	QString capturedImage() const;
 
-	// Setter for the Q_PROPERTy capturedImage
+	// Setter for the Q_PROPERTY capturedImage
 	void setCapturedImage(const QString imagePath);
 
 	// Getter for the Q_PROPERTY zoomLevel
 	unsigned int zoomLevel() const;
 
-	// Setter for the Q_PROPERTy zoomLevel
+	// Setter for the Q_PROPERTY zoomLevel
 	void setZoomLevel(const unsigned int value);
 
 signals:
-	// Signal for the Q_PROPERTy capturedImage
+	// Signal for the Q_PROPERTY capturedImage
 	void imageCaptured(const QString imagePath);
 
-	// Signal for the Q_PROPERTy zoomLevel
+	// Signal for the Q_PROPERTY zoomLevel
 	void zoomLevelChanged(const unsigned int value);
 
 private Q_SLOTS:

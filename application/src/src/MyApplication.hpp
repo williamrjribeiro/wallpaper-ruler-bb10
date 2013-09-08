@@ -19,8 +19,6 @@
 #include "controller/ScreenSize.hpp"
 
 /*!
- * @brief Application pane object
- *
  *Use this object to create and init app UI, to create context objects, to register the new meta types etc.
  */
 class MyApplication : public QObject
@@ -39,8 +37,10 @@ public:
     ScreenSize* getScreenSize();
     bb::system::InvokeManager* getInvokeManager();
 
+signals:
+	void invokedWith(const QString filePath);
+
 public Q_SLOTS:
-// Invoaction
 	// This method is invoked to notify the invocation system that the action has been done successfully
 	void cardDone(QString, QString);
 	// This method is invoked to notify the invocation system that the action has been done without success
