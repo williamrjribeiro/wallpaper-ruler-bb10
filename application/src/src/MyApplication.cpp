@@ -145,7 +145,7 @@ void MyApplication::initCardApplication(Application *app)
 	// set parent to created document to ensure it exists for the whole application lifetime
 	QmlDocument *qml = QmlDocument::create("asset:///MultipleFramesEditor.qml").parent(this);
 
-	// Make the ScreenSize utility instance available to QML as _screenSize
+	// Make the main application instance available to QML as _screenSize
 	qml->setContextProperty("_wpr", this);
 
 	// Make the ScreenSize utility instance available to QML as _screenSize

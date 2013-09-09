@@ -6,15 +6,17 @@
 
 using namespace bb::cascades;
 
-const int ImageGridDataProvider::MAX_ITENS = 18;
+const int ImageGridDataProvider::MAX_ITENS = 15;
 
 ImageGridDataProvider::ImageGridDataProvider(QObject *parent)
 	: QObject(parent)
-	, m_dataModel(new QListDataModel<QObject*>())
+	, m_dataModel(new QListDataModel<ImageLoader*>())
 	, m_loadedItems(0)
+	, m_loadingCount(0)
 {
 	m_dataModel->setParent(this);
 	m_dataModel->clear();
+	// look for images on the device and store the file paths for loading later
 	this->m_imageFilePaths.append( this->getAllImagePaths(QDir::currentPath()+"/shared") );
 }
 
@@ -68,20 +70,9 @@ QStringList ImageGridDataProvider::getAllImagePaths(QString workingDir, bool all
 	return found;
 }
 
-QUrl ImageGridDataProvider::getImageURL(int indexPath)
-{
-	qDebug() << "[ImageGridDataProvider::getImageURL] indexPath: " << indexPath;
-	return QUrl("file://" + this->m_imageFilePaths[indexPath]);
-}
-
-void ImageGridDataProvider::addImage(QString filePath)
-{
-	qDebug() << "[ImageGridDataProvider::addImage] filePath: " << filePath;
-	this->m_imageFilePaths.append(filePath);
-}
-
 int ImageGridDataProvider::clearOldThumbs() {
 	int count = 0;
+	// The thumbnail images are stored on the app's private folder
 	QStringList thumbs = this->getAllImagePaths(QDir::homePath(), true);
 	QString picPath, thumbPath;
 
@@ -113,24 +104,21 @@ int ImageGridDataProvider::clearOldThumbs() {
 	return count;
 }
 
-bb::cascades::DataModel* ImageGridDataProvider::dataModel() const
-{
-	return m_dataModel;
-}
-
 void ImageGridDataProvider::loadMoreImages()
 {
 	int count = 0;
 	int s = this->m_imageFilePaths.size();
 
-	qDebug() << "[ImageGridDataProvider::loadMoreImages] m_loadedItems: " << m_loadedItems << ", s: " << s;
+	qDebug() << "[ImageGridDataProvider::loadMoreImages] m_loadedItems: " << m_loadedItems << ", s: " << s << ", m_loadingCount: " << m_loadingCount;
 
-	if(m_loadedItems < s){
+	// Make sure the model never loads more images than it should at the same time or more than it should
+	if(m_loadingCount == 0 && m_loadedItems < s){
 
+		ImageLoader *loader = NULL;
 		while( count < ImageGridDataProvider::MAX_ITENS && s > (count + m_loadedItems) ){
 
 			// don't forget to set the Parent Object or else is memory leak!
-			ImageLoader *loader = new ImageLoader( m_imageFilePaths.at(m_loadedItems + count), this );
+			loader = new ImageLoader( m_imageFilePaths.at(m_loadedItems + count), this);
 
 			bool ok = connect(loader,
 							SIGNAL(imageChanged()), this,
@@ -140,16 +128,37 @@ void ImageGridDataProvider::loadMoreImages()
 
 			m_dataModel->append( loader );
 			loader->load();
+
+			// Don't start loading images while ImageLoader instances are created on this while loop or else we have a race condition!
+			// m_loadedItems is incremented on onImageChanged and it's possible that an image is finished loading before the while is done.
+
 			++count;
+			++m_loadingCount;
+			Q_ASSERT_X(m_loadingCount <= ImageGridDataProvider::MAX_ITENS,"[ImageGridDataProvider::loadMoreImages]", "loading count max exceed!");
 		}
+
+		// Start loading the images only after the loop is done! This a very simple way of preventing the race condition.
+		/*for(int i = 0; i < count; i++){
+			loader = m_dataModel->value(m_loadedItems + i);
+			loader->load();
+		}*/
+		loader = NULL;
+	}
+	else{
+		qDebug() << "[ImageGridDataProvider::loadMoreImages] maximum loading reached! Must wait until all images finish loading or must add new images to load.";
 	}
 }
 
 void ImageGridDataProvider::onImageChanged()
 {
 	m_loadedItems++;
-	//qDebug() << "[ImageGridDataProvider::onImageChanged] m_loadedItems: " << m_loadedItems;
+	m_loadingCount--;
+	qDebug() << "[ImageGridDataProvider::onImageChanged] m_loadedItems: " << m_loadedItems << ", m_loadingCount: " << m_loadingCount;
 	emit loadCountChange(m_loadedItems);
+	// Automatically load more images
+	if(m_loadingCount == 0){
+		loadMoreImages();
+	}
 }
 
 int ImageGridDataProvider::getLoadCount()
@@ -160,4 +169,22 @@ int ImageGridDataProvider::getLoadCount()
 int ImageGridDataProvider::getImagesCount()
 {
 	return m_imageFilePaths.size();
+}
+
+bb::cascades::DataModel* ImageGridDataProvider::dataModel() const
+{
+	return m_dataModel;
+}
+
+QUrl ImageGridDataProvider::getImageURL(int indexPath)
+{
+	qDebug() << "[ImageGridDataProvider::getImageURL] indexPath: " << indexPath;
+	return QUrl("file://" + this->m_imageFilePaths[indexPath]);
+}
+
+void ImageGridDataProvider::addImage(QString filePath)
+{
+	qDebug() << "[ImageGridDataProvider::addImage] filePath: " << filePath;
+	m_imageFilePaths.append(filePath);
+	loadMoreImages();
 }

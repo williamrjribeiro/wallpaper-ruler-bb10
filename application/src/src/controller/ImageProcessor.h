@@ -17,6 +17,7 @@
 #define IMAGESCALER_HPP
 
 #include <QtCore/QObject>
+#include <QtCore/QSize>
 #include <bb/ImageData>
 
 /**
@@ -38,6 +39,8 @@ public:
 	 */
 	ImageProcessor(const QString, QObject *parent = 0);
 	~ImageProcessor();
+
+	static const QSize THUMB_SIZE;
 
 public Q_SLOTS:
 	/*

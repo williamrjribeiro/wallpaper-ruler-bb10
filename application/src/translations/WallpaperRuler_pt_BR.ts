@@ -29,7 +29,7 @@
     <message>
         <location filename="../assets/Home.qml" line="26"/>
         <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/35353891/</source>
-        <translation type="unfinished"></translation>
+        <translation>Olha só que legal o Wappy, a aplicação feliz para papéis-de-parede para BB10. É grátis! http://appworld.blackberry.com/webstore/content/35353891/</translation>
     </message>
     <message>
         <location filename="../assets/Home.qml" line="30"/>
@@ -42,7 +42,7 @@
     <message>
         <location filename="../assets/InlineImageBrowser.qml" line="28"/>
         <source>No images found on your device. Try taking some pictures!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenhuma imagem encontrada no aparelho. Que tal tirar algumas fotos?</translation>
     </message>
 </context>
 <context>
@@ -53,83 +53,65 @@
         <translation>Opa! Alguma coisa deu errado. Por favor tente novamente..</translation>
     </message>
     <message>
+        <location filename="../assets/MultipleFramesEditor.qml" line="386"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="415"/>
+        <source>Back</source>
+        <translation>Voltar</translation>
+    </message>
+    <message>
+        <location filename="../assets/MultipleFramesEditor.qml" line="416"/>
+        <source>Any changes made after last save will be lost. Continue?</source>
+        <translation>Qualquer mudança feita após a última vez que a imagem foi salva será perdida. Continuar?</translation>
+    </message>
+    <message>
+        <location filename="../assets/MultipleFramesEditor.qml" line="363"/>
+        <source>Active Frames</source>
+        <translation>Aplicações Ativas</translation>
+    </message>
+    <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="20"/>
-        <source>Wappy image saved! Saving it for later?</source>
-        <translation>Imagem Wappy salva! Guardando para depois?</translation>
+        <source>Wappy image saved. Saving it for later?</source>
+        <translation>Mudanças salvas.</translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="21"/>
-        <source>Wappy wallpaper set! Great choice!</source>
-        <translation>Papel de parede Wappy aplicado! Ótima escolha.</translation>
+        <source>Wappy wallpaper set. Great choice!</source>
+        <translation>Papel-de-parede foi alterado com sucesso. Mandou bem!</translation>
     </message>
     <message>
+        <location filename="../assets/MultipleFramesEditor.qml" line="386"/>
         <location filename="../assets/MultipleFramesEditor.qml" line="415"/>
-        <source>Any changes made after last save will be lost. Continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="362"/>
-        <source>Active Frames</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="385"/>
-        <location filename="../assets/MultipleFramesEditor.qml" line="414"/>
         <source>Back to gallery</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltar para a galeria</translation>
     </message>
     <message>
-        <source>Frames</source>
-        <translation type="obsolete">Estados do telefone</translation>
-    </message>
-    <message>
-        <source>The frames help you fit your images</source>
-        <translation type="obsolete">Os estados do aparelho são para ajudar a visualisar melhor o papel de parede</translation>
-    </message>
-    <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="346"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="347"/>
         <source>Home Screen</source>
         <translation>Tela inicial</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="354"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="355"/>
         <source>Locked Screen</source>
         <translation>Telefone bloqueado</translation>
     </message>
     <message>
-        <source>Active Frame</source>
-        <translation type="obsolete">Applicativos ativos</translation>
-    </message>
-    <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="369"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="370"/>
         <source>Set as Wallpaper!</source>
         <translation>Aplicar papel de parede!</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="377"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="378"/>
         <source>Save</source>
         <translation>Salvar</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancelar</translation>
-    </message>
-    <message>
-        <source>You&apos;re about to lose all your changes. Continue?</source>
-        <translation type="obsolete">Você está prestes a perder todas as modificações feitas. Prossegir?</translation>
     </message>
 </context>
 <context>
     <name>Teaser</name>
     <message>
-        <source>Wappy Camera is an awesome feature that we want to implement but we need some love. Please give us a 5 star rating on BlackBerry World and ask for the Wappy Camera. Thanks!</source>
-        <translation type="obsolete">Wappy Camera é uma super funcionalidade mas que só vai ser desenvolvida por você ou se nos derem muitas estrelas no BlackBerry World! Que tal? Gostou da aplicação?</translation>
-    </message>
-    <message>
         <location filename="../assets/Teaser.qml" line="151"/>
         <source>Wappy Camera is a new feature that works with the device&apos;s cameras. To implement it we need your support. Give us a 5 star rating and ask for it on the comments.
 Thanks!</source>
-        <translation type="unfinished"></translation>
+        <translation>Wappy Camera é uma super funcionalidade mas que só será desenvolvida se nos derem muitas estrelas no BlackBerry World! Que tal? Gostou da aplicação?</translation>
     </message>
     <message>
         <location filename="../assets/Teaser.qml" line="193"/>
@@ -140,22 +122,14 @@ Thanks!</source>
 <context>
     <name>main</name>
     <message>
-        <source>Home</source>
-        <translation type="obsolete">Início</translation>
-    </message>
-    <message>
         <location filename="../assets/main.qml" line="18"/>
         <source>Wappy Camera</source>
-        <translation type="unfinished">Wappy Câmera</translation>
+        <translation>Wappy Câmera</translation>
     </message>
     <message>
         <location filename="../assets/main.qml" line="9"/>
         <source>Gallery</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Creators</source>
-        <translation type="obsolete">Criadores</translation>
+        <translation>Galeria</translation>
     </message>
     <message>
         <location filename="../assets/main.qml" line="27"/>

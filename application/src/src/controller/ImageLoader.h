@@ -76,5 +76,6 @@ private:
     // The thread status watcher
     QFutureWatcher<bb::ImageData> *m_watcher;
 };
-
+// Template class <Item> must be convertible to QVariant in order for the data() function to work. https://developer.blackberry.com/native/reference/cascades/bb__cascades__qlistdatamodel.html
+Q_DECLARE_METATYPE( ImageLoader *);
 #endif

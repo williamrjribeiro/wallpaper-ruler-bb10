@@ -72,7 +72,7 @@ ImageLoader::~ImageLoader()
  */
 void ImageLoader::load()
 {
-	//qDebug() << "[ImageLoader::load] m_imageUrl: " << m_imageUrl;
+	qDebug() << "[ImageLoader::load] m_imageUrl: " << m_imageUrl;
 
 	m_loading = true;
 	emit loadingChanged();
@@ -141,7 +141,7 @@ void ImageLoader::onImageProcessingFinished()
 	if( m_watcher != NULL && m_image.source().isEmpty()){
 		m_image = Image(m_watcher->future().result());
 
-		// Free the memory as soon as possible
+		// Free the memory as soon as possible. Must use deleteLater() because the objects were created on another thread
 		m_imageProcessor->disconnect();
 		m_imageProcessor->deleteLater();
 		m_imageProcessor = NULL;

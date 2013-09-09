@@ -98,17 +98,6 @@ Container {
             // step 1: set the image path on the ImageView of the ImageEditor so that it's loaded
             mfeContent.setImageSource(selectedPath);
         }
-        
-        attachedObjects: [
-            ListScrollStateHandler {
-                id: gridViewScrollStateHandler
-                onAtEndChanged: {
-                    if(atEnd){
-                    	_imageGridDataProvider.loadMoreImages();
-                    }
-                }
-            }
-        ]
     } // end ListView
     
     attachedObjects: [
@@ -126,7 +115,6 @@ Container {
             onClosed: {
                 console.log("[InlineImageBrowser.mfeSheet.onClosed]");
                 mfeContent.imageEditor.resetEdits();
-                //_imageGridDataProvider.loadMoreImages();
             }
         }    
     ]
@@ -134,18 +122,21 @@ Container {
     onCreationCompleted: {
         console.log("[InlineImageBrowser.onCreationCompleted]");
         
-        // Load the empty container only there's no images on the device
-        if(_imageGridDataProvider.imagesCount == 0){
-            cdl_emptyGrid.delegateActive = true;
-            imageGrid.visible = false;
-        }
-        
         // this signal is dispatched when the user taps on Finished/Cancel from MFE.
         // It must go back to this screen
         mfeContent.finishedEditting.connect( handleMFEFinished );
         
         // Connect the onImageCaptured Signal from the CameraManager to our Slot so it shows the imageEditor.image.
         _cameraManager.imageCaptured.connect( onImageCaptured );
+        
+        // Load the empty container only there's no images on the device
+        if(_imageGridDataProvider.imagesCount == 0){
+            cdl_emptyGrid.delegateActive = true;
+            imageGrid.visible = false;
+        }
+        else {
+            _imageGridDataProvider.loadMoreImages();
+        }
     }
     
     function onImageCaptured(imagePath) {

@@ -19,6 +19,8 @@
 #include <QDir>
 #include <QDebug>
 
+const QSize ImageProcessor::THUMB_SIZE = QSize(256,256);
+
 ImageProcessor::ImageProcessor(const QString imagePath, QObject *parent)
 	: QObject(parent)
 	, m_imagePath(imagePath)
@@ -37,56 +39,61 @@ bb::ImageData ImageProcessor::start()
 	bb::ImageData imageData;
 	QImage image, swappedImage;
 
-	if(m_imagePath.length() > 0){
-		QImageReader reader(m_imagePath);
-		image = reader.read();
+	QImageReader reader (m_imagePath);
+	QSize scaledSize(ImageProcessor::THUMB_SIZE), originalSize = reader.size();
 
-		//qDebug() << "[ImageProcessor::start] image.width: " << image.width() << ", bytes: " << image.numBytes();
+	if(originalSize != ImageProcessor::THUMB_SIZE && originalSize.isValid()){
+		// now scale it filling the original rectangle by keeping aspect ratio
+		scaledSize.scale(originalSize, Qt::KeepAspectRatio);
 
-		// Scale all images really fast to the same square size
-		if(image.width() > 0){
-			image = image.scaled(512, 512, Qt::KeepAspectRatioByExpanding).scaled(256, 256, Qt::KeepAspectRatioByExpanding);
-		}
-		else {
+		// set the adjusted clipping rectangle in the middle of the original image
+		QRect clipRect(0, 0, scaledSize.width(), scaledSize.height());
+		QPoint originalCenterPoint(originalSize.width() / 2, originalSize.height() / 2);
+		clipRect.moveCenter(originalCenterPoint);
+
+		reader.setClipRect(clipRect);
+
+		// set requested target size of a thumbnail
+		// as clipping rectangle is of same aspect ration as requestedSize no distortion should happen
+		reader.setScaledSize(ImageProcessor::THUMB_SIZE);
+
+		if(reader.read(&image) == false){
 			qWarning() << "[ImageProcessor::start] could not load image file! errorString: " << reader.errorString();
-			return imageData;
+						return imageData;
 		}
-
-		// Images can have different aspect ratios so we get only a square part of it so that the IIB (grid) looks even
-		image = image.copy(QRect(0,0,256,256));
-
-		// get the parent folder of the current image
-		//      0        1    2       3                                                     4      5      6     7
-		// E.g: /accounts/1000/appdata/com.willthrill.bb10.Wappy.testDev__bb10_Wappy92abc424/shared/photos/wappy/image.jpg
-		QString filePath = reader.fileName();
-		int count = filePath.count("/");
-		QString parentFolderName = "/" + filePath.section("/", 5, count - 2, QString::SectionSkipEmpty); // discard file name + 1
-		QString fileName = "/" + filePath.section("/", -1);
-
-		//qDebug() << "[ImageProcessor::start] parentFolderName: "<<parentFolderName<<", filePath: "<<filePath << ", count: " << count;
-
-		// create the parent folder on the data directory if it doesn't exist.
-		QDir parentFolder( QDir::homePath() + parentFolderName);
-		if( !parentFolder.exists()){
-			parentFolder.mkpath(".");
-		}
-
-		// save the thumbnail
-		QString p = QDir::homePath() + parentFolderName + fileName;
-
-		//qDebug() << "[ImageProcessor::start] Saving thumbnail image. File path: " << p;
-
-		bool ok = image.save(p,"jpg",50);
-
-		if(!ok){
-			qWarning() << "[ImageProcessor::start] Could not save thumbnail image!";
-		}
-
-		// Swap the image colors due to RGB bit representation
-		swappedImage = image.rgbSwapped();
-
-		// Create the Cascades ImageData with the swapped image
-		imageData = bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
 	}
+
+	// get the parent folder of the current image
+	//      0        1    2       3                                                     4      5      6     7
+	// E.g: /accounts/1000/appdata/com.willthrill.bb10.Wappy.testDev__bb10_Wappy92abc424/shared/photos/wappy/image.jpg
+	QString filePath = reader.fileName();
+	int count = filePath.count("/");
+	QString parentFolderName = "/" + filePath.section("/", 5, count - 2, QString::SectionSkipEmpty); // discard file name + 1
+	QString fileName = "/" + filePath.section("/", -1);
+
+	//qDebug() << "[ImageProcessor::start] parentFolderName: "<<parentFolderName<<", filePath: "<<filePath << ", count: " << count;
+
+	// create the parent folder on the data directory if it doesn't exist.
+	QDir parentFolder( QDir::homePath() + parentFolderName);
+	if( !parentFolder.exists()){
+		parentFolder.mkpath(".");
+	}
+
+	// save the thumbnail
+	QString p = QDir::homePath() + parentFolderName + fileName;
+
+	//qDebug() << "[ImageProcessor::start] Saving thumbnail image. File path: " << p;
+
+	bool ok = image.save(p,"jpg",50);
+
+	if(!ok){
+		qWarning() << "[ImageProcessor::start] Could not save thumbnail image!";
+	}
+
+	// Swap the image colors due to RGB bit representation
+	swappedImage = image.rgbSwapped();
+
+	// Create the Cascades ImageData with the swapped image
+	imageData = bb::ImageData::fromPixels(swappedImage.bits(), bb::PixelFormat::RGBX, swappedImage.width(), swappedImage.height(), swappedImage.bytesPerLine());
 	return imageData;
 }

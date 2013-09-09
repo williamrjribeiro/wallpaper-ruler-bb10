@@ -6,6 +6,8 @@
 #include <QUrl>
 #include <bb/cascades/QListDataModel>
 
+#include "ImageLoader.h"
+
 class ImageGridDataProvider: public QObject {
 
 	Q_OBJECT
@@ -57,12 +59,13 @@ private:
 	// The number of images found on the device
 	int getImagesCount();
 
-	bb::cascades::QListDataModel<QObject*>* m_dataModel;
+	bb::cascades::QListDataModel<ImageLoader*>* m_dataModel;
 
 	// A list of all image files found on the device
 	QStringList m_imageFilePaths;
 
 	int m_loadedItems;
+	int m_loadingCount;
 
 private Q_SLOTS:
 	void onImageChanged();

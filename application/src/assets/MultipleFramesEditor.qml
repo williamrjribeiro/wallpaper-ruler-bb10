@@ -17,8 +17,8 @@ Page {
     property alias tutorial: cdl_tutorialFrame.sourceComponent;
     
     property string failureMessage: qsTr("Oops! Something went wrong. Please try again.");
-    property string savedMessage: qsTr("Wappy image saved! Saving it for later?");
-    property string wallpaperSetMessage: qsTr("Wappy wallpaper set! Great choice!");
+    property string savedMessage: qsTr("Wappy image saved. Saving it for later?");
+    property string wallpaperSetMessage: qsTr("Wappy wallpaper set. Great choice!");
     
     property ActionItem toggledActionItem: null; // keep track of which frame is currently shown (ActionItem.objectName)
     
@@ -55,7 +55,8 @@ Page {
         ToggleButtonManager.initToggleButtons(buttons);
         
         // The invokedWith signal is emmited when the app is invoked with a QUrl to a file to be shown
-        _wpr.invokedWith.connect(setImageSource);
+        if(typeof _wpr !== 'undefined')
+        	_wpr.invokedWith.connect(setImageSource);
     }
     
     /**
@@ -382,7 +383,7 @@ Page {
 				}
                 ActionItem {
                     id: ai_cancel
-                    title: qsTr("Back to gallery")
+                    title: typeof _wpr !== 'undefined' ? qsTr("Back") : qsTr("Back to gallery")  
                     ActionBar.placement: ActionBarPlacement.InOverflow
                     imageSource: "icons/ic_gallery_back.png"
                     // When this action is selected, close the sheet
@@ -411,7 +412,7 @@ Page {
         attachedObjects: [
             SystemDialog {
                 id: syd_cancelWarning
-                title: qsTr("Back to gallery")
+                title: typeof _wpr !== 'undefined' ? qsTr("Back") : qsTr("Back to gallery")
                 body: qsTr("Any changes made after last save will be lost. Continue?")
                 onFinished: {
                     if (syd_cancelWarning.result == SystemUiResult.ConfirmButtonSelection) {

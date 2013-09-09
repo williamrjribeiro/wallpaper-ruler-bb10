@@ -61,14 +61,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Wappy image saved! Saving it for later?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Wappy wallpaper set! Great choice!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Active Frames</source>
         <translation type="unfinished"></translation>
     </message>
@@ -78,6 +70,18 @@
     </message>
     <message>
         <source>Any changes made after last save will be lost. Continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wappy image saved. Saving it for later?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wappy wallpaper set. Great choice!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
