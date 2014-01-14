@@ -33,13 +33,17 @@
     <name>
        Wappy
        <text xml:lang="pt-BR">Wappy</text>
+       <text xml:lang="fr">Wappy</text>
+       <text xml:lang="it">Wappy</text>
+       <text xml:lang="pt">Wappy</text>
+       <text xml:lang="es">Wappy</text>
     </name>
     
     <!-- A string value of the format <0-999>.<0-999>.<0-999> that represents application version which can be used to check for application upgrade. 
          Values can also be 1-part or 2-part. It is not necessary to have a 3-part value.
          An updated version of application must have a versionNumber value higher than the previous version. Required. -->
     <versionNumber>1.1.0</versionNumber>
-    <packageLocale>pt-BR,it,fr-FR,ar,id,zh-CN</packageLocale>
+    <packageLocale>pt-BR,fr,it,pt,es</packageLocale>
 
     <!-- Fourth digit segment of the package version. First three segments are taken from the 
          <versionNumber> element.  Must be an integer from 0 to 2^16-1 -->
@@ -59,7 +63,11 @@
     <authorId>gYAAgGSMON3RR1Au0fcGoi7FWAk</authorId>
     <description>
        The happy wallpaper app!
-       <text xml:lang="pt-BR">O aplicatiovo feliz de pap&#xe9;is-de-parede!</text>
+       <text xml:lang="fr">The happy wallpaper app!</text>
+       <text xml:lang="it">The happy wallpaper app!</text>
+       <text xml:lang="pt-BR">The happy wallpaper app!</text>
+       <text xml:lang="pt">The happy wallpaper app!</text>
+       <text xml:lang="es">The happy wallpaper app!</text>
     </description>
     
     <initialWindow>
@@ -85,7 +93,6 @@
 	
     
     <!--  The category where the application appears. Either core.games or core.media. -->
-    <category>core.media</category>
     <splashScreens>
        <image>app_splash_1280_768.jpg</image>
        <image>app_splash_720_720.jpg</image>

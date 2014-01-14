@@ -128,7 +128,8 @@ Page {
             dismissCard("error", mfeRootPage.failureMessage);
         }
         else {
-            showResultMessage(mfeRootPage.wallpaperSetMessage);
+            // FIXME: BB10 now shows a default notification when the wallpaper is set and it overlaps with our custom message.
+            //showResultMessage(mfeRootPage.wallpaperSetMessage);
             dismissCard("set", mfeRootPage.wallpaperSetMessage);
         }
         return result;
@@ -174,13 +175,15 @@ Page {
     }
     
     function showResultMessage(msg){
+        console.log("[MultipleFramesEditor.showResultMessage] msg:", msg);
         syt_resultMessage.body = msg;
         syt_resultMessage.show();
     }
     
     function dismissCard(reason, message){
-        if(typeof _wpr !== "undefined")
+        if(typeof _wpr !== "undefined"){
             _wpr.cardDone(reason, message);
+        }
     }
     
     function releaseLowPriorityMemory(){
