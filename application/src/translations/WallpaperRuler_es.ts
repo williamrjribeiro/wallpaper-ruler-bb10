@@ -65,44 +65,44 @@ http://appworld.blackberry.com/webstore/content/35353891/</translation>
         <translation>¡Fondo de Pantalla Wappy Establecido! ¡Excelente elección!</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="349"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="350"/>
         <source>Home Screen</source>
         <translation>Pantalla de Inicio</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="357"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="358"/>
         <source>Locked Screen</source>
         <translation>Pantalla bloqueada</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="365"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="366"/>
         <source>Active Frames</source>
         <translation>Aplicaciones abiertas</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="372"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="373"/>
         <source>Set as Wallpaper!</source>
         <translation>¡Elegír como fondo!</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="380"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="381"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="388"/>
-        <location filename="../assets/MultipleFramesEditor.qml" line="417"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
         <source>Back</source>
         <translation>Volver</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="388"/>
-        <location filename="../assets/MultipleFramesEditor.qml" line="417"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
         <source>Back to gallery</source>
         <translation>Volver a la galería</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="419"/>
         <source>Any changes made after last save will be lost. Continue?</source>
         <translation>Cualquier cambio hecho después de haber guardado, se perderá. ¿Deseas continuar?</translation>
     </message>

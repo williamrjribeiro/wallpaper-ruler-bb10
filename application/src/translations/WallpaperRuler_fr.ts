@@ -63,44 +63,44 @@
         <translation> Fond d’écran Wappy enregistré ! Super choix ! </translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="349"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="350"/>
         <source>Home Screen</source>
         <translation>Écran d’accueil</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="357"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="358"/>
         <source>Locked Screen</source>
         <translation>Écran verrouillé</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="365"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="366"/>
         <source>Active Frames</source>
         <translation>Fenêtres Actives</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="372"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="373"/>
         <source>Set as Wallpaper!</source>
         <translation>Définir comme fond d’écran !</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="380"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="381"/>
         <source>Save</source>
         <translation>Sauvegarder</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="388"/>
-        <location filename="../assets/MultipleFramesEditor.qml" line="417"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
         <source>Back</source>
         <translation>Retour</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="388"/>
-        <location filename="../assets/MultipleFramesEditor.qml" line="417"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
         <source>Back to gallery</source>
         <translation>Retour a la galerie</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="419"/>
         <source>Any changes made after last save will be lost. Continue?</source>
         <translation>Tous les changements après votre dernière sauvegarde sera perdu. Voulez-vous continuer?</translation>
     </message>

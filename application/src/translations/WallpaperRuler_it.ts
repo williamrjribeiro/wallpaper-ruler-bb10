@@ -64,44 +64,44 @@ http://appworld.blackberry.com/webstore/content/35353891/</translation>
         <translation>Sfondo Wappy impostato! Ottima scelta!</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="349"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="350"/>
         <source>Home Screen</source>
         <translation>Schermata iniziale</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="357"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="358"/>
         <source>Locked Screen</source>
         <translation>Schermata bloccata</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="365"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="366"/>
         <source>Active Frames</source>
         <translation>Active Frames</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="372"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="373"/>
         <source>Set as Wallpaper!</source>
         <translation>Imposta come sfondo!</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="380"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="381"/>
         <source>Save</source>
         <translation>Salva</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="388"/>
-        <location filename="../assets/MultipleFramesEditor.qml" line="417"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
         <source>Back</source>
         <translation>Torna</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="388"/>
-        <location filename="../assets/MultipleFramesEditor.qml" line="417"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
         <source>Back to gallery</source>
         <translation>Torna alla galleria</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="419"/>
         <source>Any changes made after last save will be lost. Continue?</source>
         <translation>Tutte le modifiche apportate dopo l&apos;ultimo salvataggio andranno perse. Continuare?</translation>
     </message>

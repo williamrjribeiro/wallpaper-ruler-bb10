@@ -53,18 +53,18 @@
         <translation>Oops, algo deu errado! Por favor tente de novo.</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="388"/>
-        <location filename="../assets/MultipleFramesEditor.qml" line="417"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
         <source>Back</source>
         <translation>Voltar</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="419"/>
         <source>Any changes made after last save will be lost. Continue?</source>
         <translation>Todas as alterações não salvas serão perdidas. Continuar?</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="365"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="366"/>
         <source>Active Frames</source>
         <translation>Aplicações ativas</translation>
     </message>
@@ -79,28 +79,28 @@
         <translation>Papel de parede alterado. Ótima escolha!</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="388"/>
-        <location filename="../assets/MultipleFramesEditor.qml" line="417"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
         <source>Back to gallery</source>
         <translation>Voltar para a galeria</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="349"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="350"/>
         <source>Home Screen</source>
         <translation>Galeria</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="357"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="358"/>
         <source>Locked Screen</source>
         <translation>Telefone bloqueado</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="372"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="373"/>
         <source>Set as Wallpaper!</source>
         <translation>Usar como papel de parede!</translation>
     </message>
     <message>
-        <location filename="../assets/MultipleFramesEditor.qml" line="380"/>
+        <location filename="../assets/MultipleFramesEditor.qml" line="381"/>
         <source>Save</source>
         <translation>Salvar</translation>
     </message>

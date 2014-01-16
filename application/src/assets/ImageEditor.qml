@@ -34,8 +34,12 @@ Container {
         var ratio = 1.0;
         
         // Calculate the correct scale based on the loaded image!
-        if(imt_tracker.width > imt_tracker.height)
+        if(imt_tracker.width > imt_tracker.height) {
             ratio = (imt_tracker.width / imt_tracker.height).toFixed(3);
+        }
+        else {
+            ratio = (imt_tracker.height / imt_tracker.width).toFixed(3);
+        }
         
         iv_image.scaleX = ratio;
         iv_image.scaleY = ratio;
