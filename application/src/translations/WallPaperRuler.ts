@@ -2,21 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="en">
 <context>
-    <name>CustomCamera</name>
-    <message>
-        <source>Home Screen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locked Screen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Active Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Home</name>
     <message>
         <source>Camera</source>

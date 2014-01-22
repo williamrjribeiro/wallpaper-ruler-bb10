@@ -2,24 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="pt_PT">
 <context>
-    <name>CustomCamera</name>
-    <message>
-        <location filename="../assets/CustomCamera.qml" line="181"/>
-        <source>Home Screen</source>
-        <translation type="unfinished">Galeria</translation>
-    </message>
-    <message>
-        <location filename="../assets/CustomCamera.qml" line="190"/>
-        <source>Locked Screen</source>
-        <translation type="unfinished">Telefone bloqueado</translation>
-    </message>
-    <message>
-        <location filename="../assets/CustomCamera.qml" line="199"/>
-        <source>Active Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Home</name>
     <message>
         <location filename="../assets/Home.qml" line="21"/>

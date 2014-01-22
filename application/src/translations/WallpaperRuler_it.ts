@@ -2,24 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="it_IT">
 <context>
-    <name>CustomCamera</name>
-    <message>
-        <location filename="../assets/CustomCamera.qml" line="181"/>
-        <source>Home Screen</source>
-        <translation type="unfinished">Schermata iniziale</translation>
-    </message>
-    <message>
-        <location filename="../assets/CustomCamera.qml" line="190"/>
-        <source>Locked Screen</source>
-        <translation type="unfinished">Schermata bloccata</translation>
-    </message>
-    <message>
-        <location filename="../assets/CustomCamera.qml" line="199"/>
-        <source>Active Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Home</name>
     <message>
         <location filename="../assets/Home.qml" line="21"/>
@@ -29,7 +11,7 @@
     <message>
         <location filename="../assets/Home.qml" line="26"/>
         <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/35353891/</source>
-        <translation>Scopri Wappie l&apos;applicazione felice sfondi! Una applicazione #gratuita e #nativa per #BB10. 
+        <translation>Scopri Wappie l&apos;applicazione felice per sfondi! Una applicazione #gratuita e #nativa per #BB10. 
 http://appworld.blackberry.com/webstore/content/35353891/</translation>
     </message>
     <message>

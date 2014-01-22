@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.0" language="ar_SA">
 <context>
     <name>Home</name>
     <message>
         <location filename="../assets/Home.qml" line="21"/>
         <source>Share</source>
-        <translation>Compartir</translation>
+        <translation>شاركها</translation>
     </message>
     <message>
         <location filename="../assets/Home.qml" line="26"/>
         <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/35353891/</source>
-        <translation>Wappy, una aplicación genial para manejar tus fondos de pantalla. Una app #gratis y #nativa para #BB10.
-http://appworld.blackberry.com/webstore/content/35353891/</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check out Wappy the happy wallpaper application! A #free and #native app for #BB10. http://appworld.blackberry.com/webstore/content/35353891/</source>
+        <translation type="obsolete"> تطبيق واببي تطبيق ممتع, مجاني و خاص بالبلابري 10</translation>
     </message>
     <message>
         <location filename="../assets/Home.qml" line="30"/>
         <source>Camera</source>
-        <translation>Cámara</translation>
+        <translation>كاميرا</translation>
     </message>
 </context>
 <context>
@@ -25,8 +28,7 @@ http://appworld.blackberry.com/webstore/content/35353891/</translation>
     <message>
         <location filename="../assets/InlineImageBrowser.qml" line="28"/>
         <source>No images found on your device. Try taking some pictures!</source>
-        <translation>No se han encontrado imágenes en tu teléfono. ¡Intenta tomando alguna foto!
-        </translation>
+        <translation>لا صور في جهازك ,لماذا لا تأخذ بعض الصور الان</translation>
     </message>
 </context>
 <context>
@@ -34,59 +36,59 @@ http://appworld.blackberry.com/webstore/content/35353891/</translation>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="19"/>
         <source>Oops! Something went wrong. Please try again.</source>
-        <translation>Oops, algo no funciona. Por favor inténtalo de nuevo.</translation>
+        <translation>هناك خطأ ,المرجو المحاولة من جديد</translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="20"/>
         <source>Wappy image saved. Saving it for later?</source>
-        <translation>¡Imagen guardada para que la uses después! </translation>
+        <translation>تم حفظ الصورة ! حفظها فيما بعد</translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="21"/>
         <source>Wappy wallpaper set. Great choice!</source>
-        <translation>¡Fondo de Pantalla Wappy establecido! ¡Excelente elección!</translation>
+        <translation>تم حفظ الصورة على شكل خلفية الشاشة &quot;اختيار ممتاز</translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="350"/>
         <source>Home Screen</source>
-        <translation>Pantalla de Inicio</translation>
+        <translation>الشاشة الرئسية</translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="358"/>
         <source>Locked Screen</source>
-        <translation>Pantalla bloqueada</translation>
+        <translation>الشاشة المقفلة</translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="366"/>
         <source>Active Frames</source>
-        <translation>Aplicaciones abiertas</translation>
+        <translation>الشاشة مفتو حة التطبيقات</translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="373"/>
         <source>Set as Wallpaper!</source>
-        <translation>¡Elegír como fondo!</translation>
+        <translation>تحفيظ على شكل خلفية الشاشة</translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="381"/>
         <source>Save</source>
-        <translation>Guardar</translation>
+        <translation>تحفيظ</translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
         <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
         <source>Back</source>
-        <translation>Volver</translation>
+        <translation>عودة</translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="389"/>
         <location filename="../assets/MultipleFramesEditor.qml" line="418"/>
         <source>Back to gallery</source>
-        <translation>Volver a la galería</translation>
+        <translation>عودة الى الصور</translation>
     </message>
     <message>
         <location filename="../assets/MultipleFramesEditor.qml" line="419"/>
         <source>Any changes made after last save will be lost. Continue?</source>
-        <translation>Cualquier cambio hecho después de haber guardado, se perderá. ¿Deseas continuar?</translation>
+        <translation>?لن يتم اي تغير بعد اخر حفظ لصورة . تابع</translation>
     </message>
 </context>
 <context>
@@ -95,12 +97,12 @@ http://appworld.blackberry.com/webstore/content/35353891/</translation>
         <location filename="../assets/Teaser.qml" line="151"/>
         <source>Wappy Camera is a new feature that works with the device&apos;s cameras. To implement it we need your support. Give us a 5 star rating and ask for it on the comments.
 Thanks!</source>
-        <translation>La cámara Wappy es una nueva funcionalidad que utiliza la cámara del teléfono. Para implementarla, necesitamos tu apoyo. Danos 5 estrellas y pídela. ¡Gracias!</translation>
+        <translation>واببي كاميرا عبارة عن خاصية جديدة ,تستخدم كاميرا جهازك .من اجل برمجة واببي كاميرا , نحتاج لمساعدتكم وذلك بتصنيف التطبيق واببي ب خمس نجوم مع التعليق و شكرا.</translation>
     </message>
     <message>
         <location filename="../assets/Teaser.qml" line="193"/>
         <source>Rate it!</source>
-        <translation>¡Danos una reseña!</translation>
+        <translation>صنفها</translation>
     </message>
 </context>
 <context>
@@ -108,17 +110,17 @@ Thanks!</source>
     <message>
         <location filename="../assets/main.qml" line="9"/>
         <source>Gallery</source>
-        <translation>Galería</translation>
+        <translation>الصور</translation>
     </message>
     <message>
         <location filename="../assets/main.qml" line="18"/>
         <source>Wappy Camera</source>
-        <translation>Cámara Wappy</translation>
+        <translation>واببي كاميرا</translation>
     </message>
     <message>
         <location filename="../assets/main.qml" line="27"/>
         <source>Change Log</source>
-        <translation>Actualizaciones</translation>
+        <translation>تعريف/مقدمة</translation>
     </message>
 </context>
 </TS>
