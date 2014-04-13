@@ -61,6 +61,7 @@ private:
     AppLocalization* appLocalization;
     ImageEditor* imageEditor;
     ImageGridDataProvider* imageGridDataProvider;
+    ImageGridDataProvider* gifsGridDataProvider;
     CameraManager* cameraManager;
     ScreenSize* screenSize;
     bb::system::InvokeManager* m_invokeManager;

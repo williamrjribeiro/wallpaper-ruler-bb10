@@ -83,7 +83,6 @@ Container {
                 layout: DockLayout {}
 	            ImageView {
 	                image: ListItemData.image
-                    //visible: !ListItemData.loading  // must only show the images after they are loaded
                     opacity: ListItemData.loading ? 0.0 : 1.0
                     scalingMethod: ScalingMethod.AspectFill
 	                verticalAlignment: VerticalAlignment.Center

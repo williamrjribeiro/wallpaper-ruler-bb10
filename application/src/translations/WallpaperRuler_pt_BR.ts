@@ -2,6 +2,19 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="pt_BR">
 <context>
+    <name>Gifs</name>
+    <message>
+        <location filename="../assets/Gifs.qml" line="29"/>
+        <source>Share</source>
+        <translation type="unfinished">Compartilhar</translation>
+    </message>
+    <message>
+        <location filename="../assets/Gifs.qml" line="34"/>
+        <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/35353891/</source>
+        <translation type="unfinished">Olha só que legal o Wappy, a aplicação #nativa para papéis-de-parede para #BB10. É #grátis! http://appworld.blackberry.com/webstore/content/35353891/</translation>
+    </message>
+</context>
+<context>
     <name>Home</name>
     <message>
         <location filename="../assets/Home.qml" line="21"/>
@@ -17,6 +30,14 @@
         <location filename="../assets/Home.qml" line="30"/>
         <source>Camera</source>
         <translation>Câmera</translation>
+    </message>
+</context>
+<context>
+    <name>InlineGifsBrowser</name>
+    <message>
+        <location filename="../assets/InlineGifsBrowser.qml" line="29"/>
+        <source>No GIFs found on your device. Try downloading some from the internet</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -109,12 +130,17 @@ Thanks!</source>
         <translation>Câmera Wappy</translation>
     </message>
     <message>
+        <location filename="../assets/main.qml" line="27"/>
+        <source>Gif Viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../assets/main.qml" line="9"/>
         <source>Gallery</source>
         <translation>Galeria</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="27"/>
+        <location filename="../assets/main.qml" line="36"/>
         <source>Change Log</source>
         <translation>Atualizações</translation>
     </message>

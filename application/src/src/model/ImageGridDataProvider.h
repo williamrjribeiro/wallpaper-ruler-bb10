@@ -20,7 +20,7 @@ public:
 	// The maximum number of images that are added to the model at a single time
 	static const int MAX_ITENS;
 
-	ImageGridDataProvider(QObject *parent = 0);
+	ImageGridDataProvider(QStringList, QObject *parent = 0);
 	virtual ~ImageGridDataProvider();
 
 	// A list of ImageLoader's that will load the image and start a new thread to create the thumbnail
@@ -29,10 +29,11 @@ public:
 	/**
 	 * Reads the folders dowloads, camera, photos, documents and get all jpg, jpeg, bmp and png files.
 	 * @param QString - the root path to search the images.
+	 * @param QStringList - which kind of images to filter
 	 * @param bool - if true it will search all sub-directories of root dir else, it looks only for the sub-folders downloads, camera, photos & documents.
 	 * @return the list with the path for all found image files.
 	 */
-	Q_INVOKABLE QStringList getAllImagePaths(QString, bool = false);
+	Q_INVOKABLE QStringList getAllImagePaths(QString, QStringList, bool = false);
 
 	// Start loading MAX_ITENS images
 	Q_INVOKABLE void loadMoreImages();
@@ -66,6 +67,9 @@ private:
 
 	int m_loadedItems;
 	int m_loadingCount;
+
+	// the current file format filter
+	QStringList m_filters;
 
 private Q_SLOTS:
 	void onImageChanged();

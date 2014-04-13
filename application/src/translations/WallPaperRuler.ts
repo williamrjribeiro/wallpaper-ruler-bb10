@@ -2,6 +2,17 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="en">
 <context>
+    <name>Gifs</name>
+    <message>
+        <source>Share</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/35353891/</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Home</name>
     <message>
         <source>Camera</source>
@@ -13,6 +24,13 @@
     </message>
     <message>
         <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/35353891/</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>InlineGifsBrowser</name>
+    <message>
+        <source>No GIFs found on your device. Try downloading some from the internet</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -94,6 +112,10 @@ Thanks!</source>
     </message>
     <message>
         <source>Wappy Camera</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gif Viewer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

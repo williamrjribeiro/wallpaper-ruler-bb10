@@ -1,0 +1,29 @@
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<style>
+
+		html, body{
+			margin:0;
+			text-align:center;
+			padding:5px;
+		}
+		img {
+			max-width: 100%;
+		}
+	</style>
+</head>
+<body>
+<img src="//:0" id="image"/>
+<script>
+	window.onload = function(){
+		var imageEl = document.getElementById("image");
+
+		navigator.cascades.onmessage = function(message) {
+			imageEl.src = message;
+		}
+	}
+</script>
+</body>
+</html>

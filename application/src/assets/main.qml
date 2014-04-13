@@ -22,6 +22,15 @@ TabbedPane {
         onTriggered: content.delegate.delegateActive = true
     }
     
+   Tab {
+        id: gifTab
+        title: qsTr("Gif Viewer")
+        imageSource: "asset:///icons/ic_wappy_camera.png"
+        content: Gifs {
+        }
+        onTriggered: content.delegate.delegateActive = true
+    }
+   
     Tab {
         id: changeLogTab
         title: qsTr("Change Log")
@@ -29,6 +38,11 @@ TabbedPane {
         content: ChangeLog {
         }
         onTriggered: content.delegate.delegateActive = true
+    }
+    
+    onCreationCompleted: {
+        OrientationSupport.supportedDisplayOrientation = 
+        SupportedDisplayOrientation.DisplayPortrait;
     }
     
     attachedObjects: [
@@ -44,9 +58,9 @@ TabbedPane {
                     if(activeTab != teaserTab){
                     	teaserTab.content.delegate.delegateActive = false;
                     }
-                    /*if (activeTab != creatorsTab) {
-                        creatorsTab.content.delegate.delegateActive = false;
-                    }*/
+                    if (activeTab != gifTab) {
+                        gifTab.content.delegate.delegateActive = false;
+                    }
                     if (activeTab != changeLogTab) {
                         changeLogTab.content.delegate.delegateActive = false;
                     }

@@ -2,6 +2,20 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="it_IT">
 <context>
+    <name>Gifs</name>
+    <message>
+        <location filename="../assets/Gifs.qml" line="29"/>
+        <source>Share</source>
+        <translation type="unfinished">Condividi</translation>
+    </message>
+    <message>
+        <location filename="../assets/Gifs.qml" line="34"/>
+        <source>Check out Wappy the happy wallpaper application! A #free and #native app for #bb10. http://appworld.blackberry.com/webstore/content/35353891/</source>
+        <translation type="unfinished">Scopri Wappie l&apos;applicazione felice per sfondi! Una applicazione #gratuita e #nativa per #BB10. 
+http://appworld.blackberry.com/webstore/content/35353891/</translation>
+    </message>
+</context>
+<context>
     <name>Home</name>
     <message>
         <location filename="../assets/Home.qml" line="21"/>
@@ -18,6 +32,14 @@ http://appworld.blackberry.com/webstore/content/35353891/</translation>
         <location filename="../assets/Home.qml" line="30"/>
         <source>Camera</source>
         <translation>Camera</translation>
+    </message>
+</context>
+<context>
+    <name>InlineGifsBrowser</name>
+    <message>
+        <location filename="../assets/InlineGifsBrowser.qml" line="29"/>
+        <source>No GIFs found on your device. Try downloading some from the internet</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -116,6 +138,11 @@ Thanks!</source>
     </message>
     <message>
         <location filename="../assets/main.qml" line="27"/>
+        <source>Gif Viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/main.qml" line="36"/>
         <source>Change Log</source>
         <translation>Change Log</translation>
     </message>

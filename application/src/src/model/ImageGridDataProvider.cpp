@@ -8,16 +8,17 @@ using namespace bb::cascades;
 
 const int ImageGridDataProvider::MAX_ITENS = 15;
 
-ImageGridDataProvider::ImageGridDataProvider(QObject *parent)
+ImageGridDataProvider::ImageGridDataProvider(QStringList filters, QObject *parent)
 	: QObject(parent)
 	, m_dataModel(new QListDataModel<ImageLoader*>())
 	, m_loadedItems(0)
 	, m_loadingCount(0)
+	, m_filters(filters)
 {
 	m_dataModel->setParent(this);
 	m_dataModel->clear();
 	// look for images on the device and store the file paths for loading later
-	this->m_imageFilePaths.append( this->getAllImagePaths(QDir::currentPath()+"/shared") );
+	this->m_imageFilePaths.append( this->getAllImagePaths(QDir::currentPath()+"/shared", m_filters) );
 }
 
 ImageGridDataProvider::~ImageGridDataProvider()
@@ -31,7 +32,7 @@ ImageGridDataProvider::~ImageGridDataProvider()
 	m_imageFilePaths.clear();
 }
 
-QStringList ImageGridDataProvider::getAllImagePaths(QString workingDir, bool allChildFolders)
+QStringList ImageGridDataProvider::getAllImagePaths(QString workingDir, QStringList filters, bool allChildFolders)
 {
 	qDebug() << "[ImageGridDataProvider::getAllImagePaths] workingDir: " << workingDir<<", allChildFolders: "<<allChildFolders;
 
@@ -51,8 +52,8 @@ QStringList ImageGridDataProvider::getAllImagePaths(QString workingDir, bool all
 	}
 
 	// Only look for this type of images
-	QStringList filters;
-	filters << "*.jpeg" << "*.png" << "*.jpg" << "*.bmp";
+	//QStringList filters;
+	//filters << "*.jpeg" << "*.png" << "*.jpg" << "*.bmp";
 
 	for (int i = 0; i < listDirectories.size(); ++i) {
 		QDir dir(workingDir + listDirectories.at(i));
@@ -73,7 +74,7 @@ QStringList ImageGridDataProvider::getAllImagePaths(QString workingDir, bool all
 int ImageGridDataProvider::clearOldThumbs() {
 	int count = 0;
 	// The thumbnail images are stored on the app's private folder
-	QStringList thumbs = this->getAllImagePaths(QDir::homePath(), true);
+	QStringList thumbs = this->getAllImagePaths(QDir::homePath(), m_filters, true);
 	QString picPath, thumbPath;
 
 	for (int i = 0; i < thumbs.size(); ++i) {

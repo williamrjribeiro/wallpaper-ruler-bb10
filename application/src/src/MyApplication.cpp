@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QDateTime>
+#include <QDir>
 
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
@@ -16,6 +17,7 @@ MyApplication::MyApplication( Application *app )
 	, appLocalization(new AppLocalization(this))
 	, imageEditor(new ImageEditor(this))
 	, imageGridDataProvider(NULL)
+	, gifsGridDataProvider(NULL)
 	, cameraManager(NULL)
 	, screenSize(new ScreenSize(this))
 	, m_invokeManager(new InvokeManager(this))
@@ -105,7 +107,15 @@ void MyApplication::initFullApplication(Application *app)
 {
 	qDebug() << "[MyApplication::initFullApplication]";
 
-	this->imageGridDataProvider = new ImageGridDataProvider(this);
+	// Only look for this type of images
+	QStringList filters;
+	filters << "*.jpeg" << "*.png" << "*.jpg" << "*.bmp";
+	this->imageGridDataProvider = new ImageGridDataProvider(filters, this);
+
+	QStringList gifsFilter;
+	gifsFilter << "*.gif";
+	this->gifsGridDataProvider = new ImageGridDataProvider(gifsFilter, this);
+
 	this->cameraManager = new CameraManager(this->imageGridDataProvider,this);
 
 	// create scene document from main.qml asset
@@ -129,6 +139,12 @@ void MyApplication::initFullApplication(Application *app)
 
 	// Make the Model instance, used for creating the IIC, available to QML as _imageGridDataProvider
 	qml->setContextProperty("_imageGridDataProvider", this->imageGridDataProvider);
+
+	// Make the Model instance, used for creating the IGC, available to QML as _gifsGridDataProvider
+	qml->setContextProperty("_gifsGridDataProvider", this->gifsGridDataProvider);
+
+	QString m_homeDir = QDir::homePath() + "/../app/native";
+	QmlDocument::defaultDeclarativeEngine()->rootContext()->setContextProperty("homeDir", m_homeDir);
 
 	// create root object for the UI
 	AbstractPane *root = qml->createRootObject<AbstractPane>();
